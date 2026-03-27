@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Árbol de Vida · Mapa de Visión · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-lt:   #5B9E98;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-mid2: #9FE1CB;
+  --teal-dark: #085041;
+  --teal-deep: #0F6E56;
+  --blue:      #185FA5;
+  --blue-pale: #E6F1FB;
+  --blue-dark: #0C447C;
+  --gold:      #C8A96E;
+  --amber:     #EF9F27;
+  --amber-pale:#FAEEDA;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --brown-lt:  #6B4226;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --gray-pale: #F1EFE8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Raleway',sans-serif; background:var(--cream); color:var(--brown); min-height:100vh; }
+
+/* ══ HERO ══ */
+.hero { position:relative; overflow:hidden; background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%); }
+.hero-swoosh { position:absolute; top:0; left:0; right:0; height:100%; background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%); clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%); }
+.hero-bottom { position:absolute; bottom:0; left:0; right:0; height:35%; background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%); clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%); }
+.hero-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; padding:44px 24px 52px; text-align:center; }
+.hero-eyebrow { font-weight:300; font-size:10px; letter-spacing:0.65em; color:rgba(255,255,255,0.88); text-transform:uppercase; margin-bottom:8px; }
+.hero-metodo { font-weight:200; font-size:12px; letter-spacing:0.7em; color:rgba(255,255,255,0.65); text-transform:uppercase; margin-bottom:2px; }
+.hero-title { font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em; color:#fff; line-height:1.2; max-width:580px; text-shadow:0 3px 30px rgba(45,107,101,0.5); }
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:clamp(14px,2.2vw,17px); color:var(--brown); line-height:1.75; max-width:520px; }
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge { margin-top:16px; background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; padding:8px 24px; font-weight:600; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35); }
+.hero-author { margin-top:18px; font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:var(--teal); letter-spacing:0.05em; }
+.hero-author-by { font-weight:200; font-size:9px; letter-spacing:0.45em; color:var(--brown-mid); text-transform:uppercase; display:block; margin-bottom:3px; }
+.scroll-cta { margin-top:24px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; }
+.scroll-cta span { font-weight:300; font-size:10px; letter-spacing:0.35em; color:var(--teal); text-transform:uppercase; }
+.scroll-arrow { width:28px; height:28px; border:1px solid rgba(45,107,101,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; animation:bounceDown 2s ease-in-out infinite; }
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section { background:var(--sand); padding:36px 24px; text-align:center; }
+.intro-section h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:22px; color:var(--teal); margin-bottom:10px; }
+.intro-section p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75; }
+.quote-banner { background:rgba(255,255,255,0.6); border-left:3px solid var(--teal); border-radius:0 8px 8px 0; padding:14px 20px; max-width:540px; margin:0 auto; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown); line-height:1.8; }
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ GUÍA DE CAPAS ══ */
+.capas-section { max-width:800px; margin:0 auto; padding:28px 16px 0; }
+.capas-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--teal); margin-bottom:6px; }
+.capas-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:16px; }
+.capas-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:10px; }
+.capas-grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:20px; max-width:540px; }
+@media(max-width:500px){ .capas-grid,.capas-grid-2{ grid-template-columns:1fr 1fr; } }
+.capa-card { border-radius:10px; padding:12px 14px; border:0.5px solid; text-align:center; cursor:pointer; transition:all 0.15s; }
+.capa-card:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+.capa-icon { font-size:20px; display:block; margin-bottom:4px; }
+.capa-name { font-family:'Raleway',sans-serif; font-weight:600; font-size:12px; display:block; margin-bottom:2px; }
+.capa-desc { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:11px; }
+
+/* ══ ÁRBOL ══ */
+.arbol-section { max-width:800px; margin:0 auto; padding:0 16px; }
+.arbol-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--teal); margin-bottom:6px; }
+.arbol-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:16px; }
+.arbol-svg-wrap { width:100%; max-width:580px; margin:0 auto 12px; display:block; }
+
+/* Panel de sección */
+.section-panel { background:#fff; border-radius:12px; border:0.5px solid; overflow:hidden; margin-bottom:16px; display:none; animation:fadeInUp 0.3s ease; }
+.section-panel.show { display:block; }
+@keyframes fadeInUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.sp-header { padding:16px 20px 12px; display:flex; align-items:center; gap:10px; }
+.sp-icon { font-size:24px; }
+.sp-title { font-family:'Playfair Display',serif; font-weight:700; font-size:17px; flex:1; }
+.sp-sub { font-family:'Raleway',sans-serif; font-size:11px; margin-top:2px; }
+.sp-close { font-family:'Raleway',sans-serif; font-size:11px; padding:5px 12px; border-radius:6px; cursor:pointer; background:transparent; border:0.5px solid var(--gray-lt); color:var(--gray); }
+.sp-close:hover { background:var(--gray-pale); }
+.sp-body { padding:0 20px 12px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); line-height:1.75; border-bottom:0.5px solid var(--gray-lt); padding-bottom:14px; margin-bottom:0; }
+.sp-inputs { padding:14px 20px; display:flex; flex-direction:column; gap:8px; }
+.sp-input-row { display:flex; align-items:center; gap:8px; }
+.sp-num { font-family:'Playfair Display',serif; font-weight:700; font-size:14px; color:var(--gray); min-width:20px; }
+.sp-input-row input { flex:1; border:0.5px solid var(--gray-lt); border-radius:8px; padding:8px 12px; font-family:'Raleway',sans-serif; font-size:13px; color:var(--brown); background:var(--cream); transition:border-color 0.2s; }
+.sp-input-row input:focus { outline:none; box-shadow:0 0 0 3px rgba(45,107,101,0.1); }
+.sp-input-row input::placeholder { color:var(--gray); font-style:italic; font-size:12px; }
+.sp-action { padding:12px 20px 16px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--brown-mid); line-height:1.7; border-top:0.5px solid var(--gray-lt); }
+.sp-action strong { font-style:normal; font-family:'Raleway',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; display:block; margin-bottom:3px; }
+
+/* Progreso */
+.progress-bar { display:flex; align-items:center; gap:10px; background:#fff; border-radius:10px; padding:12px 16px; border:0.5px solid rgba(45,107,101,0.2); margin-bottom:16px; }
+.pb-label { font-family:'Raleway',sans-serif; font-size:12px; color:var(--brown-mid); white-space:nowrap; }
+.pb-track { flex:1; height:8px; background:var(--gray-pale); border-radius:4px; overflow:hidden; }
+.pb-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--teal),var(--teal-svg)); transition:width 0.5s ease; }
+.pb-count { font-family:'Playfair Display',serif; font-weight:700; font-size:16px; color:var(--teal); white-space:nowrap; }
+
+/* Botones */
+.btns-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+.btn { font-family:'Raleway',sans-serif; font-size:12px; font-weight:600; padding:9px 20px; border-radius:6px; cursor:pointer; border:none; transition:opacity 0.2s; white-space:nowrap; }
+.btn:hover { opacity:0.85; }
+.btn-save  { background:var(--teal); color:#fff; }
+.btn-print { background:var(--gold); color:var(--brown); }
+.btn-clear { background:transparent; color:var(--gray); border:0.5px solid var(--gray-lt) !important; }
+
+/* ══ REFLEXION ══ */
+.ref-section { max-width:800px; margin:24px auto 0; padding:0 16px 40px; }
+.ref-card { background:#fff; border-radius:12px; padding:26px 28px; border:0.5px solid rgba(45,107,101,0.2); }
+.ref-title { font-family:'Playfair Display',serif; font-weight:700; font-size:19px; color:var(--teal); margin-bottom:10px; }
+.ref-body { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); line-height:1.8; margin-bottom:16px; }
+.ref-q { background:var(--teal-pale); border-left:3px solid var(--teal-svg); border-radius:0 8px 8px 0; padding:14px 18px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--teal-dark); line-height:1.75; margin-bottom:16px; }
+.ref-q strong { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal); margin-bottom:4px; }
+.afirm { background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; border-radius:8px; padding:18px 24px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; line-height:1.7; text-align:center; }
+.afirm span { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px; }
+
+/* ══ FOOTER ══ */
+.footer { background:var(--teal); padding:28px 24px; text-align:center; }
+.footer p { font-weight:200; font-size:11px; letter-spacing:0.2em; color:rgba(255,255,255,0.7); line-height:2; }
+.footer strong { color:#fff; font-weight:600; }
+
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--teal); color:#fff; padding:10px 24px; border-radius:24px; font-size:13px; opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999; box-shadow:0 4px 20px rgba(45,107,101,0.4); }
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Mapa de Visión · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Mi Árbol de Vida</div>
+    <div class="hero-accent"><div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div></div>
+    <div class="hero-sub">Tu visión no es un sueño —<br>es un <strong>mapa que le dice a tu cerebro</strong> en qué dirección crecer</div>
+    <div class="hero-badge">✦ &nbsp; Mapa de Visión Personal Interactivo &nbsp; ✦</div>
+    <div style="margin-top:18px;"><span class="hero-author-by">A u t o r a</span><div class="hero-author">Jenifer Mendoza</div></div>
+    <div class="scroll-cta" onclick="document.getElementById('arbol').scrollIntoView({behavior:'smooth'})">
+      <span>Plantar mi árbol</span>
+      <div class="scroll-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-section">
+  <h2>Tu vida tiene forma de árbol</h2>
+  <p>Las raíces son tus valores. El tronco es quien eres. Las ramas son tus áreas de vida. Los frutos son tus logros deseados. Y el cielo es el sentimiento que quieres vivir. Cada parte necesita tu atención para que el árbol florezca.</p>
+  <div class="quote-banner">
+    "La visión sin acción es un sueño.<br>La acción sin visión es una pesadilla. — <strong>Proverbio japonés</strong>"
+  </div>
+</div>
+
+<!-- GUÍA DE CAPAS -->
+<div class="capas-section">
+  <div class="capas-title">Las 7 capas de tu árbol</div>
+  <div class="capas-sub">Cada capa tiene una función esencial — ninguna puede faltar</div>
+  <div class="capas-grid">
+    <div class="capa-card" style="background:#E8F4F8;border-color:#B5D4F4;" onclick="document.getElementById('arbol').scrollIntoView({behavior:'smooth'});setTimeout(()=>showSection('cielo'),400)">
+      <span class="capa-icon">✨</span>
+      <span class="capa-name" style="color:#0C447C;">Cielo</span>
+      <span class="capa-desc" style="color:#185FA5;">visión global y sentimiento deseado</span>
+    </div>
+    <div class="capa-card" style="background:var(--teal-pale);border-color:var(--teal-mid2);" onclick="document.getElementById('arbol').scrollIntoView({behavior:'smooth'});setTimeout(()=>showSection('salud'),400)">
+      <span class="capa-icon">💪</span>
+      <span class="capa-name" style="color:var(--teal-dark);">Salud</span>
+      <span class="capa-desc" style="color:var(--teal-deep);">bienestar físico y emocional</span>
+    </div>
+    <div class="capa-card" style="background:var(--teal-pale);border-color:var(--teal-mid2);" onclick="document.getElementById('arbol').scrollIntoView({behavior:'smooth'});setTimeout(()=>showSection('relaciones'),400)">
+      <span class="capa-icon">💚</span>
+      <span class="capa-name" style="color:var(--teal-dark);">Relaciones</span>
+      <span class="capa-desc" style="color:var(--teal-deep);">amor, familia y comunidad</span>
+    </div>
+  </div>
+  <div class="capas-grid">
+    <div class="capa-card" style="background:var(--teal-pale);border-color:var(--teal-mid2);" onclick="document.getElementById('arbol').scrollIntoView({behavior:'smooth'});setTimeout(()=>showSection('trabajo'),400)">
+      <span class="capa-icon">🌟</span>
+      <span class="capa-name" style="color:var(--teal-dark);">Trabajo</span>
+      <span class="capa-desc" style="color:var(--teal-deep);">misión y contribución</span>
+    </div>
+    <div class="capa-card" style="background:var(--teal-pale);border-color:var(--teal-mid2);" onclick="document.getElementById('arbol').scrollIntoView({behavior:'smooth'});setTimeout(()=>showSection('proposito'),400)">
+      <span class="capa-icon">🧭</span>
+      <span class="capa-name" style="color:var(--teal-dark);">Propósito</span>
+      <span class="capa-desc" style="color:var(--teal-deep);">crecimiento y expansión</span>
+    </div>
+    <div class="capa-card" style="background:var(--amber-pale);border-color:#FAC775;" onclick="document.getElementById('arbol').scrollIntoView({behavior:'smooth'});setTimeout(()=>showSection('tronco'),400)">
+      <span class="capa-icon">🌳</span>
+      <span class="capa-name" style="color:#633806;">Tronco</span>
+      <span class="capa-desc" style="color:#854F0B;">esencia e identidad</span>
+    </div>
+  </div>
+  <div class="capas-grid-2" style="margin:0 auto 20px;">
+    <div class="capa-card" style="background:#F5EDE4;border-color:#C4A882;" onclick="document.getElementById('arbol').scrollIntoView({behavior:'smooth'});setTimeout(()=>showSection('raices'),400)">
+      <span class="capa-icon">🌱</span>
+      <span class="capa-name" style="color:var(--brown);">Raíces</span>
+      <span class="capa-desc" style="color:var(--brown-mid);">valores y fortalezas actuales</span>
+    </div>
+    <div class="capa-card" style="background:var(--teal-pale);border-color:var(--teal-svg);" onclick="document.getElementById('arbol').scrollIntoView({behavior:'smooth'})">
+      <span class="capa-icon">🍎</span>
+      <span class="capa-name" style="color:var(--teal-dark);">Frutos</span>
+      <span class="capa-desc" style="color:var(--teal-deep);">logros específicos deseados</span>
+    </div>
+  </div>
+</div>
+
+<!-- ÁRBOL -->
+<div class="arbol-section" id="arbol">
+  <div class="arbol-title">Mi Árbol de Vida</div>
+  <div class="arbol-sub">Haz clic en cada parte para escribir tu visión — guarda tu árbol cuando termines</div>
+
+  <div class="progress-bar">
+    <span class="pb-label">Árbol completado:</span>
+    <div class="pb-track"><div class="pb-fill" id="pbFill" style="width:0%"></div></div>
+    <span class="pb-count" id="pbCount">0/7</span>
+  </div>
+
+  <div class="arbol-svg-wrap">
+    <svg width="100%" viewBox="0 0 560 620" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="560" height="380" fill="#E8F4F8"/>
+      <rect x="0" y="0" width="560" height="160" fill="#D4ECF5" opacity="0.6"/>
+      <ellipse cx="80"  cy="60"  rx="55" ry="22" fill="#fff" opacity="0.5"/>
+      <ellipse cx="460" cy="45"  rx="60" ry="18" fill="#fff" opacity="0.4"/>
+      <ellipse cx="300" cy="80"  rx="40" ry="14" fill="#fff" opacity="0.3"/>
+      <circle cx="490" cy="55" r="32" fill="#F5C87A" opacity="0.7"/>
+      <circle cx="490" cy="55" r="22" fill="#F5C87A" opacity="0.9"/>
+      <rect x="0" y="380" width="560" height="240" fill="#A0784A" opacity="0.1"/>
+      <ellipse cx="280" cy="385" rx="220" ry="18" fill="#6B4226" opacity="0.18"/>
+
+      <!-- CIELO -->
+      <g style="cursor:pointer;" onclick="showSection('cielo')">
+        <rect x="155" y="14" width="250" height="34" rx="17" fill="rgba(45,107,101,0.15)" stroke="#2D6B65" stroke-width="1" stroke-dasharray="4 3"/>
+        <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#2D6B65" text-anchor="middle" x="280" y="35">✦ Mi visión global · sentimiento deseado</text>
+      </g>
+
+      <!-- Ramas -->
+      <g style="cursor:pointer;" onclick="showSection('salud')">
+        <ellipse cx="120" cy="180" rx="82" ry="60" fill="#3D7D78" opacity="0.88"/>
+        <ellipse cx="105" cy="165" rx="55" ry="40" fill="#5B9E98" opacity="0.7"/>
+        <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" x="120" y="176">Salud</text>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)" text-anchor="middle" x="120" y="191">y bienestar</text>
+        <circle cx="72"  cy="148" r="10" fill="#C8A96E" stroke="#8B6914" stroke-width="0.8"/>
+        <circle cx="92"  cy="132" r="9"  fill="#EF9F27" stroke="#854F0B" stroke-width="0.8"/>
+        <circle cx="155" cy="140" r="10" fill="#C8A96E" stroke="#8B6914" stroke-width="0.8"/>
+      </g>
+
+      <g style="cursor:pointer;" onclick="showSection('relaciones')">
+        <ellipse cx="440" cy="180" rx="82" ry="60" fill="#2D6B65" opacity="0.88"/>
+        <ellipse cx="455" cy="165" rx="55" ry="40" fill="#3D7D78" opacity="0.7"/>
+        <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" x="440" y="176">Relaciones</text>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)" text-anchor="middle" x="440" y="191">y amor</text>
+        <circle cx="390" cy="152" r="10" fill="#D85A30" stroke="#712B13" stroke-width="0.8"/>
+        <circle cx="480" cy="140" r="9"  fill="#D85A30" stroke="#712B13" stroke-width="0.8"/>
+        <circle cx="495" cy="162" r="10" fill="#E8A86B" stroke="#993C1D" stroke-width="0.8"/>
+      </g>
+
+      <g style="cursor:pointer;" onclick="showSection('trabajo')">
+        <ellipse cx="195" cy="128" rx="72" ry="52" fill="#1D9E75" opacity="0.82"/>
+        <ellipse cx="182" cy="116" rx="48" ry="35" fill="#5DCAA5" opacity="0.6"/>
+        <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" x="195" y="124">Trabajo</text>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)" text-anchor="middle" x="195" y="139">y misión</text>
+        <circle cx="152" cy="103" r="9"  fill="#C8A96E" stroke="#8B6914" stroke-width="0.8"/>
+        <circle cx="170" cy="90"  r="8"  fill="#EF9F27" stroke="#854F0B" stroke-width="0.8"/>
+        <circle cx="228" cy="96"  r="9"  fill="#C8A96E" stroke="#8B6914" stroke-width="0.8"/>
+      </g>
+
+      <g style="cursor:pointer;" onclick="showSection('proposito')">
+        <ellipse cx="365" cy="128" rx="72" ry="52" fill="#085041" opacity="0.82"/>
+        <ellipse cx="378" cy="116" rx="48" ry="35" fill="#1D9E75" opacity="0.6"/>
+        <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" x="365" y="124">Propósito</text>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)" text-anchor="middle" x="365" y="139">y crecimiento</text>
+        <circle cx="318" cy="104" r="9"  fill="#D85A30" stroke="#712B13" stroke-width="0.8"/>
+        <circle cx="340" cy="90"  r="8"  fill="#D85A30" stroke="#712B13" stroke-width="0.8"/>
+        <circle cx="405" cy="98"  r="9"  fill="#E8A86B" stroke="#993C1D" stroke-width="0.8"/>
+      </g>
+
+      <ellipse cx="280" cy="155" rx="95" ry="70" fill="#2D6B65" opacity="0.55"/>
+      <ellipse cx="280" cy="140" rx="70" ry="52" fill="#3D7D78" opacity="0.6"/>
+
+      <!-- TRONCO -->
+      <g style="cursor:pointer;" onclick="showSection('tronco')">
+        <path d="M240 380 Q235 340 238 300 Q240 270 242 240 L318 240 Q320 270 322 300 Q325 340 320 380Z" fill="#6B4226"/>
+        <path d="M248 380 Q244 340 246 300 Q248 272 250 245 L310 245 Q312 272 314 300 Q316 340 312 380Z" fill="#8B5E3C"/>
+        <path d="M260 350 Q265 320 268 290" stroke="#5A3518" stroke-width="1" fill="none" opacity="0.5"/>
+        <path d="M280 355 Q280 325 280 295" stroke="#5A3518" stroke-width="1" fill="none" opacity="0.4"/>
+        <path d="M300 350 Q295 320 292 290" stroke="#5A3518" stroke-width="1" fill="none" opacity="0.5"/>
+        <text font-family="Raleway,sans-serif" font-size="10" font-weight="600" fill="#FAF6F0" text-anchor="middle" x="280" y="305">Quien</text>
+        <text font-family="Raleway,sans-serif" font-size="10" font-weight="600" fill="#FAF6F0" text-anchor="middle" x="280" y="320">soy</text>
+      </g>
+
+      <!-- RAÍCES -->
+      <g style="cursor:pointer;" onclick="showSection('raices')">
+        <path d="M248 385 Q230 400 200 420 Q175 438 148 445" stroke="#6B4226" stroke-width="8" stroke-linecap="round" fill="none"/>
+        <path d="M248 385 Q240 410 238 435 Q236 455 230 470" stroke="#7A5235" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M260 388 Q255 415 250 440 Q246 460 242 480" stroke="#6B4226" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M280 390 Q280 418 280 445 Q280 465 280 490" stroke="#8B5E3C" stroke-width="7" stroke-linecap="round" fill="none"/>
+        <path d="M300 388 Q308 415 312 440 Q316 460 318 480" stroke="#6B4226" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M312 385 Q328 408 342 430 Q358 452 368 468" stroke="#7A5235" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M312 385 Q335 400 362 416 Q388 430 410 438" stroke="#6B4226" stroke-width="8" stroke-linecap="round" fill="none"/>
+        <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#4A2E22" text-anchor="middle" x="280" y="510">Valores · fortalezas · mi esencia</text>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="#7A5545" text-anchor="middle" x="280" y="526">toca para escribir tus raíces</text>
+      </g>
+
+      <text font-family="Raleway,sans-serif" font-size="10" fill="#888780" text-anchor="middle" x="280" y="595">Haz clic en cada parte del árbol para escribir tu visión</text>
+    </svg>
+  </div>
+
+  <div class="section-panel" id="sectionPanel"></div>
+
+  <div class="btns-row">
+    <button class="btn btn-save"  onclick="saveTree()">💾 Guardar mi árbol</button>
+    <button class="btn btn-print" onclick="printTree()">📄 Imprimir / PDF</button>
+    <button class="btn btn-clear" onclick="clearTree()">Limpiar árbol</button>
+  </div>
+</div>
+
+<!-- REFLEXION -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">Por qué necesitas un mapa de visión</div>
+    <div class="ref-body">Sin una visión clara, el cerebro no sabe hacia dónde dirigir su energía. La claridad no es un lujo — es la herramienta más poderosa del cambio. Cuando escribes tu visión en detalle, activas el sistema de activación reticular: tu cerebro empieza a notar oportunidades que antes ignoraba.</div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "Si supiera que no puedo fallar — ¿qué escribiría en cada parte de mi árbol? ¿Qué me impide escribirlo hoy? ¿Esa razón es real o es miedo disfrazado de prudencia?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación del día</span>
+      "Mi visión es real. No la espero — la declaro, la escribo y la vivo desde hoy. Mi árbol ya está creciendo."
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p><strong>Método Camino</strong> · Árbol de Vida · Mapa de Visión Personal<br>Herramienta de claridad y propósito para mujeres de 40+<br>© 2026 Jenifer Mendoza · Todos los derechos reservados</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'metodoCamino_arbolVida';
+
+const SECTIONS = {
+  cielo:{
+    icon:'✨', title:'Mi cielo · Visión global',
+    sub:'El sentimiento que quiero vivir',
+    color:'#2D6B65', bg:'#E8F4F8', border:'rgba(45,107,101,0.3)',
+    body:'El cielo representa cómo quieres sentirte cuando hayas logrado todo lo que imaginas. No es una meta — es una energía, un estado de ser. Escríbelo en presente, como si ya fuera real.',
+    placeholders:['Me siento... (libre, plena, en paz...)','Mi vida tiene... (propósito, abundancia...)','Cada día experimento... (gratitud, alegría...)'],
+    action:'Cierra los ojos 2 minutos antes de escribir. ¿Qué emoción quieres que defina tu vida en 3 años?'
+  },
+  salud:{
+    icon:'💪', title:'Rama Salud y Bienestar',
+    sub:'Los frutos de tu salud física y emocional',
+    color:'#3D7D78', bg:'#E1F5EE', border:'#9FE1CB',
+    body:'Esta rama sostiene todo lo demás. Sin energía vital, nada más puede florecer. Los frutos son los logros específicos de salud — no "estar sana", sino qué significa eso concretamente para ti.',
+    placeholders:['Mi cuerpo logra... (Ej: caminar 5km sin cansarme)','Mi energía es... (Ej: despierto a las 5:45 con vitalidad)','Mi bienestar incluye... (Ej: duermo 8 horas cada noche)'],
+    action:'Escribe 3 logros de salud tan concretos que puedas saber exactamente cuándo los alcanzas.'
+  },
+  relaciones:{
+    icon:'💚', title:'Rama Relaciones y Amor',
+    sub:'Los frutos de tus vínculos más importantes',
+    color:'#2D6B65', bg:'#E1F5EE', border:'#9FE1CB',
+    body:'Las relaciones son el espejo de nuestra vida interior. Esta rama incluye familia, amistad, pareja, comunidad. Los frutos son cómo quieres que sean esas relaciones — la calidad del vínculo, no solo su existencia.',
+    placeholders:['Mi relación de pareja... (Ej: conectada, honesta, apasionada)','Mis amistades... (Ej: tengo 3 amistades profundas que me nutren)','Mi familia... (Ej: nos comunicamos con amor y sin juzgar)'],
+    action:'¿Cómo quieres sentirte en tus relaciones más importantes? Escribe la cualidad del vínculo que deseas.'
+  },
+  trabajo:{
+    icon:'🌟', title:'Rama Trabajo y Misión',
+    sub:'Los frutos de tu trabajo con propósito',
+    color:'#1D9E75', bg:'#E1F5EE', border:'#9FE1CB',
+    body:'Esta rama no es solo "trabajo" — es cómo quieres contribuir al mundo. Los frutos son los logros profesionales y creativos que deseas alcanzar.',
+    placeholders:['Mi trabajo crea... (Ej: impacto en 1000 mujeres al año)','Mi misión profesional... (Ej: acompañar mujeres a su transformación)','Lo que logro con mi talento... (Ej: genero ingresos que me dan libertad)'],
+    action:'¿Qué impacto quieres dejar con tu trabajo? ¿Cómo quieres que otros describan lo que haces?'
+  },
+  proposito:{
+    icon:'🧭', title:'Rama Propósito y Crecimiento',
+    sub:'Los frutos de tu expansión personal',
+    color:'#085041', bg:'#E1F5EE', border:'#9FE1CB',
+    body:'Esta rama es el alma del árbol. Tu propósito no es lo que haces — es por qué lo haces. Los frutos son los hitos de crecimiento personal: quién quieres ser, qué quieres aprender.',
+    placeholders:['Mi propósito más profundo... (Ej: ser ejemplo para mis hijas)','La mujer que me convierto... (Ej: segura, auténtica, libre)','Mi crecimiento incluye... (Ej: aprender a pintar, hablar en público)'],
+    action:'¿Quién serás cuando hayas cumplido tu visión? Descríbela: "Soy una mujer que..."'
+  },
+  tronco:{
+    icon:'🌳', title:'El Tronco · Quien soy esencialmente',
+    sub:'Tu esencia, tu identidad, lo que no cambia',
+    color:'#6B4226', bg:'#F5EDE4', border:'#C4A882',
+    body:'El tronco es tu identidad central — la suma de todo lo que eres más allá de los roles que desempeñas. Es la esencia que permanece cuando todo lo externo se mueve.',
+    placeholders:['En mi esencia soy... (Ej: creativa, valiente, amorosa)','Lo que me define es... (Ej: mi capacidad de transformar el dolor)','Mi mayor fortaleza es... (Ej: la persistencia y la empatía)'],
+    action:'Si todo lo externo desapareciera, ¿quién seguirías siendo? Esa es tu esencia — escríbela.'
+  },
+  raices:{
+    icon:'🌱', title:'Las Raíces · Valores y fortalezas',
+    sub:'Lo que te ancla y te alimenta HOY',
+    color:'#4A2E22', bg:'#F5EDE4', border:'#C4A882',
+    body:'Las raíces son tus valores más profundos y las fortalezas que YA TIENES hoy. Son el fundamento invisible desde el cual crece todo lo demás. Un árbol sin raíces profundas no puede sostener frutos grandes.',
+    placeholders:['Mis valores más importantes... (Ej: libertad, honestidad, amor)','Mis fortalezas actuales... (Ej: soy resiliente, creativa, empática)','Lo que me ancla en tiempos difíciles... (Ej: mi fe, mi familia, mi propósito)'],
+    action:'Lista al menos 5 valores y 3 fortalezas que ya tienes HOY — antes de tener todo lo que deseas.'
+  }
+};
+
+let data = {};
+let activeSection = null;
+
+function loadData() {
+  try { const d=JSON.parse(localStorage.getItem(KEY)||'null'); if(d) data=d; } catch(e){}
+}
+function saveData() { try { localStorage.setItem(KEY,JSON.stringify(data)); } catch(e){} }
+
+function updateProgress() {
+  const total = Object.keys(SECTIONS).length;
+  const filled = Object.keys(SECTIONS).filter(k=>(data[k]||[]).some(v=>v&&v.trim())).length;
+  const pct = Math.round(filled/total*100);
+  document.getElementById('pbFill').style.width = pct+'%';
+  document.getElementById('pbCount').textContent = filled+'/'+total;
+}
+
+function showSection(key) {
+  const s = SECTIONS[key];
+  const panel = document.getElementById('sectionPanel');
+  if(activeSection===key){ panel.classList.remove('show'); activeSection=null; return; }
+  activeSection=key;
+  panel.style.borderColor = s.border;
+
+  const vals = data[key] || ['','',''];
+  const inputs = s.placeholders.map((ph,i)=>`
+    <div class="sp-input-row">
+      <span class="sp-num">${i+1}.</span>
+      <input type="text" id="spi-${key}-${i}" value="${vals[i]||''}" placeholder="${ph}" maxlength="90"
+             oninput="autoSave('${key}',${i},this.value)" style="border-color:${s.border};">
+    </div>`).join('');
+
+  panel.innerHTML = `
+    <div class="sp-header" style="background:${s.bg};border-bottom:0.5px solid ${s.border};">
+      <span class="sp-icon">${s.icon}</span>
+      <div>
+        <div class="sp-title" style="color:${s.color};">${s.title}</div>
+        <div class="sp-sub" style="color:${s.color};">${s.sub}</div>
+      </div>
+      <button class="sp-close" onclick="closeSection()">✕ Cerrar</button>
+    </div>
+    <div class="sp-body">${s.body}</div>
+    <div class="sp-inputs">${inputs}</div>
+    <div class="sp-action">
+      <strong style="color:${s.color};">Reflexión guiada:</strong>
+      <span style="color:${s.color};">${s.action}</span>
+    </div>
+  `;
+  panel.classList.add('show');
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function autoSave(key, idx, val) {
+  if(!data[key]) data[key]=['','',''];
+  data[key][idx]=val;
+  saveData(); updateProgress();
+}
+
+function closeSection() {
+  document.getElementById('sectionPanel').classList.remove('show');
+  activeSection=null;
+}
+
+function saveTree() { saveData(); showToast('✓ Árbol guardado correctamente'); }
+
+function clearTree() {
+  if(!confirm('¿Limpiar todo el árbol? Se borrarán todas tus respuestas.')) return;
+  data={}; saveData(); closeSection(); updateProgress();
+  showToast('Árbol limpiado');
+}
+
+function printTree() {
+  const sections = Object.entries(SECTIONS).map(([key,s])=>{
+    const vals=(data[key]||[]).filter(v=>v&&v.trim());
+    const items=vals.length?vals.map(v=>`<li style="margin:5px 0;font-family:'Cormorant Garamond',serif;font-size:14px;color:#4A2E22;line-height:1.5;">${v}</li>`).join(''):'<li style="color:#888780;font-style:italic;font-size:13px;">Sin completar aún</li>';
+    return `<div style="background:${s.bg};border:1.5px solid ${s.border};border-radius:10px;padding:14px 18px;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span style="font-size:20px;">${s.icon}</span>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:${s.color};">${s.title}</div>
+          <div style="font-family:'Raleway',sans-serif;font-size:10px;color:${s.color};opacity:0.75;">${s.sub}</div>
+        </div>
+      </div>
+      <ul style="margin:0;padding-left:18px;">${items}</ul>
+    </div>`;
+  }).join('');
+
+  const html=`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Mi Árbol de Vida — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Playfair+Display:wght@700;900&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>body{font-family:'Raleway',sans-serif;margin:0;background:#FAF6F0;color:#4A2E22;}
+.hdr{background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 40%,#5B9E98 70%,transparent 100%);padding:36px 48px 44px;clip-path:polygon(0 0,100% 0,100% 82%,55% 96%,0 86%);}
+h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#fff;margin:0 0 4px;}
+.ey{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:6px;}
+.hs{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);}
+.db{display:inline-block;background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);padding:5px 18px;border-radius:20px;font-size:11px;margin-top:12px;}
+.body{padding:32px 48px;}
+.st{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#2D6B65;margin:0 0 16px;}
+.qt{background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:0 8px 8px 0;padding:14px 20px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:#085041;line-height:1.8;margin-top:20px;}
+.ft{background:#2D6B65;padding:18px 48px;text-align:center;margin-top:24px;}
+.ft p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}.ft strong{color:#fff;}
+@media print{body{background:#fff;}.hdr,.ft{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="hdr"><div class="ey">✦ Método Camino · Árbol de Vida · Mapa de Visión</div>
+<h1>Mi Árbol de Vida</h1><div class="hs">Mi mapa de visión personal</div>
+<div class="db">Fecha: ${new Date().toLocaleDateString('es-ES',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</div></div>
+<div class="body"><div class="st">Mi visión en todas sus capas</div>
+${sections}
+<div class="qt">"Mi visión es real. No la espero — la declaro, la escribo y la vivo desde hoy. Mi árbol ya está creciendo."</div>
+</div>
+<div class="ft"><p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026<br>Para imprimir: Archivo → Imprimir → Guardar como PDF</p></div>
+</body></html>`;
+
+  const w=window.open('','_blank');
+  if(w){w.document.write(html);w.document.close();setTimeout(()=>w.print(),700);}
+  else showToast('Permite ventanas emergentes para imprimir');
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+loadData(); updateProgress();
+</script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espiral de Cambio · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-dark: #085041;
+  --teal-deep: #0F6E56;
+  --blue:      #185FA5;
+  --blue-pale: #E6F1FB;
+  --blue-dark: #0C447C;
+  --amber:     #EF9F27;
+  --amber-pale:#FAEEDA;
+  --amber-dark:#633806;
+  --coral:     #D85A30;
+  --coral-pale:#FAECE7;
+  --coral-dark:#712B13;
+  --gold:      #C8A96E;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --gray-pale: #F1EFE8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Raleway',sans-serif; background:var(--cream); color:var(--brown); min-height:100vh; }
+
+/* ══ HERO ══ */
+.hero { position:relative; overflow:hidden; background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%); }
+.hero-swoosh { position:absolute; top:0; left:0; right:0; height:100%; background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%); clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%); }
+.hero-bottom { position:absolute; bottom:0; left:0; right:0; height:35%; background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%); clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%); }
+.hero-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; padding:44px 24px 52px; text-align:center; }
+.hero-eyebrow { font-weight:300; font-size:10px; letter-spacing:0.65em; color:rgba(255,255,255,0.88); text-transform:uppercase; margin-bottom:8px; }
+.hero-metodo { font-weight:200; font-size:12px; letter-spacing:0.7em; color:rgba(255,255,255,0.65); text-transform:uppercase; margin-bottom:2px; }
+.hero-title { font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em; color:#fff; line-height:1.2; max-width:580px; text-shadow:0 3px 30px rgba(45,107,101,0.5); }
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:clamp(14px,2.2vw,17px); color:var(--brown); line-height:1.75; max-width:520px; }
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge { margin-top:16px; background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; padding:8px 24px; font-weight:600; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35); }
+.hero-author { margin-top:18px; font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:var(--teal); letter-spacing:0.05em; }
+.hero-author-by { font-weight:200; font-size:9px; letter-spacing:0.45em; color:var(--brown-mid); text-transform:uppercase; display:block; margin-bottom:3px; }
+.scroll-cta { margin-top:24px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; }
+.scroll-cta span { font-weight:300; font-size:10px; letter-spacing:0.35em; color:var(--teal); text-transform:uppercase; }
+.scroll-arrow { width:28px; height:28px; border:1px solid rgba(45,107,101,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; animation:bounceDown 2s ease-in-out infinite; }
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section { background:var(--sand); padding:36px 24px; text-align:center; }
+.intro-section h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:22px; color:var(--teal); margin-bottom:10px; }
+.intro-section p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75; }
+.quote-banner { background:rgba(255,255,255,0.6); border-left:3px solid var(--teal); border-radius:0 8px 8px 0; padding:14px 20px; max-width:540px; margin:0 auto; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown); line-height:1.8; }
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ PROCHASKA ══ */
+.ciencia-section { max-width:800px; margin:0 auto; padding:28px 16px 0; }
+.ciencia-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--teal); margin-bottom:6px; }
+.ciencia-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:16px; }
+.ciencia-card { background:#fff; border-radius:12px; padding:18px 20px; border:0.5px solid rgba(45,107,101,0.2); margin-bottom:16px; }
+.cc-quote { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown-mid); line-height:1.8; margin-bottom:12px; }
+.cc-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+@media(max-width:480px){ .cc-stats{ grid-template-columns:1fr; } }
+.cc-stat { background:var(--teal-pale); border-radius:8px; padding:12px 14px; text-align:center; }
+.cc-stat-num { font-family:'Playfair Display',serif; font-weight:900; font-size:26px; color:var(--teal); display:block; }
+.cc-stat-label { font-family:'Raleway',sans-serif; font-size:11px; color:var(--teal-dark); line-height:1.4; margin-top:2px; }
+
+/* ══ DIAGRAMA ══ */
+.diagrama-section { max-width:800px; margin:0 auto; padding:0 16px; }
+.d-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--teal); margin-bottom:6px; }
+.d-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:16px; }
+
+/* Legend */
+.legend-bar { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:12px; }
+.leg-i { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--brown-mid); padding:4px 10px; border-radius:12px; background:rgba(255,255,255,0.7); border:0.5px solid rgba(0,0,0,0.06); }
+.leg-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+
+/* SVG */
+.svg-wrap { width:100%; max-width:560px; margin:0 auto 12px; display:block; }
+
+/* Mensaje clave */
+.key-message { background:var(--blue-pale); border:1.5px solid var(--blue); border-radius:10px; padding:14px 20px; text-align:center; margin-bottom:16px; }
+.km-text { font-family:'Playfair Display',serif; font-weight:700; font-size:16px; color:var(--blue-dark); line-height:1.5; }
+.km-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--blue); margin-top:4px; }
+
+/* Stage cards -->*/
+.stage-cards { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+@media(max-width:480px){ .stage-cards{ grid-template-columns:1fr; } }
+
+.stage-card { background:#fff; border-radius:12px; padding:16px 18px; border:0.5px solid var(--gray-lt); transition:all 0.2s; cursor:pointer; }
+.stage-card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.08); transform:translateY(-1px); }
+.stage-card.active { box-shadow:0 0 0 2px; }
+.sc-top { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.sc-icon { font-size:20px; }
+.sc-title { font-family:'Playfair Display',serif; font-weight:700; font-size:14px; flex:1; }
+.sc-badge { font-family:'Raleway',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:2px 8px; border-radius:10px; }
+.sc-body { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--brown-mid); line-height:1.65; margin-bottom:10px; }
+.sc-action { border-radius:6px; padding:8px 10px; font-family:'Raleway',sans-serif; font-size:11px; line-height:1.55; border-left:3px solid; }
+.sc-action strong { display:block; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:3px; opacity:0.7; }
+
+/* ══ REFLEXION ══ */
+.ref-section { max-width:800px; margin:24px auto 0; padding:0 16px 40px; }
+.ref-card { background:#fff; border-radius:12px; padding:26px 28px; border:0.5px solid rgba(45,107,101,0.2); }
+.ref-title { font-family:'Playfair Display',serif; font-weight:700; font-size:19px; color:var(--teal); margin-bottom:10px; }
+.ref-body { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); line-height:1.8; margin-bottom:16px; }
+.ref-q { background:var(--teal-pale); border-left:3px solid var(--teal-svg); border-radius:0 8px 8px 0; padding:14px 18px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--teal-dark); line-height:1.75; margin-bottom:16px; }
+.ref-q strong { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal); margin-bottom:4px; }
+.afirm { background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; border-radius:8px; padding:18px 24px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; line-height:1.7; text-align:center; }
+.afirm span { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px; }
+
+/* ══ FOOTER ══ */
+.footer { background:var(--teal); padding:28px 24px; text-align:center; }
+.footer p { font-weight:200; font-size:11px; letter-spacing:0.2em; color:rgba(255,255,255,0.7); line-height:2; }
+.footer strong { color:#fff; font-weight:600; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Psicología del Cambio · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">La Espiral del Cambio</div>
+    <div class="hero-accent"><div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div></div>
+    <div class="hero-sub">El cambio no es una línea recta —<br>es una <strong>espiral ascendente</strong> y la recaída es parte del proceso</div>
+    <div class="hero-badge">✦ &nbsp; Modelo de Prochaska · Diagrama Interactivo &nbsp; ✦</div>
+    <div style="margin-top:18px;"><span class="hero-author-by">A u t o r a</span><div class="hero-author">Jenifer Mendoza</div></div>
+    <div class="scroll-cta" onclick="document.getElementById('diagrama').scrollIntoView({behavior:'smooth'})">
+      <span>Ver mi espiral</span>
+      <div class="scroll-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-section">
+  <h2>Por qué "fallar" no existe en el cambio real</h2>
+  <p>El modelo transteórico de Prochaska y DiClemente revolucionó la psicología del cambio al descubrir que nadie cambia en línea recta. El cambio real siempre tiene ciclos, recaídas y retornos — y todos son necesarios.</p>
+  <div class="quote-banner">
+    "La recaída no es el final del camino —<br>es parte <strong>estadísticamente normal</strong> del proceso de transformación."
+  </div>
+</div>
+
+<!-- CIENCIA -->
+<div class="ciencia-section">
+  <div class="ciencia-title">La ciencia detrás del modelo</div>
+  <div class="ciencia-sub">Prochaska y DiClemente estudiaron a miles de personas en procesos de cambio durante décadas</div>
+  <div class="ciencia-card">
+    <div class="cc-quote">"El cambio no ocurre de golpe — ocurre en etapas predecibles. Y la recaída no es fracaso: es información. Las personas que entienden en qué etapa están tienen el doble de probabilidad de mantener el cambio."</div>
+    <div class="cc-stats">
+      <div class="cc-stat">
+        <span class="cc-stat-num">3–7</span>
+        <span class="cc-stat-label">ciclos promedio antes de consolidar un cambio permanente</span>
+      </div>
+      <div class="cc-stat">
+        <span class="cc-stat-num">85%</span>
+        <span class="cc-stat-label">de las personas en cambio experimentan al menos una recaída</span>
+      </div>
+      <div class="cc-stat">
+        <span class="cc-stat-num">2×</span>
+        <span class="cc-stat-label">más éxito cuando se entiende la etapa en que se está</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIAGRAMA -->
+<div class="diagrama-section" id="diagrama">
+  <div class="d-title">Tu espiral de cambio</div>
+  <div class="d-sub">Haz clic en cada etapa para entender dónde estás y qué sigue</div>
+
+  <div class="legend-bar">
+    <div class="leg-i"><div class="leg-dot" style="background:var(--coral);"></div>Resistencia</div>
+    <div class="leg-i"><div class="leg-dot" style="background:var(--amber);"></div>Decisión</div>
+    <div class="leg-i"><div class="leg-dot" style="background:var(--teal-svg);"></div>Acción</div>
+    <div class="leg-i"><div class="leg-dot" style="background:var(--blue);"></div>Integración</div>
+    <div class="leg-i"><div class="leg-dot" style="background:var(--teal);"></div>Nueva identidad</div>
+  </div>
+
+  <div class="svg-wrap">
+    <svg width="100%" viewBox="0 0 560 680" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="arrUp" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+        <path d="M2 8 L5 2 L8 8" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+      <marker id="arrBlue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M2 8 L5 2 L8 8" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+
+    <!-- Flecha ascendente global -->
+    <line x1="280" y1="650" x2="280" y2="30" stroke="#C8A96E" stroke-width="1.2" stroke-dasharray="6 4" opacity="0.3" marker-end="url(#arrUp)"/>
+
+    <!-- ESPIRAL VUELTA 1 -->
+    <path d="M 120 580 Q 90 540 110 500 Q 140 455 200 440 Q 260 425 320 445 Q 390 468 420 520 Q 445 565 420 610 Q 400 640 360 648" fill="none" stroke="#D85A30" stroke-width="3" stroke-linecap="round"/>
+    <!-- ESPIRAL VUELTA 2 -->
+    <path d="M 160 490 Q 120 450 130 405 Q 148 355 205 335 Q 265 315 325 335 Q 388 360 415 415 Q 435 460 415 510 Q 398 545 365 558" fill="none" stroke="#EF9F27" stroke-width="3" stroke-linecap="round"/>
+    <!-- ESPIRAL VUELTA 3 -->
+    <path d="M 185 400 Q 148 360 158 315 Q 175 265 230 248 Q 282 232 335 252 Q 388 276 408 328 Q 422 370 404 415 Q 388 448 355 462" fill="none" stroke="#1D9E75" stroke-width="3" stroke-linecap="round"/>
+    <!-- ESPIRAL VUELTA 4 -->
+    <path d="M 208 318 Q 178 282 188 245 Q 204 200 250 188 Q 292 176 334 198 Q 372 220 382 262 Q 390 296 370 325" fill="none" stroke="#2D6B65" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- ETAPA 1: Precontemplación -->
+    <g style="cursor:pointer;" onclick="showCard(0)">
+      <circle cx="148" cy="556" r="40" fill="#FAECE7" stroke="#D85A30" stroke-width="2"/>
+      <text font-family="Raleway,sans-serif" font-size="16" text-anchor="middle" x="148" y="542">😴</text>
+      <text font-family="Raleway,sans-serif" font-size="10" font-weight="600" fill="#712B13" text-anchor="middle" x="148" y="556">Pre-</text>
+      <text font-family="Raleway,sans-serif" font-size="10" font-weight="600" fill="#712B13" text-anchor="middle" x="148" y="569">contemplación</text>
+    </g>
+
+    <!-- ETAPA 2: Contemplación -->
+    <g style="cursor:pointer;" onclick="showCard(1)">
+      <circle cx="400" cy="556" r="40" fill="#FAEEDA" stroke="#EF9F27" stroke-width="2"/>
+      <text font-family="Raleway,sans-serif" font-size="16" text-anchor="middle" x="400" y="542">🤔</text>
+      <text font-family="Raleway,sans-serif" font-size="10" font-weight="600" fill="#633806" text-anchor="middle" x="400" y="556">Contemplación</text>
+      <text font-family="Raleway,sans-serif" font-size="9" fill="#854F0B" text-anchor="middle" x="400" y="569">"¿Y si...?"</text>
+    </g>
+
+    <!-- ETAPA 3: Preparación -->
+    <g style="cursor:pointer;" onclick="showCard(2)">
+      <circle cx="148" cy="460" r="38" fill="#FAEEDA" stroke="#EF9F27" stroke-width="2"/>
+      <text font-family="Raleway,sans-serif" font-size="16" text-anchor="middle" x="148" y="447">📋</text>
+      <text font-family="Raleway,sans-serif" font-size="10" font-weight="600" fill="#633806" text-anchor="middle" x="148" y="461">Preparación</text>
+      <text font-family="Raleway,sans-serif" font-size="9" fill="#854F0B" text-anchor="middle" x="148" y="473">"Voy a hacerlo"</text>
+    </g>
+
+    <!-- ETAPA 4: Acción -->
+    <g style="cursor:pointer;" onclick="showCard(3)">
+      <circle cx="400" cy="460" r="38" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"/>
+      <text font-family="Raleway,sans-serif" font-size="16" text-anchor="middle" x="400" y="447">⚡</text>
+      <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#085041" text-anchor="middle" x="400" y="461">Acción</text>
+      <text font-family="Raleway,sans-serif" font-size="9" fill="#0F6E56" text-anchor="middle" x="400" y="473">"Lo estoy haciendo"</text>
+    </g>
+
+    <!-- ETAPA 5: Mantenimiento -->
+    <g style="cursor:pointer;" onclick="showCard(4)">
+      <circle cx="168" cy="368" r="38" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"/>
+      <text font-family="Raleway,sans-serif" font-size="16" text-anchor="middle" x="168" y="355">🌿</text>
+      <text font-family="Raleway,sans-serif" font-size="10" font-weight="600" fill="#085041" text-anchor="middle" x="168" y="369">Mantenimiento</text>
+      <text font-family="Raleway,sans-serif" font-size="9" fill="#0F6E56" text-anchor="middle" x="168" y="381">"Ya es parte de mí"</text>
+    </g>
+
+    <!-- ETAPA 6: Recaída -->
+    <g style="cursor:pointer;" onclick="showCard(5)">
+      <circle cx="396" cy="368" r="38" fill="#E6F1FB" stroke="#185FA5" stroke-width="2.5"/>
+      <text font-family="Raleway,sans-serif" font-size="16" text-anchor="middle" x="396" y="355">🔄</text>
+      <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#0C447C" text-anchor="middle" x="396" y="369">Recaída</text>
+      <text font-family="Raleway,sans-serif" font-size="9" fill="#185FA5" text-anchor="middle" x="396" y="381">"No es el final"</text>
+    </g>
+
+    <!-- Flecha recaída → siguiente nivel -->
+    <path d="M 396 330 Q 422 288 390 258 Q 368 238 342 240" fill="none" stroke="#185FA5" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrBlue)"/>
+    <text font-family="Raleway,sans-serif" font-size="9" fill="#185FA5" text-anchor="start" x="408" y="292">regresa</text>
+    <text font-family="Raleway,sans-serif" font-size="9" fill="#185FA5" text-anchor="start" x="408" y="304">más arriba</text>
+
+    <!-- ETAPA 7: Contemplación nivel 2 -->
+    <g style="cursor:pointer;" onclick="showCard(6)">
+      <circle cx="220" cy="278" r="35" fill="#FAEEDA" stroke="#EF9F27" stroke-width="2"/>
+      <text font-family="Raleway,sans-serif" font-size="14" text-anchor="middle" x="220" y="266">🤔✨</text>
+      <text font-family="Raleway,sans-serif" font-size="10" font-weight="600" fill="#633806" text-anchor="middle" x="220" y="279">Contemplación</text>
+      <text font-family="Raleway,sans-serif" font-size="9" fill="#854F0B" text-anchor="middle" x="220" y="291">nivel 2</text>
+    </g>
+
+    <!-- ETAPA 8: Acción nivel 2 -->
+    <g style="cursor:pointer;" onclick="showCard(7)">
+      <circle cx="370" cy="242" r="32" fill="#E1F5EE" stroke="#2D6B65" stroke-width="2"/>
+      <text font-family="Raleway,sans-serif" font-size="14" text-anchor="middle" x="370" y="231">⚡✨</text>
+      <text font-family="Raleway,sans-serif" font-size="10" font-weight="600" fill="#085041" text-anchor="middle" x="370" y="244">Acción</text>
+      <text font-family="Raleway,sans-serif" font-size="9" fill="#0F6E56" text-anchor="middle" x="370" y="256">nivel 2</text>
+    </g>
+
+    <!-- Flecha hacia cima -->
+    <path d="M 348 216 Q 316 174 290 140" fill="none" stroke="#2D6B65" stroke-width="2" marker-end="url(#arrUp)"/>
+
+    <!-- CIMA: Nueva identidad -->
+    <g style="cursor:pointer;" onclick="showCard(8)">
+      <circle cx="280" cy="110" r="44" fill="#2D6B65" stroke="#085041" stroke-width="2.5"/>
+      <text font-family="Raleway,sans-serif" font-size="18" text-anchor="middle" x="280" y="98">🌟</text>
+      <text font-family="Raleway,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle" x="280" y="114">Nueva</text>
+      <text font-family="Raleway,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle" x="280" y="128">identidad</text>
+    </g>
+
+    <!-- Mensaje clave -->
+    <rect x="55" y="622" width="450" height="38" rx="19" fill="#E6F1FB" stroke="#185FA5" stroke-width="1.2"/>
+    <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#0C447C" text-anchor="middle" x="280" y="645">La recaída no te regresa al inicio · te regresa al siguiente nivel</text>
+
+    <text font-family="Raleway,sans-serif" font-size="10" fill="#888780" text-anchor="middle" x="280" y="672">Toca cada etapa para explorar qué significa y qué hacer</text>
+    </svg>
+  </div>
+
+  <div class="key-message">
+    <div class="km-text">"La recaída no te regresa al inicio —<br>te regresa al siguiente nivel, con más sabiduría."</div>
+    <div class="km-sub">Prochaska · Modelo Transteórico del Cambio</div>
+  </div>
+
+  <!-- Stage cards -->
+  <div class="stage-cards" id="stageCards"></div>
+</div>
+
+<!-- REFLEXION -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">La libertad de saber dónde estás</div>
+    <div class="ref-body">Una de las experiencias más liberadoras del camino de transformación es entender que no estás "fallando" — estás en una etapa predecible del cambio. Cuando sabes en qué etapa estás, puedes darte lo que necesitas en lugar de juzgarte por no estar donde crees que "deberías" estar.</div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "¿En qué etapa de la espiral estoy hoy respecto al cambio más importante que quiero hacer? ¿Qué necesito en esta etapa específicamente — más información, más apoyo, más acción, o más compasión?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación del día</span>
+      "No estoy fallando — estoy en proceso. Cada vuelta de la espiral me lleva más arriba, aunque a veces parezca que regreso. Confío en el proceso."
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p><strong>Método Camino</strong> · Espiral de Cambio · Modelo de Prochaska<br>Psicología del cambio para mujeres de 40+<br>© 2026 Jenifer Mendoza · Todos los derechos reservados</p>
+</div>
+
+<script>
+const STAGES = [
+  { icon:'😴', title:'Precontemplación', badge:'Zona de resistencia',
+    color:'#D85A30', bg:'#FAECE7', border:'#F0997B',
+    body:'En esta etapa aún no reconoces que necesitas un cambio — o lo niegas activamente. El dolor aún no es suficientemente grande, o las defensas son demasiado fuertes. No hay nada malo en estar aquí — es el punto de partida honesto.',
+    action:'No te fuerce. Exponte suavemente a información nueva. La pregunta no es "¿tengo que cambiar?" sino "¿qué está pasando en mi vida que me trajo aquí?"' },
+  { icon:'🤔', title:'Contemplación', badge:'Zona de decisión',
+    color:'#EF9F27', bg:'#FAEEDA', border:'#FAC775',
+    body:'Empiezas a ver que algo podría cambiar. Hay ambivalencia — quieres el cambio pero también tienes miedo. El "¿y si...?" convive con el "pero es que...". Esta etapa puede durar mucho tiempo, y está bien.',
+    action:'Explora sin comprometerte. Lee, escucha, observa a quien admiras. La motivación no aparece antes de la acción — aparece durante. Empieza pequeño.' },
+  { icon:'📋', title:'Preparación', badge:'Zona de decisión',
+    color:'#EF9F27', bg:'#FAEEDA', border:'#FAC775',
+    body:'Has decidido cambiar y estás planificando cómo. Buscas información, defines pasos, te preparas mentalmente. Es una etapa activa aunque aún no hayas "empezado" formalmente. La preparación es acción.',
+    action:'Pon una fecha. No "algún día" — una fecha real. Díselo a alguien. Prepara tu entorno para que el cambio sea más fácil que no cambiar.' },
+  { icon:'⚡', title:'Acción', badge:'Zona de acción',
+    color:'#1D9E75', bg:'#E1F5EE', border:'#9FE1CB',
+    body:'Estás haciendo el cambio. Modificas comportamientos, construyes nuevos hábitos, te esfuerzas conscientemente. Es la etapa más visible y también la más demandante energéticamente.',
+    action:'Celebra cada día que lo haces. No esperes a llegar a la meta — la celebración diaria es el combustible. Busca apoyo activo. No lo hagas sola.' },
+  { icon:'🌿', title:'Mantenimiento', badge:'Zona de acción',
+    color:'#1D9E75', bg:'#E1F5EE', border:'#9FE1CB',
+    body:'El cambio ya es parte de tu rutina. Requiere menos esfuerzo consciente. La nueva conducta se está integrando en tu identidad. Aquí el riesgo es la complacencia.',
+    action:'No bajes la guardia — sigue nutriendo el hábito. La meseta de mantenimiento es una plataforma de lanzamiento, no el destino final.' },
+  { icon:'🔄', title:'Recaída', badge:'Zona de integración',
+    color:'#185FA5', bg:'#E6F1FB', border:'#85B7EB',
+    body:'La recaída no es el fracaso — es parte estadísticamente normal del proceso de cambio. La mayoría de las personas pasan por 3-7 ciclos antes de consolidar un cambio permanente. La recaída trae información valiosa sobre los disparadores y las necesidades profundas.',
+    action:'Respira. Pregúntate: "¿Qué aprendí de esto?" — no "¿qué hice mal?". La recaída no te regresa al inicio: te regresa al siguiente nivel de la espiral, con más sabiduría que la vez anterior.' },
+  { icon:'🤔✨', title:'Contemplación · Nivel 2', badge:'Zona de decisión',
+    color:'#EF9F27', bg:'#FAEEDA', border:'#FAC775',
+    body:'Regresas a la contemplación, pero ya no eres la misma. Traes el aprendizaje de la acción, del mantenimiento y de la recaída. Tu "¿y si...?" ahora viene con evidencia real de lo que puedes lograr.',
+    action:'Reconoce que volviste más sabia. Lo que aprendiste en el ciclo anterior es un recurso, no una derrota. Este es el trampolín al siguiente salto.' },
+  { icon:'⚡✨', title:'Acción · Nivel 2', badge:'Zona de acción',
+    color:'#2D6B65', bg:'#E1F5EE', border:'#9FE1CB',
+    body:'Actúas desde un lugar diferente. Más consciente, más ecuánime. El mismo cambio que antes costaba un esfuerzo enorme, ahora fluye con más naturalidad y menos drama interior.',
+    action:'Confía en el proceso. Ya sabes que puedes. La segunda vez siempre es más fácil — no porque el camino sea más corto, sino porque tú eres más grande.' },
+  { icon:'🌟', title:'Nueva identidad', badge:'Nueva identidad',
+    color:'#2D6B65', bg:'#E1F5EE', border:'#9FE1CB',
+    body:'El cambio ya no es algo que haces — es quien eres. No "hago ejercicio" sino "soy una mujer activa". No "trato de cuidarme" sino "me cuido". La identidad es el nivel más profundo y más duradero del cambio.',
+    action:'Declara tu nueva identidad en voz alta. Escríbela. Preséntate desde ella. "Soy una mujer que..." — completa esa frase con quien ya estás siendo.' }
+];
+
+function buildCards() {
+  const container = document.getElementById('stageCards');
+  container.innerHTML = '';
+  STAGES.forEach((s,i) => {
+    const card = document.createElement('div');
+    card.className = 'stage-card';
+    card.id = 'sc-'+i;
+    card.style.borderColor = s.border;
+    card.onclick = () => showCard(i);
+    card.innerHTML = `
+      <div class="sc-top">
+        <span class="sc-icon">${s.icon}</span>
+        <span class="sc-title" style="color:${s.color};">${s.title}</span>
+        <span class="sc-badge" style="background:${s.bg};color:${s.color};">${s.badge}</span>
+      </div>
+      <div class="sc-body">${s.body}</div>
+      <div class="sc-action" style="background:${s.bg};border-left-color:${s.color};color:${s.color};">
+        <strong>Si estás aquí:</strong>${s.action}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function showCard(i) {
+  document.querySelectorAll('.stage-card').forEach(c=>c.classList.remove('active'));
+  const card = document.getElementById('sc-'+i);
+  if(card) {
+    card.classList.add('active');
+    card.style.boxShadow = '0 0 0 2px '+STAGES[i].color;
+    card.scrollIntoView({behavior:'smooth',block:'nearest'});
+    setTimeout(()=>{ card.classList.remove('active'); card.style.boxShadow=''; },1500);
+  }
+}
+
+buildCards();
+</script>
+</body>
+</html>

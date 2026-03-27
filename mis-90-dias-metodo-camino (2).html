@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis 90 Días · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#2D6B65;--teal-mid:#3D7D78;--teal-svg:#1D9E75;--teal-pale:#E1F5EE;--teal-dark:#085041;--blue:#185FA5;--blue-pale:#E6F1FB;--blue-dark:#0C447C;--amber:#EF9F27;--amber-pale:#FAEEDA;--amber-dark:#633806;--gold:#C8A96E;--brown:#4A2E22;--brown-mid:#7A5545;--cream:#FAF6F0;--sand:#EDE4D8;--gray:#888780;--gray-lt:#D3D1C7;--gray-pale:#F1EFE8;--pink:#D4537E;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--brown);min-height:100vh;}
+.hero{position:relative;overflow:hidden;background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%);}
+.hero-swoosh{position:absolute;top:0;left:0;right:0;height:100%;background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%);clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%);}
+.hero-bottom{position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%);clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%);}
+.hero-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:44px 24px 52px;text-align:center;}
+.hero-eyebrow{font-weight:300;font-size:10px;letter-spacing:0.65em;color:rgba(255,255,255,0.88);text-transform:uppercase;margin-bottom:8px;}
+.hero-metodo{font-weight:200;font-size:12px;letter-spacing:0.7em;color:rgba(255,255,255,0.65);text-transform:uppercase;margin-bottom:2px;}
+.hero-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(26px,5.5vw,48px);letter-spacing:0.06em;color:#fff;line-height:1.2;max-width:580px;text-shadow:0 3px 30px rgba(45,107,101,0.5);}
+.hero-accent{display:flex;align-items:center;gap:10px;margin:14px 0 16px;}
+.ha-line{width:50px;height:1.5px;background:rgba(255,255,255,0.5);border-radius:2px;}
+.ha-dot{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(14px,2.2vw,17px);color:var(--brown);line-height:1.75;max-width:520px;}
+.hero-sub strong{font-style:normal;font-weight:600;color:var(--teal);}
+.hero-badge{margin-top:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;padding:8px 24px;font-weight:600;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;border-radius:2px;box-shadow:0 4px 16px rgba(45,107,101,0.35);}
+.hero-author{margin-top:18px;font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--teal);letter-spacing:0.05em;}
+.hero-author-by{font-weight:200;font-size:9px;letter-spacing:0.45em;color:var(--brown-mid);text-transform:uppercase;display:block;margin-bottom:3px;}
+.scroll-cta{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;}
+.scroll-cta span{font-weight:300;font-size:10px;letter-spacing:0.35em;color:var(--teal);text-transform:uppercase;}
+.scroll-arrow{width:28px;height:28px;border:1px solid rgba(45,107,101,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:bounceDown 2s ease-in-out infinite;}
+@keyframes bounceDown{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+.intro-section{background:var(--sand);padding:36px 24px;text-align:center;}
+.intro-section h2{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;color:var(--teal);margin-bottom:10px;}
+.intro-section p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--brown-mid);max-width:580px;margin:0 auto 20px;line-height:1.75;}
+.quote-banner{background:rgba(255,255,255,0.6);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:14px 20px;max-width:540px;margin:0 auto;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--brown);line-height:1.8;}
+.quote-banner strong{font-style:normal;font-weight:700;color:var(--teal);}
+.stats-section{max-width:800px;margin:0 auto;padding:24px 16px 0;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+@media(max-width:500px){.stats-grid{grid-template-columns:1fr 1fr;}}
+.stat-card{background:#fff;border-radius:10px;padding:14px 16px;border:0.5px solid var(--gray-lt);text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-weight:900;font-size:28px;display:block;}
+.stat-label{font-size:11px;color:var(--gray);margin-top:2px;line-height:1.3;}
+.main-section{max-width:800px;margin:0 auto;padding:0 16px;}
+.main-title{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;color:var(--teal);margin-bottom:6px;}
+.main-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--brown-mid);margin-bottom:16px;}
+.habits-card{background:#fff;border-radius:12px;border:0.5px solid rgba(45,107,101,0.2);padding:16px 20px;margin-bottom:16px;}
+.hc-title{font-family:'Raleway',sans-serif;font-size:13px;font-weight:600;color:var(--teal);margin-bottom:10px;}
+.hc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+@media(max-width:480px){.hc-grid{grid-template-columns:1fr;}}
+.hc-row{display:flex;align-items:center;gap:8px;}
+.hc-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+.hc-input{flex:1;border:0.5px solid var(--gray-lt);border-radius:6px;padding:6px 10px;font-family:'Raleway',sans-serif;font-size:12px;color:var(--brown);background:var(--cream);}
+.hc-input:focus{outline:none;border-color:var(--teal-svg);}
+.hc-input::placeholder{color:var(--gray);font-style:italic;}
+.month-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.mtab{font-family:'Raleway',sans-serif;font-size:12px;font-weight:500;padding:7px 18px;border-radius:20px;cursor:pointer;border:0.5px solid var(--gray-lt);background:#fff;color:var(--gray);transition:all 0.15s;}
+.mtab.am1{background:var(--blue);color:#fff;border-color:var(--blue);}
+.mtab.am2{background:var(--teal-svg);color:#fff;border-color:var(--teal-svg);}
+.mtab.am3{background:var(--amber-dark);color:#fff;border-color:var(--amber-dark);}
+.table-wrap{overflow-x:auto;background:#fff;border-radius:12px;border:0.5px solid var(--gray-lt);margin-bottom:16px;}
+table.wt{width:100%;border-collapse:collapse;min-width:560px;font-size:11px;}
+.wt thead tr{background:var(--gray-pale);}
+.wt thead th{padding:7px 8px;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);border-bottom:0.5px solid var(--gray-lt);text-align:center;}
+.wt thead th.tl{text-align:left;}
+.wt tbody tr{border-bottom:0.5px solid var(--gray-pale);transition:background 0.1s;}
+.wt tbody tr:hover{background:var(--gray-pale);}
+.wt tbody tr:last-child{border-bottom:none;}
+.wt td{padding:7px 8px;vertical-align:middle;}
+.wk-name{font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;color:var(--brown);}
+.wk-dates{font-size:9px;color:var(--gray);margin-top:1px;}
+.mrow{background:linear-gradient(90deg,rgba(239,159,39,0.08),transparent)!important;}
+.mbadge{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:600;color:var(--amber-dark);background:var(--amber-pale);padding:2px 7px;border-radius:8px;border:0.5px solid #FAC775;margin-top:3px;}
+.hchecks{display:flex;gap:2px;justify-content:center;flex-wrap:wrap;}
+.hch{width:13px;height:13px;border-radius:3px;border:1.5px solid;cursor:pointer;flex-shrink:0;transition:all 0.12s;display:flex;align-items:center;justify-content:center;}
+.hch.on::after{content:'✓';font-size:8px;color:#fff;font-weight:700;}
+.hch:not(.on){background:transparent;opacity:0.4;}
+.pct-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:70px;}
+.pct-track{width:60px;height:4px;background:var(--gray-pale);border-radius:2px;overflow:hidden;}
+.pct-fill{height:100%;border-radius:2px;transition:width 0.3s;}
+.pct-slider{width:60px;}
+.pct-num{font-size:10px;font-weight:600;}
+.rev-cb{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--gray-lt);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.rev-cb.done{background:var(--teal-svg);border-color:var(--teal-svg);}
+.rev-cb.done::after{content:'✓';font-size:11px;color:#fff;font-weight:700;}
+.chart-card{background:#fff;border-radius:12px;border:0.5px solid var(--gray-lt);padding:18px 20px;margin-bottom:16px;}
+.chart-title{font-family:'Playfair Display',serif;font-weight:700;font-size:16px;color:var(--teal);margin-bottom:4px;}
+.chart-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--brown-mid);margin-bottom:14px;}
+.chart-bars{display:flex;gap:3px;align-items:flex-end;height:100px;border-bottom:1px solid var(--gray-lt);padding-bottom:4px;margin-bottom:6px;}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;height:100%;justify-content:flex-end;}
+.bar-pair{width:100%;display:flex;gap:1px;align-items:flex-end;}
+.bar-b{flex:1;border-radius:2px 2px 0 0;min-height:2px;transition:height 0.5s ease;}
+.bar-lbl{font-size:8px;color:var(--gray);text-align:center;}
+.chart-legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+.cl-i{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--brown-mid);}
+.cl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+.btns-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:8px;}
+.btn{font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;padding:9px 20px;border-radius:6px;cursor:pointer;border:none;transition:opacity 0.2s;white-space:nowrap;}
+.btn:hover{opacity:0.85;}
+.btn-save{background:var(--teal-svg);color:#fff;}
+.btn-print{background:var(--gold);color:var(--brown);}
+.btn-reset{background:transparent;color:var(--gray);border:0.5px solid var(--gray-lt)!important;}
+.ref-section{max-width:800px;margin:24px auto 0;padding:0 16px 40px;}
+.ref-card{background:#fff;border-radius:12px;padding:26px 28px;border:0.5px solid rgba(45,107,101,0.2);}
+.ref-title{font-family:'Playfair Display',serif;font-weight:700;font-size:19px;color:var(--teal);margin-bottom:10px;}
+.ref-body{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--brown-mid);line-height:1.8;margin-bottom:16px;}
+.ref-q{background:var(--teal-pale);border-left:3px solid var(--teal-svg);border-radius:0 8px 8px 0;padding:14px 18px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--teal-dark);line-height:1.75;margin-bottom:16px;}
+.ref-q strong{display:block;font-style:normal;font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--teal);margin-bottom:4px;}
+.afirm{background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;border-radius:8px;padding:18px 24px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;line-height:1.7;text-align:center;}
+.afirm span{display:block;font-style:normal;font-family:'Raleway',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:5px;}
+.footer{background:var(--teal);padding:28px 24px;text-align:center;}
+.footer p{font-weight:200;font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;}
+.footer strong{color:#fff;font-weight:600;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--teal-svg);color:#fff;padding:10px 24px;border-radius:24px;font-size:13px;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:999;box-shadow:0 4px 20px rgba(29,158,117,0.4);}
+.toast.show{opacity:1;}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Planificador Trimestral · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Mis 90 Días</div>
+    <div class="hero-accent"><div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div></div>
+    <div class="hero-sub">13 semanas · 3 meses · 90 días para<br><strong>transformar tu vida</strong> un hábito a la vez</div>
+    <div class="hero-badge">✦ &nbsp; Cronograma Trimestral Interactivo &nbsp; ✦</div>
+    <div style="margin-top:18px;"><span class="hero-author-by">A u t o r a</span><div class="hero-author">Jenifer Mendoza</div></div>
+    <div class="scroll-cta" onclick="document.getElementById('planner').scrollIntoView({behavior:'smooth'})">
+      <span>Comenzar mis 90 días</span>
+      <div class="scroll-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<div class="intro-section">
+  <h2>90 días cambian todo</h2>
+  <p>Un trimestre es la unidad de tiempo perfecta para el cambio real — suficientemente corto para mantener el enfoque, suficientemente largo para ver resultados transformadores.</p>
+  <div class="quote-banner">"No es lo que hacemos de vez en cuando lo que cambia nuestra vida —<br>es lo que hacemos <strong>de forma consistente</strong>." — Tony Robbins</div>
+</div>
+
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-card"><span class="stat-num" style="color:var(--blue);" id="sDays">0</span><span class="stat-label">días activos</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--teal-svg);" id="sHabits">0</span><span class="stat-label">hábitos marcados</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--amber);" id="sOkr">0%</span><span class="stat-label">avance OKR promedio</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--teal);" id="sRevs">0</span><span class="stat-label">revisiones completadas</span></div>
+  </div>
+</div>
+
+<div class="main-section" id="planner">
+  <div class="main-title">Mi planificador trimestral</div>
+  <div class="main-sub">Personaliza tus hábitos, navega por mes y marca tu progreso cada día</div>
+  <div class="habits-card">
+    <div class="hc-title">Mis 4 hábitos a trackear:</div>
+    <div class="hc-grid">
+      <div class="hc-row"><div class="hc-dot" style="background:var(--blue);"></div><input class="hc-input" id="h0" value="Ritual matutino" placeholder="Hábito 1" oninput="renderAll()"></div>
+      <div class="hc-row"><div class="hc-dot" style="background:var(--teal-svg);"></div><input class="hc-input" id="h1" value="Ejercicio" placeholder="Hábito 2" oninput="renderAll()"></div>
+      <div class="hc-row"><div class="hc-dot" style="background:var(--amber);"></div><input class="hc-input" id="h2" value="Lectura" placeholder="Hábito 3" oninput="renderAll()"></div>
+      <div class="hc-row"><div class="hc-dot" style="background:var(--pink);"></div><input class="hc-input" id="h3" value="Diario personal" placeholder="Hábito 4" oninput="renderAll()"></div>
+    </div>
+  </div>
+  <div class="month-tabs">
+    <div class="mtab am1" id="tab0" onclick="setMonth(0)">Mes 1 · Sem 1–4</div>
+    <div class="mtab" id="tab1" onclick="setMonth(1)">Mes 2 · Sem 5–9</div>
+    <div class="mtab" id="tab2" onclick="setMonth(2)">Mes 3 · Sem 10–13</div>
+  </div>
+  <div class="table-wrap"><table class="wt"><thead id="wtH"></thead><tbody id="wtB"></tbody></table></div>
+  <div class="chart-card">
+    <div class="chart-title">Progreso acumulado · 13 semanas</div>
+    <div class="chart-sub">Barras azules = % OKR · Barras verdes = % hábitos completados · ⭐ = hito</div>
+    <div class="chart-bars" id="chartBars"></div>
+    <div class="chart-legend">
+      <div class="cl-i"><div class="cl-dot" style="background:var(--blue);"></div>% Avance OKR</div>
+      <div class="cl-i"><div class="cl-dot" style="background:var(--teal-svg);"></div>% Hábitos</div>
+      <div class="cl-i"><span style="font-size:11px;">⭐</span>Hito</div>
+    </div>
+  </div>
+  <div class="btns-row">
+    <button class="btn btn-save"  onclick="saveCT()">💾 Guardar progreso</button>
+    <button class="btn btn-print" onclick="printCT()">📄 Imprimir resumen</button>
+    <button class="btn btn-reset" onclick="resetCT()">Reiniciar trimestre</button>
+  </div>
+</div>
+
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">Por qué 90 días y no un año</div>
+    <div class="ref-body">Un año es demasiado largo para mantener el enfoque. Un mes es demasiado corto para ver resultados reales. 90 días es la unidad perfecta — crea urgencia sin ansiedad, permite ajustes sin perder la dirección y es suficiente para instalar hábitos que duran toda la vida.</div>
+    <div class="ref-q"><strong>Pregunta para tu diario:</strong>"¿Qué quiero poder decir sobre estos 90 días cuando terminen? ¿Quién seré al día 90 si mantengo mis hábitos consistentemente?"</div>
+    <div class="afirm"><span>Afirmación del trimestre</span>"90 días de consistencia imperfecta valen más que 10 años de perfección imaginada. Hoy empiezo — y mañana sigo."</div>
+  </div>
+</div>
+
+<div class="footer">
+  <p><strong>Método Camino</strong> · Planificador Trimestral · 90 Días de Transformación<br>Herramienta de seguimiento para mujeres de 40+<br>© 2026 Jenifer Mendoza · Todos los derechos reservados</p>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY='metodoCamino_90dias';
+const HC=['#185FA5','#1D9E75','#EF9F27','#D4537E'];
+const MC=['#185FA5','#1D9E75','#633806'];
+const WEEKS=[
+  {w:1,m:0,dates:'Días 1–7',ms:'⭐ Inicio del trimestre'},
+  {w:2,m:0,dates:'Días 8–14'},
+  {w:3,m:0,dates:'Días 15–21'},
+  {w:4,m:0,dates:'Días 22–28',ms:'⭐ Revisión Mes 1'},
+  {w:5,m:1,dates:'Días 29–35'},
+  {w:6,m:1,dates:'Días 36–42'},
+  {w:7,m:1,dates:'Días 43–49',ms:'⭐ Punto medio · 45 días'},
+  {w:8,m:1,dates:'Días 50–56'},
+  {w:9,m:1,dates:'Días 57–63',ms:'⭐ Revisión Mes 2'},
+  {w:10,m:2,dates:'Días 64–70'},
+  {w:11,m:2,dates:'Días 71–77'},
+  {w:12,m:2,dates:'Días 78–84'},
+  {w:13,m:2,dates:'Días 85–90',ms:'⭐ Cierre del trimestre'}
+];
+let am=0, data={};
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d)data=d;}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}}
+function ghn(){return[0,1,2,3].map(i=>document.getElementById('h'+i)?.value||'Hábito '+(i+1));}
+function setMonth(m){
+  am=m;
+  [0,1,2].forEach(i=>{const t=document.getElementById('tab'+i);t.className='mtab'+(i===m?' am'+(m+1):'');});
+  renderTable();
+}
+function toggleH(w,d,h){data[`w${w}d${d}h${h}`]=!data[`w${w}d${d}h${h}`];save();renderAll();}
+function toggleR(w){data['rev_'+w]=!data['rev_'+w];save();renderAll();}
+function updP(w,v){data['pct_'+w]=parseInt(v);save();renderAll();}
+function renderTable(){
+  const wks=WEEKS.filter(wk=>wk.m===am);
+  const col=MC[am];
+  const hn=ghn();
+  document.getElementById('wtH').innerHTML=`<tr><th class="tl" style="min-width:110px;">Semana</th>${hn.map((h,i)=>`<th style="color:${HC[i]};min-width:65px;">${h.substring(0,7)}</th>`).join('')}<th style="min-width:80px;">% OKR</th><th style="min-width:44px;">Rev.</th></tr>`;
+  let r='';
+  wks.forEach(wk=>{
+    const pct=parseInt(data['pct_'+wk.w])||0;
+    const rev=data['rev_'+wk.w]||false;
+    r+=`<tr class="${wk.ms?'mrow':''}"><td><div class="wk-name">Semana ${wk.w}</div><div class="wk-dates">${wk.dates}</div>${wk.ms?`<div class="mbadge">${wk.ms}</div>`:''}</td>`;
+    [0,1,2,3].forEach(hi=>{
+      r+=`<td><div class="hchecks">`;
+      [0,1,2,3,4,5,6].forEach(di=>{
+        const on=data[`w${wk.w}d${di}h${hi}`]||false;
+        r+=`<div class="hch ${on?'on':''}" style="border-color:${HC[hi]};${on?'background:'+HC[hi]+';':''}" onclick="toggleH(${wk.w},${di},${hi})"></div>`;
+      });
+      r+='</div></td>';
+    });
+    r+=`<td><div class="pct-wrap"><div class="pct-track"><div class="pct-fill" style="width:${pct}%;background:${col};"></div></div><input type="range" class="pct-slider" min="0" max="100" step="5" value="${pct}" style="accent-color:${col};" oninput="updP(${wk.w},this.value)"><span class="pct-num" style="color:${col};">${pct}%</span></div></td>`;
+    r+=`<td style="text-align:center;"><div class="rev-cb ${rev?'done':''}" onclick="toggleR(${wk.w})"></div></td></tr>`;
+  });
+  document.getElementById('wtB').innerHTML=r;
+}
+function renderChart(){
+  const bars=document.getElementById('chartBars');
+  if(!bars)return;
+  bars.innerHTML='';
+  WEEKS.forEach(wk=>{
+    const pct=parseInt(data['pct_'+wk.w])||0;
+    const hd=[0,1,2,3].reduce((s,hi)=>s+[0,1,2,3,4,5,6].filter(di=>data[`w${wk.w}d${di}h${hi}`]).length,0);
+    const hp=Math.round(hd/28*100);
+    const col=MC[wk.m];
+    const w=document.createElement('div');
+    w.className='bar-wrap';
+    w.title=`Sem ${wk.w}: OKR ${pct}% · Hábitos ${hp}%`;
+    w.innerHTML=`<div class="bar-pair" style="height:86px;align-items:flex-end;"><div class="bar-b" style="background:${col};height:${Math.max(2,pct*0.86)}px;opacity:0.9;"></div><div class="bar-b" style="background:#1D9E75;height:${Math.max(2,hp*0.86)}px;opacity:0.7;"></div></div><span class="bar-lbl">${wk.w}${wk.ms?'⭐':''}</span>`;
+    bars.appendChild(w);
+  });
+}
+function renderStats(){
+  const hd=[0,1,2,3].reduce((s,hi)=>s+WEEKS.reduce((ss,wk)=>ss+[0,1,2,3,4,5,6].filter(di=>data[`w${wk.w}d${di}h${hi}`]).length,0),0);
+  const pcts=WEEKS.map(wk=>parseInt(data['pct_'+wk.w])||0);
+  const avg=pcts.length?Math.round(pcts.reduce((s,v)=>s+v,0)/pcts.length):0;
+  const revs=WEEKS.filter(wk=>data['rev_'+wk.w]).length;
+  const days=new Set(WEEKS.flatMap(wk=>[0,1,2,3].flatMap(hi=>[0,1,2,3,4,5,6].filter(di=>data[`w${wk.w}d${di}h${hi}`]).map(di=>`${wk.w}-${di}`)))).size;
+  document.getElementById('sDays').textContent=days;
+  document.getElementById('sHabits').textContent=hd;
+  document.getElementById('sOkr').textContent=avg+'%';
+  document.getElementById('sRevs').textContent=revs;
+}
+function renderAll(){renderTable();renderChart();renderStats();}
+function saveCT(){data._hn=ghn();save();showToast('✓ Progreso guardado');}
+function resetCT(){if(!confirm('¿Reiniciar todo el trimestre?'))return;data={};save();renderAll();showToast('Trimestre reiniciado');}
+function printCT(){
+  const hn=ghn();
+  const rows=WEEKS.map(wk=>{
+    const pct=parseInt(data['pct_'+wk.w])||0;
+    const rev=data['rev_'+wk.w]?'✓':'—';
+    const hc=[0,1,2,3].map(hi=>[0,1,2,3,4,5,6].filter(di=>data[`w${wk.w}d${di}h${hi}`]).length);
+    return `<tr style="${wk.ms?'background:#FAEEDA;':''}"><td style="padding:7px 10px;font-size:12px;font-weight:600;">Sem ${wk.w}<br><span style="font-size:9px;color:#888780;">${wk.dates}</span>${wk.ms?`<br><span style="font-size:9px;color:#633806;">${wk.ms}</span>`:''}</td>${hc.map((c,i)=>`<td style="padding:7px 8px;text-align:center;font-size:12px;font-weight:700;color:${HC[i]};">${c}/7</td>`).join('')}<td style="padding:7px 8px;text-align:center;font-size:12px;font-weight:700;color:#185FA5;">${pct}%</td><td style="padding:7px 8px;text-align:center;font-size:14px;color:#1D9E75;">${rev}</td></tr>`;
+  }).join('');
+  const html=`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Mis 90 Días — Método Camino</title><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet"><style>body{font-family:'Raleway',sans-serif;margin:0;background:#FAF6F0;color:#4A2E22;}.hdr{background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 40%,#5B9E98 70%,transparent 100%);padding:36px 48px 44px;clip-path:polygon(0 0,100% 0,100% 82%,55% 96%,0 86%);}h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#fff;margin:0;}.ey{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:6px;}.body{padding:24px 40px;}.st{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#2D6B65;margin:0 0 10px;}table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #D3D1C7;margin-bottom:20px;}thead{background:#2D6B65;}th{padding:8px 8px;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.85);text-align:center;}th:first-child{text-align:left;}td{border-bottom:1px solid #F1EFE8;}tr:last-child td{border-bottom:none;}.qt{background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:0 8px 8px 0;padding:12px 18px;font-style:italic;font-size:13px;color:#085041;line-height:1.8;}.ft{background:#2D6B65;padding:14px 40px;text-align:center;margin-top:20px;}.ft p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}.ft strong{color:#fff;}@media print{body{background:#fff;}.hdr,.ft{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}</style></head><body><div class="hdr"><div class="ey">✦ Método Camino · Planificador Trimestral · 90 Días</div><h1>Mis 90 Días · Resumen Trimestral</h1></div><div class="body"><div class="st">Seguimiento semanal de hábitos y OKR</div><table><thead><tr><th style="text-align:left;min-width:100px;">Semana</th>${hn.map(h=>`<th>${h.substring(0,8)}</th>`).join('')}<th>% OKR</th><th>Rev.</th></tr></thead><tbody>${rows}</tbody></table><div class="qt">"90 días de consistencia imperfecta valen más que 10 años de perfección imaginada. Hoy empiezo — y mañana sigo."</div></div><div class="ft"><p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026</p></div></body></html>`;
+  const wn=window.open('','_blank');
+  if(wn){wn.document.write(html);wn.document.close();setTimeout(()=>wn.print(),700);}
+  else showToast('Permite ventanas emergentes para imprimir');
+}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+load();
+if(data._hn)data._hn.forEach((n,i)=>{const el=document.getElementById('h'+i);if(el)el.value=n;});
+renderAll();
+</script>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía de Identidad · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-lt:   #5B9E98;
+  --teal-pale: #C2DCDA;
+  --gold:      #C8A96E;
+  --gold-deep: #A8853E;
+  --blush:     #E4A98A;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --sand2:     #D6C4A8;
+  --gray:      #888780;
+  --blue:      #185FA5;
+  --blue-lt:   #378ADD;
+  --blue-pale: #E6F1FB;
+  --teal-svg:  #0F6E56;
+  --teal-svg-pale: #E1F5EE;
+  --amber:     #633806;
+  --amber-lt:  #EF9F27;
+  --amber-pale:#FAEEDA;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Raleway',sans-serif;
+  background:var(--cream);
+  color:var(--brown);
+  min-height:100vh;
+}
+
+/* ══ HERO ══ */
+.hero {
+  position:relative; overflow:hidden;
+  background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%);
+}
+.hero-swoosh {
+  position:absolute; top:0; left:0; right:0; height:100%;
+  background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%);
+  clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%);
+}
+.hero-bottom {
+  position:absolute; bottom:0; left:0; right:0; height:35%;
+  background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%);
+  clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center;
+  padding:44px 24px 52px; text-align:center;
+}
+.hero-eyebrow {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.65em; color:rgba(255,255,255,0.88);
+  text-transform:uppercase; margin-bottom:8px;
+}
+.hero-metodo {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:12px;
+  letter-spacing:0.7em; color:rgba(255,255,255,0.65);
+  text-transform:uppercase; margin-bottom:2px;
+}
+.hero-title {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em;
+  color:#fff; line-height:1.2; max-width:560px;
+  text-shadow:0 3px 30px rgba(45,107,101,0.5);
+}
+.hero-accent {
+  display:flex; align-items:center; gap:10px; margin:14px 0 16px;
+}
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+  font-size:clamp(14px,2.2vw,17px); color:var(--brown);
+  line-height:1.75; max-width:500px;
+}
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge {
+  margin-top:16px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; padding:8px 24px;
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:10px;
+  letter-spacing:0.3em; text-transform:uppercase;
+  border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35);
+}
+.hero-author {
+  margin-top:18px;
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:20px; color:var(--teal); letter-spacing:0.05em;
+}
+.hero-author-by {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:9px;
+  letter-spacing:0.45em; color:var(--brown-mid);
+  text-transform:uppercase; display:block; margin-bottom:3px;
+}
+.scroll-cta {
+  margin-top:24px;
+  display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+}
+.scroll-cta span {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.35em; color:var(--teal); text-transform:uppercase;
+}
+.scroll-arrow {
+  width:28px; height:28px;
+  border:1px solid rgba(45,107,101,0.4); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  animation:bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section {
+  background:var(--sand); padding:36px 24px; text-align:center;
+}
+.intro-section h2 {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:22px;
+  color:var(--teal); margin-bottom:10px;
+}
+.intro-section p {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px;
+  color:var(--brown-mid); max-width:560px; margin:0 auto 20px; line-height:1.75;
+}
+.quote-banner {
+  background:rgba(255,255,255,0.6);
+  border-left:3px solid var(--teal); border-radius:0 8px 8px 0;
+  padding:14px 20px; max-width:500px; margin:0 auto;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; color:var(--brown); line-height:1.8;
+}
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ LEGEND ══ */
+.legend-bar {
+  display:flex; gap:12px; justify-content:center;
+  flex-wrap:wrap; padding:24px 24px 0;
+}
+.leg-i {
+  display:flex; align-items:center; gap:8px;
+  font-family:'Raleway',sans-serif; font-size:12px; color:var(--brown-mid);
+  padding:5px 14px; border-radius:20px; border:0.5px solid rgba(0,0,0,0.1);
+  cursor:pointer; transition:all 0.2s; background:rgba(255,255,255,0.5);
+}
+.leg-i:hover { background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.leg-dot { width:11px; height:11px; border-radius:50%; flex-shrink:0; }
+
+/* ══ INFOGRAFIA ══ */
+.infografia-section {
+  max-width:760px; margin:0 auto; padding:16px 16px 0;
+}
+.infografia-section svg { width:100%; display:block; }
+
+/* ══ DETAIL CARDS ══ */
+.detail-section {
+  max-width:760px; margin:0 auto; padding:0 16px 16px;
+}
+.detail-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:14px; margin-top:16px;
+}
+@media(max-width:540px){ .detail-grid{ grid-template-columns:1fr; } }
+
+.layer-card {
+  border-radius:12px; border:0.5px solid rgba(0,0,0,0.1);
+  padding:20px 22px; cursor:pointer;
+  transition:all 0.25s; position:relative;
+  overflow:hidden;
+}
+.layer-card:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.1); }
+.layer-card.active { box-shadow:0 6px 24px rgba(0,0,0,0.15); }
+.lc-num {
+  font-family:'Playfair Display',serif; font-size:32px; font-weight:900;
+  opacity:0.12; position:absolute; top:8px; right:14px; line-height:1;
+}
+.lc-label {
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:9px;
+  letter-spacing:0.3em; text-transform:uppercase; display:block; margin-bottom:5px;
+}
+.lc-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:16px;
+  margin-bottom:8px; line-height:1.3;
+}
+.lc-body {
+  font-family:'Cormorant Garamond',serif; font-size:14px;
+  line-height:1.7; margin-bottom:12px;
+}
+.lc-tags { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px; }
+.lc-tag { font-size:11px; padding:3px 10px; border-radius:20px; border:0.5px solid; }
+.lc-reflexion {
+  padding:10px 14px; border-radius:0 6px 6px 0;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:13px; line-height:1.65; border-left:2px solid;
+}
+.lc-reflexion strong {
+  display:block; font-style:normal;
+  font-family:'Raleway',sans-serif; font-size:10px;
+  letter-spacing:0.1em; text-transform:uppercase; margin-bottom:3px;
+}
+
+/* ══ AFIRMACIONES ══ */
+.afirmaciones {
+  max-width:760px; margin:24px auto 0; padding:0 16px 40px;
+}
+.afirm-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal); text-align:center; margin-bottom:16px;
+}
+.afirm-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px;
+}
+@media(max-width:540px){ .afirm-grid{ grid-template-columns:1fr; } }
+.afirm-card {
+  background:#fff; border-radius:10px; padding:16px 18px;
+  border:0.5px solid rgba(45,107,101,0.2);
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; color:var(--brown); line-height:1.7; text-align:center;
+}
+.afirm-card span {
+  display:block; font-style:normal; font-size:10px;
+  font-family:'Raleway',sans-serif; font-weight:600;
+  letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--teal); margin-bottom:6px;
+}
+
+/* ══ FOOTER ══ */
+.footer {
+  background:var(--teal); padding:28px 24px; text-align:center;
+}
+.footer p {
+  font-family:'Raleway',sans-serif; font-weight:200;
+  font-size:11px; letter-spacing:0.2em;
+  color:rgba(255,255,255,0.7); line-height:2;
+}
+.footer strong { color:#fff; font-weight:600; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta de Autoconocimiento · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Infografía de Identidad</div>
+    <div class="hero-accent">
+      <div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div>
+    </div>
+    <div class="hero-sub">
+      Descubre las <strong>3 capas de tu identidad</strong> y reconecta<br>
+      con tu <strong>esencia más profunda</strong>
+    </div>
+    <div class="hero-badge">✦ &nbsp; Silueta Interactiva de Identidad &nbsp; ✦</div>
+    <div style="margin-top:18px;">
+      <span class="hero-author-by">A u t o r a</span>
+      <div class="hero-author">Jenifer Mendoza</div>
+    </div>
+    <div class="scroll-cta" onclick="document.getElementById('infografia').scrollIntoView({behavior:'smooth'})">
+      <span>Explorar mis capas</span>
+      <div class="scroll-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTRO ══ -->
+<div class="intro-section">
+  <h2>¿Quién eres tú, más allá de tus roles?</h2>
+  <p>A los 40+ muchas mujeres descubren que han vivido desde afuera hacia adentro — para otros, para los roles, para las expectativas. Esta infografía te invita a hacer el camino inverso: del exterior hacia tu núcleo.</p>
+  <div class="quote-banner">
+    "Conocerse a una misma es el principio de toda sabiduría."<br>
+    — <strong>Aristóteles</strong>
+  </div>
+</div>
+
+<!-- ══ LEYENDA ══ -->
+<div class="legend-bar" id="infografia">
+  <div class="leg-i" onclick="scrollToCard('exterior')">
+    <div class="leg-dot" style="background:#B4B2A9;"></div>Capa exterior
+  </div>
+  <div class="leg-i" onclick="scrollToCard('media')">
+    <div class="leg-dot" style="background:#378ADD;"></div>Capa media
+  </div>
+  <div class="leg-i" onclick="scrollToCard('esencia')">
+    <div class="leg-dot" style="background:#1D9E75;"></div>Esencia
+  </div>
+  <div class="leg-i" onclick="scrollToCard('nucleo')">
+    <div class="leg-dot" style="background:#C8A96E;"></div>Núcleo
+  </div>
+</div>
+
+<!-- ══ SVG SILUETA ══ -->
+<div class="infografia-section">
+<svg viewBox="0 0 680 720" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <clipPath id="sil">
+    <path d="M340,42 C322,42 308,56 306,74 C304,88 308,100 314,110 C306,113 299,120 298,130 C297,142 303,152 312,156 C309,168 305,180 299,192 C288,216 268,230 248,244 C220,262 192,270 174,288 C152,310 146,338 144,364 C142,390 146,416 150,440 C154,462 158,482 160,502 C162,520 162,538 158,558 C154,578 148,596 146,614 C144,628 145,642 150,652 C154,660 162,665 172,666 C184,667 194,662 200,652 C208,640 208,624 210,608 C212,592 216,576 222,562 C228,548 236,538 246,532 C258,525 274,522 290,521 C308,520 328,520 340,520 C352,520 372,520 390,521 C406,522 422,525 434,532 C444,538 452,548 458,562 C464,576 468,592 470,608 C472,624 472,640 480,652 C486,662 496,667 508,666 C518,665 526,660 530,652 C535,642 536,628 534,614 C532,596 526,578 522,558 C518,538 518,520 520,502 C522,482 526,462 530,440 C534,416 538,390 536,364 C534,338 528,310 506,288 C488,270 460,262 432,244 C412,230 392,216 381,192 C375,180 371,168 368,156 C377,152 383,142 382,130 C381,120 374,113 366,110 C372,100 376,88 374,74 C372,56 358,42 340,42 Z"/>
+  </clipPath>
+</defs>
+
+<!-- Capa exterior gris -->
+<g clip-path="url(#sil)" onclick="scrollToCard('exterior')" style="cursor:pointer;">
+  <rect x="100" y="30" width="480" height="660" fill="#D3D1C7"/>
+</g>
+<!-- Capa media azul -->
+<g clip-path="url(#sil)" onclick="scrollToCard('media')" style="cursor:pointer;">
+  <path d="M340,108 C328,108 314,120 310,140 C306,158 310,172 318,182 C308,196 296,212 282,228 C262,250 240,262 228,282 C212,308 210,338 210,364 C210,390 214,416 218,440 C222,460 226,480 228,500 C230,520 228,542 226,562 C224,580 222,598 224,614 C226,626 230,636 238,642 C248,648 258,646 266,638 C274,630 276,616 278,600 C280,584 284,568 290,556 C298,542 310,534 326,530 C334,528 340,528 340,528 C340,528 346,528 354,530 C370,534 382,542 390,556 C396,568 400,584 402,600 C404,616 406,630 414,638 C422,646 432,648 442,642 C450,636 454,626 456,614 C458,598 456,580 454,562 C452,542 450,520 452,500 C454,480 458,460 462,440 C466,416 470,390 470,364 C470,338 468,308 452,282 C440,262 418,250 398,228 C384,212 372,196 362,182 C370,172 374,158 370,140 C366,120 352,108 340,108 Z" fill="#85B7EB"/>
+</g>
+<!-- Esencia turquesa -->
+<g clip-path="url(#sil)" onclick="scrollToCard('esencia')" style="cursor:pointer;">
+  <ellipse cx="340" cy="390" rx="108" ry="200" fill="#5DCAA5"/>
+</g>
+<!-- Núcleo dorado -->
+<g clip-path="url(#sil)" onclick="scrollToCard('nucleo')" style="cursor:pointer;">
+  <ellipse cx="340" cy="360" rx="58" ry="105" fill="#C8A96E"/>
+  <ellipse cx="340" cy="330" rx="22" ry="28" fill="#E2CC9A" opacity="0.7"/>
+</g>
+
+<!-- Outline silueta -->
+<path d="M340,42 C322,42 308,56 306,74 C304,88 308,100 314,110 C306,113 299,120 298,130 C297,142 303,152 312,156 C309,168 305,180 299,192 C288,216 268,230 248,244 C220,262 192,270 174,288 C152,310 146,338 144,364 C142,390 146,416 150,440 C154,462 158,482 160,502 C162,520 162,538 158,558 C154,578 148,596 146,614 C144,628 145,642 150,652 C154,660 162,665 172,666 C184,667 194,662 200,652 C208,640 208,624 210,608 C212,592 216,576 222,562 C228,548 236,538 246,532 C258,525 274,522 290,521 C308,520 328,520 340,520 C352,520 372,520 390,521 C406,522 422,525 434,532 C444,538 452,548 458,562 C464,576 468,592 470,608 C472,624 472,640 480,652 C486,662 496,667 508,666 C518,665 526,660 530,652 C535,642 536,628 534,614 C532,596 526,578 522,558 C518,538 518,520 520,502 C522,482 526,462 530,440 C534,416 538,390 536,364 C534,338 528,310 506,288 C488,270 460,262 432,244 C412,230 392,216 381,192 C375,180 371,168 368,156 C377,152 383,142 382,130 C381,120 374,113 366,110 C372,100 376,88 374,74 C372,56 358,42 340,42 Z" fill="none" stroke="#888780" stroke-width="1.5"/>
+
+<!-- Labels izquierda -->
+<line x1="178" y1="300" x2="96" y2="300" stroke="#888780" stroke-width="0.8" stroke-dasharray="4 3"/>
+<circle cx="178" cy="300" r="3" fill="#888780"/>
+<text font-family="Raleway,sans-serif" font-size="12" font-weight="500" fill="#444441" x="92" y="288" text-anchor="end">Capa exterior</text>
+<text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" x="92" y="305" text-anchor="end">Roles · etiquetas</text>
+
+<line x1="216" y1="400" x2="96" y2="400" stroke="#185FA5" stroke-width="0.8" stroke-dasharray="4 3"/>
+<circle cx="216" cy="400" r="3" fill="#185FA5"/>
+<text font-family="Raleway,sans-serif" font-size="12" font-weight="500" fill="#444441" x="92" y="388" text-anchor="end">Capa media</text>
+<text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" x="92" y="405" text-anchor="end">Creencias · valores</text>
+
+<line x1="250" y1="490" x2="96" y2="490" stroke="#0F6E56" stroke-width="0.8" stroke-dasharray="4 3"/>
+<circle cx="250" cy="490" r="3" fill="#0F6E56"/>
+<text font-family="Raleway,sans-serif" font-size="12" font-weight="500" fill="#444441" x="92" y="478" text-anchor="end">Esencia</text>
+<text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" x="92" y="495" text-anchor="end">Talentos · pasiones</text>
+
+<line x1="298" y1="360" x2="96" y2="570" stroke="#BA7517" stroke-width="0.8" stroke-dasharray="4 3"/>
+<circle cx="298" cy="360" r="3" fill="#C8A96E"/>
+<text font-family="Raleway,sans-serif" font-size="12" font-weight="500" fill="#444441" x="92" y="560" text-anchor="end">Núcleo dorado</text>
+<text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" x="92" y="576" text-anchor="end">Tu esencia pura</text>
+
+<!-- Labels derecha -->
+<line x1="502" y1="300" x2="584" y2="300" stroke="#888780" stroke-width="0.8" stroke-dasharray="4 3"/>
+<circle cx="502" cy="300" r="3" fill="#888780"/>
+<text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" x="588" y="293">Madre · esposa · hija</text>
+<text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" x="588" y="309">trabajadora · la fuerte</text>
+
+<line x1="464" y1="400" x2="584" y2="400" stroke="#185FA5" stroke-width="0.8" stroke-dasharray="4 3"/>
+<circle cx="464" cy="400" r="3" fill="#185FA5"/>
+<text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" x="588" y="393">"Debo ser fuerte"</text>
+<text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" x="588" y="409">"No soy suficiente"</text>
+
+<line x1="430" y1="490" x2="584" y2="490" stroke="#0F6E56" stroke-width="0.8" stroke-dasharray="4 3"/>
+<circle cx="430" cy="490" r="3" fill="#0F6E56"/>
+<text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" x="588" y="483">Creatividad · empatía</text>
+<text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" x="588" y="499">intuición · propósito</text>
+
+<line x1="382" y1="360" x2="584" y2="570" stroke="#BA7517" stroke-width="0.8" stroke-dasharray="4 3"/>
+<circle cx="382" cy="360" r="3" fill="#C8A96E"/>
+<text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" x="588" y="563">Quien eres más allá</text>
+<text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" x="588" y="579">de todos los roles</text>
+
+<!-- Pregunta central -->
+<text font-family="Playfair Display,serif" font-size="13" font-weight="700" fill="#7A4B10" text-anchor="middle" x="340" y="348">¿Quién</text>
+<text font-family="Playfair Display,serif" font-size="13" font-weight="700" fill="#7A4B10" text-anchor="middle" x="340" y="366">soy yo?</text>
+
+<text font-family="Raleway,sans-serif" font-size="11" fill="#888780" text-anchor="middle" x="340" y="660">Haz clic en cada capa · Explora más abajo</text>
+</svg>
+</div>
+
+<!-- ══ CARDS DE CAPAS ══ -->
+<div class="detail-section">
+  <div class="detail-grid">
+
+    <!-- EXTERIOR -->
+    <div class="layer-card" id="card-exterior" style="background:#F1EFE8; border-color:#B4B2A9;">
+      <div class="lc-num" style="color:#888780;">01</div>
+      <span class="lc-label" style="color:#5F5E5A;">Capa exterior</span>
+      <div class="lc-title" style="color:#444441;">Roles y etiquetas sociales</div>
+      <div class="lc-body" style="color:#5F5E5A;">Es la capa más visible — la que el mundo ve primero. Está formada por los roles que desempeñas y las etiquetas que otros te han puesto. No es falsa, pero tampoco es todo lo que eres.</div>
+      <div class="lc-tags">
+        <span class="lc-tag" style="background:#E8E6E0;color:#5F5E5A;border-color:#B4B2A9;">Madre</span>
+        <span class="lc-tag" style="background:#E8E6E0;color:#5F5E5A;border-color:#B4B2A9;">Esposa</span>
+        <span class="lc-tag" style="background:#E8E6E0;color:#5F5E5A;border-color:#B4B2A9;">Hija</span>
+        <span class="lc-tag" style="background:#E8E6E0;color:#5F5E5A;border-color:#B4B2A9;">Trabajadora</span>
+        <span class="lc-tag" style="background:#E8E6E0;color:#5F5E5A;border-color:#B4B2A9;">La fuerte</span>
+        <span class="lc-tag" style="background:#E8E6E0;color:#5F5E5A;border-color:#B4B2A9;">La responsable</span>
+        <span class="lc-tag" style="background:#E8E6E0;color:#5F5E5A;border-color:#B4B2A9;">La que siempre ayuda</span>
+      </div>
+      <div class="lc-reflexion" style="background:#E8E6E0;border-left-color:#888780;color:#444441;">
+        <strong style="color:#5F5E5A;">Reflexiona:</strong>
+        ¿Cuáles de estos roles elegiste realmente y cuáles simplemente llegaron? ¿Hay alguna etiqueta que llevas pero que ya no te representa?
+      </div>
+    </div>
+
+    <!-- MEDIA -->
+    <div class="layer-card" id="card-media" style="background:#E6F1FB; border-color:#85B7EB;">
+      <div class="lc-num" style="color:#185FA5;">02</div>
+      <span class="lc-label" style="color:#185FA5;">Capa media</span>
+      <div class="lc-title" style="color:#0C447C;">Creencias y valores aprendidos</div>
+      <div class="lc-body" style="color:#185FA5;">Esta capa se formó en tu infancia. Son los mensajes que internalizaste sobre quién debes ser y qué mereces. Algunos te protegen; otros te limitan sin que te des cuenta.</div>
+      <div class="lc-tags">
+        <span class="lc-tag" style="background:#B5D4F4;color:#0C447C;border-color:#85B7EB;">"Debo ser fuerte"</span>
+        <span class="lc-tag" style="background:#B5D4F4;color:#0C447C;border-color:#85B7EB;">"No soy suficiente"</span>
+        <span class="lc-tag" style="background:#B5D4F4;color:#0C447C;border-color:#85B7EB;">"Pedir ayuda es debilidad"</span>
+        <span class="lc-tag" style="background:#B5D4F4;color:#0C447C;border-color:#85B7EB;">"Debo ganarme el amor"</span>
+        <span class="lc-tag" style="background:#B5D4F4;color:#0C447C;border-color:#85B7EB;">"Mis necesidades no importan"</span>
+      </div>
+      <div class="lc-reflexion" style="background:#B5D4F4;border-left-color:#378ADD;color:#0C447C;">
+        <strong>Reflexiona:</strong>
+        ¿Cuál de estas creencias reconoces en ti misma? ¿De dónde viene? ¿Sigue siendo verdad hoy o la aprendiste hace mucho tiempo?
+      </div>
+    </div>
+
+    <!-- ESENCIA -->
+    <div class="layer-card" id="card-esencia" style="background:#E1F5EE; border-color:#5DCAA5;">
+      <div class="lc-num" style="color:#0F6E56;">03</div>
+      <span class="lc-label" style="color:#0F6E56;">Esencia</span>
+      <div class="lc-title" style="color:#085041;">Talentos innatos y pasiones genuinas</div>
+      <div class="lc-body" style="color:#0F6E56;">Aquí viven tus dones naturales — los que aparecen sin esfuerzo, los que te hacen perder la noción del tiempo, los que otros notan en ti aunque tú no los veas. Esta capa no la construiste: la trajiste.</div>
+      <div class="lc-tags">
+        <span class="lc-tag" style="background:#9FE1CB;color:#085041;border-color:#5DCAA5;">Tu curiosidad natural</span>
+        <span class="lc-tag" style="background:#9FE1CB;color:#085041;border-color:#5DCAA5;">Tu forma de amar</span>
+        <span class="lc-tag" style="background:#9FE1CB;color:#085041;border-color:#5DCAA5;">Tu creatividad</span>
+        <span class="lc-tag" style="background:#9FE1CB;color:#085041;border-color:#5DCAA5;">Tu intuición profunda</span>
+        <span class="lc-tag" style="background:#9FE1CB;color:#085041;border-color:#5DCAA5;">Tu capacidad de sanar</span>
+        <span class="lc-tag" style="background:#9FE1CB;color:#085041;border-color:#5DCAA5;">Lo que te hace brillar</span>
+      </div>
+      <div class="lc-reflexion" style="background:#9FE1CB;border-left-color:#1D9E75;color:#085041;">
+        <strong>Reflexiona:</strong>
+        ¿Cuándo fue la última vez que hiciste algo que te hizo perder la noción del tiempo? ¿Qué actividad te hace sentir completamente viva y tú misma?
+      </div>
+    </div>
+
+    <!-- NÚCLEO -->
+    <div class="layer-card" id="card-nucleo" style="background:#FAEEDA; border-color:#C8A96E;">
+      <div class="lc-num" style="color:#C8A96E;">04</div>
+      <span class="lc-label" style="color:#854F0B;">Núcleo dorado</span>
+      <div class="lc-title" style="color:#633806;">Tu esencia pura — quien eres en verdad</div>
+      <div class="lc-body" style="color:#854F0B;">Este es el centro inamovible de tu ser. Antes de los roles, antes de las creencias, antes de las expectativas de otros. Aquí vive la mujer que siempre fuiste y siempre serás. Nadie puede quitártelo.</div>
+      <div class="lc-tags">
+        <span class="lc-tag" style="background:#FAC775;color:#412402;border-color:#C8A96E;">Tu esencia única</span>
+        <span class="lc-tag" style="background:#FAC775;color:#412402;border-color:#C8A96E;">Tu luz propia</span>
+        <span class="lc-tag" style="background:#FAC775;color:#412402;border-color:#C8A96E;">Tu voz interior</span>
+        <span class="lc-tag" style="background:#FAC775;color:#412402;border-color:#C8A96E;">Tu propósito</span>
+        <span class="lc-tag" style="background:#FAC775;color:#412402;border-color:#C8A96E;">Tu verdad</span>
+        <span class="lc-tag" style="background:#FAC775;color:#412402;border-color:#C8A96E;">Tu amor incondicional</span>
+      </div>
+      <div class="lc-reflexion" style="background:#FAC775;border-left-color:#EF9F27;color:#412402;">
+        <strong style="color:#633806;">Reflexiona:</strong>
+        "¿Quién sería yo si no tuviera miedo? ¿Quién sería yo si nadie me estuviera mirando?" Esa respuesta vive aquí, en tu núcleo.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ AFIRMACIONES ══ -->
+<div class="afirmaciones">
+  <div class="afirm-title">Afirmaciones para reconectar con tu identidad</div>
+  <div class="afirm-grid">
+    <div class="afirm-card">
+      <span>Capa exterior</span>
+      "Desempeño roles con amor, pero ningún rol me define completamente. Soy mucho más que lo que hago."
+    </div>
+    <div class="afirm-card">
+      <span>Capa media</span>
+      "Las creencias que aprendí no son mi verdad permanente. Hoy elijo creer en mi valor sin tener que ganármelo."
+    </div>
+    <div class="afirm-card">
+      <span>Esencia</span>
+      "Mis talentos son dones únicos. Me doy permiso de brillar en lo que me sale de forma natural."
+    </div>
+    <div class="afirm-card">
+      <span>Núcleo dorado</span>
+      "En mi centro vive una mujer completa, valiosa y plena. Hoy elijo vivir desde ese lugar."
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <p>
+    <strong>Método Camino</strong> · Infografía de Identidad Femenina<br>
+    Herramienta de autoconocimiento para mujeres de 40+<br>
+    © 2026 Jenifer Mendoza · Todos los derechos reservados
+  </p>
+</div>
+
+<script>
+function scrollToCard(id) {
+  const card = document.getElementById('card-' + id);
+  if(card) {
+    card.scrollIntoView({ behavior:'smooth', block:'center' });
+    card.style.boxShadow = '0 8px 32px rgba(0,0,0,0.18)';
+    card.style.transform = 'translateY(-3px)';
+    setTimeout(() => {
+      card.style.boxShadow = '';
+      card.style.transform = '';
+    }, 1800);
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis OKR · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-dark: #085041;
+  --blue:      #185FA5;
+  --blue-mid:  #378ADD;
+  --blue-pale: #E6F1FB;
+  --blue-dark: #0C447C;
+  --blue-deep: #042C53;
+  --gold:      #C8A96E;
+  --amber:     #F5C87A;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --gray-pale: #F1EFE8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Raleway',sans-serif; background:var(--cream); color:var(--brown); min-height:100vh; }
+
+/* ══ HERO ══ */
+.hero { position:relative; overflow:hidden; background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%); }
+.hero-swoosh { position:absolute; top:0; left:0; right:0; height:100%; background:linear-gradient(158deg,#185FA5 0%,#0C447C 35%,#042C53 65%,rgba(24,95,165,0.15) 85%,transparent 100%); clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%); }
+.hero-bottom { position:absolute; bottom:0; left:0; right:0; height:35%; background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%); clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%); }
+.hero-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; padding:44px 24px 52px; text-align:center; }
+.hero-eyebrow { font-weight:300; font-size:10px; letter-spacing:0.65em; color:rgba(255,255,255,0.88); text-transform:uppercase; margin-bottom:8px; }
+.hero-metodo { font-weight:200; font-size:12px; letter-spacing:0.7em; color:rgba(255,255,255,0.65); text-transform:uppercase; margin-bottom:2px; }
+.hero-title { font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em; color:#fff; line-height:1.2; max-width:580px; text-shadow:0 3px 30px rgba(24,95,165,0.5); }
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--amber); transform:rotate(45deg); }
+.hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:clamp(14px,2.2vw,17px); color:var(--brown); line-height:1.75; max-width:520px; }
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--blue-mid); }
+.hero-badge { margin-top:16px; background:linear-gradient(135deg,var(--blue),var(--blue-dark)); color:#fff; padding:8px 24px; font-weight:600; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; border-radius:2px; box-shadow:0 4px 16px rgba(24,95,165,0.35); }
+.hero-author { margin-top:18px; font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:var(--blue-mid); letter-spacing:0.05em; }
+.hero-author-by { font-weight:200; font-size:9px; letter-spacing:0.45em; color:var(--brown-mid); text-transform:uppercase; display:block; margin-bottom:3px; }
+.scroll-cta { margin-top:24px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; }
+.scroll-cta span { font-weight:300; font-size:10px; letter-spacing:0.35em; color:var(--blue-mid); text-transform:uppercase; }
+.scroll-arrow { width:28px; height:28px; border:1px solid rgba(24,95,165,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; animation:bounceDown 2s ease-in-out infinite; }
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section { background:var(--sand); padding:36px 24px; text-align:center; }
+.intro-section h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:22px; color:var(--blue-dark); margin-bottom:10px; }
+.intro-section p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75; }
+.quote-banner { background:rgba(255,255,255,0.6); border-left:3px solid var(--blue); border-radius:0 8px 8px 0; padding:14px 20px; max-width:540px; margin:0 auto; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown); line-height:1.8; }
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--blue-dark); }
+
+/* ══ QUÉ SON OKR ══ */
+.okr-info { max-width:800px; margin:0 auto; padding:28px 16px 0; }
+.oi-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--blue-dark); margin-bottom:6px; }
+.oi-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:16px; }
+.oi-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+@media(max-width:500px){ .oi-grid{ grid-template-columns:1fr; } }
+.oi-card { border-radius:10px; padding:16px 18px; border:0.5px solid; }
+.oi-card.obj { background:var(--blue-pale); border-color:#85B7EB; }
+.oi-card.kr  { background:var(--teal-pale); border-color:var(--teal-svg); }
+.oi-card-top { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.oi-badge { font-family:'Raleway',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:3px 10px; border-radius:12px; }
+.oi-card.obj .oi-badge { background:var(--blue); color:#fff; }
+.oi-card.kr  .oi-badge { background:var(--teal-svg); color:#fff; }
+.oi-card-title { font-family:'Raleway',sans-serif; font-weight:600; font-size:13px; }
+.oi-card.obj .oi-card-title { color:var(--blue-dark); }
+.oi-card.kr  .oi-card-title { color:var(--teal-dark); }
+.oi-card-desc { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; line-height:1.6; }
+.oi-card.obj .oi-card-desc { color:var(--blue); }
+.oi-card.kr  .oi-card-desc { color:var(--teal-dark); }
+
+/* ══ OKR TABLE ══ */
+.okr-section { max-width:800px; margin:0 auto; padding:0 16px; }
+.okr-section-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--blue-dark); margin-bottom:6px; }
+.okr-section-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:16px; }
+
+.okr-card { border-radius:12px; overflow:hidden; border:0.5px solid #B5D4F4; margin-bottom:16px; }
+
+/* OKR Header */
+.okr-hdr { background:linear-gradient(135deg,#185FA5 0%,#0C447C 60%,#042C53 100%); padding:14px 18px; display:flex; align-items:center; gap:12px; }
+.okr-logo-box { width:42px; height:42px; border-radius:10px; background:rgba(255,255,255,0.15); border:1.5px solid rgba(255,255,255,0.3); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.okr-logo-txt { font-size:9px; font-weight:800; color:#fff; text-align:center; line-height:1.3; letter-spacing:0.04em; }
+.okr-hdr-text { flex:1; }
+.okr-hdr-title { font-family:'Raleway',sans-serif; font-size:15px; font-weight:700; color:#fff; }
+.okr-hdr-sub { font-family:'Raleway',sans-serif; font-size:10px; color:rgba(255,255,255,0.6); letter-spacing:0.12em; text-transform:uppercase; margin-top:1px; }
+.okr-period-input { font-family:'Raleway',sans-serif; font-size:11px; font-weight:600; color:var(--amber); background:rgba(245,200,122,0.15); border:1px solid rgba(245,200,122,0.3); border-radius:12px; padding:4px 10px; text-align:center; width:90px; }
+.okr-period-input:focus { outline:none; border-color:var(--amber); }
+
+/* Objetivo */
+.okr-obj { background:var(--blue-pale); border-bottom:0.5px solid #B5D4F4; padding:12px 18px; display:flex; align-items:flex-start; gap:10px; }
+.okr-obj-lbl { font-family:'Raleway',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--blue); white-space:nowrap; margin-top:3px; }
+.okr-obj-ta { flex:1; border:none; background:transparent; font-family:'Cormorant Garamond',serif; font-size:15px; font-weight:600; color:var(--blue-dark); resize:none; min-height:28px; line-height:1.5; width:100%; }
+.okr-obj-ta:focus { outline:none; }
+.okr-obj-ta::placeholder { color:#85B7EB; font-style:italic; font-weight:400; font-size:14px; }
+
+/* KR Table */
+.okr-table-scroll { overflow-x:auto; }
+table.okrt { width:100%; border-collapse:collapse; min-width:580px; }
+.okrt thead tr { background:var(--blue-dark); }
+.okrt thead th { padding:8px 10px; font-family:'Raleway',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.85); text-align:left; border-right:1px solid rgba(255,255,255,0.1); }
+.okrt thead th:last-child { border-right:none; }
+.okrt thead th.tc { text-align:center; }
+.okrt tbody tr { border-bottom:0.5px solid var(--blue-pale); transition:background 0.15s; }
+.okrt tbody tr:hover { background:#F0F7FF; }
+.okrt tbody tr:last-child { border-bottom:none; }
+.okrt td { padding:8px 10px; vertical-align:middle; }
+.td-kr { text-align:center; width:44px; }
+.kr-badge { width:28px; height:28px; border-radius:8px; background:var(--blue); color:#fff; font-family:'Raleway',sans-serif; font-size:10px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; }
+.okrt td input[type=text] { border:none; background:transparent; font-family:'Raleway',sans-serif; font-size:12px; color:var(--brown); width:100%; padding:0; }
+.okrt td input[type=text]:focus { outline:none; border-bottom:1px solid var(--blue); }
+.okrt td input[type=text]::placeholder { color:#B5D4F4; font-style:italic; font-size:11px; }
+.td-pct { text-align:center; min-width:90px; }
+.pct-wrap { display:flex; flex-direction:column; align-items:center; gap:2px; }
+.pct-track { width:64px; height:5px; background:var(--blue-pale); border-radius:3px; overflow:hidden; }
+.pct-fill { height:100%; border-radius:3px; background:var(--blue); transition:width 0.3s; }
+input[type=range].pct-slider { width:64px; accent-color:var(--blue); }
+.pct-num { font-family:'Raleway',sans-serif; font-size:11px; font-weight:700; color:var(--blue); }
+
+/* Check-in */
+.checkin-block { background:#F8FBFF; border-top:0.5px solid #B5D4F4; padding:14px 18px; }
+.ci-title { font-family:'Raleway',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--blue); margin-bottom:10px; }
+.ci-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media(max-width:480px){ .ci-grid{ grid-template-columns:1fr; } }
+.ci-field label { display:block; font-family:'Raleway',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray); margin-bottom:3px; }
+.ci-field textarea { width:100%; border:0.5px solid #B5D4F4; border-radius:6px; padding:7px 9px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--brown); background:#fff; resize:none; min-height:52px; line-height:1.5; }
+.ci-field textarea:focus { outline:none; border-color:var(--blue); box-shadow:0 0 0 2px rgba(24,95,165,0.1); }
+.ci-field textarea::placeholder { color:#B5D4F4; font-size:12px; }
+
+/* Footer */
+.okr-footer { background:var(--blue-deep); padding:12px 18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+.footer-dates { display:flex; gap:20px; flex-wrap:wrap; }
+.fd-item { display:flex; flex-direction:column; gap:2px; }
+.fd-label { font-family:'Raleway',sans-serif; font-size:8px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); }
+.fd-input { font-family:'Raleway',sans-serif; font-size:11px; font-weight:600; color:var(--amber); background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.2); width:110px; padding:1px 0; }
+.fd-input:focus { outline:none; border-bottom-color:var(--amber); }
+.fd-input::placeholder { color:rgba(255,255,255,0.3); }
+.footer-btns { display:flex; gap:6px; }
+.fbtn { font-family:'Raleway',sans-serif; font-size:11px; font-weight:600; padding:6px 14px; border-radius:6px; cursor:pointer; border:none; transition:opacity 0.2s; }
+.fbtn:hover { opacity:0.85; }
+.fbtn-save  { background:var(--blue); color:#fff; }
+.fbtn-print { background:var(--amber); color:var(--blue-deep); }
+.fbtn-clear { background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.7); }
+
+/* ══ INSTRUCCIONES ══ */
+.inst-section { max-width:800px; margin:0 auto; padding:0 16px; }
+.inst-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--blue-dark); margin-bottom:6px; }
+.inst-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:14px; }
+.inst-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px; }
+@media(max-width:500px){ .inst-grid{ grid-template-columns:1fr 1fr; } }
+.inst-step { background:#fff; border-radius:10px; padding:14px 16px; border:0.5px solid #B5D4F4; }
+.inst-num { width:26px; height:26px; border-radius:50%; background:var(--blue-pale); color:var(--blue-dark); font-family:'Playfair Display',serif; font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; margin-bottom:7px; }
+.inst-step p { font-family:'Raleway',sans-serif; font-size:12px; color:var(--brown-mid); line-height:1.5; }
+.inst-step p strong { color:var(--blue-dark); font-weight:600; }
+
+/* ══ REFLEXION ══ */
+.ref-section { max-width:800px; margin:24px auto 0; padding:0 16px 40px; }
+.ref-card { background:#fff; border-radius:12px; padding:26px 28px; border:0.5px solid rgba(24,95,165,0.2); }
+.ref-title { font-family:'Playfair Display',serif; font-weight:700; font-size:19px; color:var(--blue-dark); margin-bottom:10px; }
+.ref-body { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); line-height:1.8; margin-bottom:16px; }
+.ref-q { background:var(--blue-pale); border-left:3px solid var(--blue); border-radius:0 8px 8px 0; padding:14px 18px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--blue-dark); line-height:1.75; margin-bottom:16px; }
+.ref-q strong { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--blue); margin-bottom:4px; }
+.afirm { background:linear-gradient(135deg,var(--blue),var(--blue-dark)); color:#fff; border-radius:8px; padding:18px 24px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; line-height:1.7; text-align:center; }
+.afirm span { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px; }
+
+/* ══ FOOTER ══ */
+.footer { background:var(--blue-deep); padding:28px 24px; text-align:center; }
+.footer p { font-weight:200; font-size:11px; letter-spacing:0.2em; color:rgba(255,255,255,0.7); line-height:2; }
+.footer strong { color:#fff; font-weight:600; }
+
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--blue); color:#fff; padding:10px 24px; border-radius:24px; font-size:13px; opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999; box-shadow:0 4px 20px rgba(24,95,165,0.4); }
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta de Metas · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Mis OKR</div>
+    <div class="hero-accent"><div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div></div>
+    <div class="hero-sub">Objetivos y Resultados Clave —<br>la herramienta que usan las <strong>empresas más exitosas del mundo</strong>, adaptada para tu vida</div>
+    <div class="hero-badge">✦ &nbsp; Tabla OKR Personalizable &nbsp; ✦</div>
+    <div style="margin-top:18px;"><span class="hero-author-by">A u t o r a</span><div class="hero-author">Jenifer Mendoza</div></div>
+    <div class="scroll-cta" onclick="document.getElementById('okr').scrollIntoView({behavior:'smooth'})">
+      <span>Definir mis objetivos</span>
+      <div class="scroll-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4 L6 8 L10 4" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-section">
+  <h2>La diferencia entre un sueño y un objetivo</h2>
+  <p>Un sueño es algo que deseas. Un objetivo OKR es algo que mides, que tiene fecha y que sabes exactamente cuándo lo lograste. La claridad no es un lujo — es la herramienta más poderosa del cambio.</p>
+  <div class="quote-banner">
+    "Lo que no se mide, no se gestiona.<br>Lo que no se gestiona, <strong>no mejora</strong>." — Peter Drucker
+  </div>
+</div>
+
+<!-- QUÉ SON OKR -->
+<div class="okr-info">
+  <div class="oi-title">¿Qué son los OKR?</div>
+  <div class="oi-sub">Un sistema simple de dos partes que mantiene tu enfoque en lo que más importa</div>
+  <div class="oi-grid">
+    <div class="oi-card obj">
+      <div class="oi-card-top">
+        <div class="oi-badge">O · Objetivo</div>
+      </div>
+      <div class="oi-card-title">¿A dónde quiero llegar?</div>
+      <div class="oi-card-desc">Una declaración inspiradora y cualitativa de lo que quieres lograr. Debe emocionarte cuando lo lees. No tiene números — tiene dirección y propósito.</div>
+    </div>
+    <div class="oi-card kr">
+      <div class="oi-card-top">
+        <div class="oi-badge">KR · Resultados Clave</div>
+      </div>
+      <div class="oi-card-title">¿Cómo sabré que llegué?</div>
+      <div class="oi-card-desc">3 métricas concretas y medibles que demuestran que alcanzaste el objetivo. Tienen número, tienen fecha y no dejan espacio a la ambigüedad.</div>
+    </div>
+  </div>
+</div>
+
+<!-- INSTRUCCIONES -->
+<div class="inst-section">
+  <div class="inst-title">Cómo usar tu tabla OKR</div>
+  <div class="inst-sub">5 minutos para configurarla · 5 minutos cada semana para actualizarla</div>
+  <div class="inst-grid">
+    <div class="inst-step">
+      <div class="inst-num">1</div>
+      <p>Escribe tu <strong>objetivo inspirador</strong> — una frase que te emocione cuando la lees</p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">2</div>
+      <p>Define <strong>3 resultados clave</strong> medibles — con número, meta y fecha límite</p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">3</div>
+      <p>Cada semana <strong>mueve el slider</strong> de avance según tu progreso real</p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">4</div>
+      <p>Completa el <strong>check-in semanal</strong> — qué avanzaste, qué te bloqueó, qué sigue</p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">5</div>
+      <p>Al 70% de avance en tus KR ya es un <strong>éxito</strong> — los OKR son ambiciosos por diseño</p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">6</div>
+      <p><strong>Imprime o descarga</strong> tu OKR para tenerlo visible — lo que ves, lo manifiestas</p>
+    </div>
+  </div>
+</div>
+
+<!-- OKR TABLE -->
+<div class="okr-section" id="okr">
+  <div class="okr-section-title">Mi tabla OKR</div>
+  <div class="okr-section-sub">Todo es editable — personaliza cada campo según tu objetivo real</div>
+
+  <div class="okr-card">
+    <!-- Header -->
+    <div class="okr-hdr">
+      <div class="okr-logo-box">
+        <div class="okr-logo-txt">MÉTODO<br>CAMINO</div>
+      </div>
+      <div class="okr-hdr-text">
+        <div class="okr-hdr-title">Objetivos y Resultados Clave</div>
+        <div class="okr-hdr-sub">Método Camino · Jenifer Mendoza</div>
+      </div>
+      <input class="okr-period-input" id="okrPeriod" type="text" value="Q1 · 2026" placeholder="Período">
+    </div>
+
+    <!-- Objetivo -->
+    <div class="okr-obj">
+      <span class="okr-obj-lbl">Objetivo</span>
+      <textarea class="okr-obj-ta" id="okrObjective" rows="2"
+        placeholder="Escribe tu objetivo inspirador... Ej: Convertirme en la versión más auténtica y plena de mí misma, generando impacto y abundancia desde mi propósito"></textarea>
+    </div>
+
+    <!-- KR Table -->
+    <div class="okr-table-scroll">
+      <table class="okrt">
+        <thead>
+          <tr>
+            <th class="tc" style="width:44px;">KR</th>
+            <th style="min-width:160px;">Resultado clave</th>
+            <th style="width:80px;">Métrica inicial</th>
+            <th style="width:80px;">Meta</th>
+            <th style="width:90px;">Fecha límite</th>
+            <th class="tc" style="width:90px;">% Avance</th>
+          </tr>
+        </thead>
+        <tbody id="krBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Check-in -->
+    <div class="checkin-block">
+      <div class="ci-title">Check-in semanal</div>
+      <div class="ci-grid">
+        <div class="ci-field">
+          <label>¿Qué avancé esta semana?</label>
+          <textarea id="ciAvance" placeholder="Mis avances concretos de esta semana..."></textarea>
+        </div>
+        <div class="ci-field">
+          <label>¿Qué me bloqueó?</label>
+          <textarea id="ciBloqueo" placeholder="Obstáculos que encontré..."></textarea>
+        </div>
+        <div class="ci-field">
+          <label>Mi próxima acción concreta</label>
+          <textarea id="ciAccion" placeholder="El siguiente paso específico que haré..."></textarea>
+        </div>
+        <div class="ci-field">
+          <label>Mi nivel de energía esta semana (1-10)</label>
+          <textarea id="ciEnergia" placeholder="Ej: 8/10 · Me sentí con claridad y propósito..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="okr-footer">
+      <div class="footer-dates">
+        <div class="fd-item">
+          <span class="fd-label">Fecha de creación</span>
+          <input class="fd-input" id="fdCreacion" type="text" placeholder="DD/MM/AAAA">
+        </div>
+        <div class="fd-item">
+          <span class="fd-label">Próxima revisión</span>
+          <input class="fd-input" id="fdRevision" type="text" placeholder="DD/MM/AAAA">
+        </div>
+      </div>
+      <div class="footer-btns">
+        <button class="fbtn fbtn-save"  onclick="saveOKR()">💾 Guardar</button>
+        <button class="fbtn fbtn-print" onclick="printOKR()">📄 Imprimir</button>
+        <button class="fbtn fbtn-clear" onclick="clearOKR()">Limpiar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REFLEXION -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">Por qué los OKR cambian todo</div>
+    <div class="ref-body">La mayoría de las mujeres tienen deseos. Las mujeres que transforman su vida tienen objetivos medibles. La diferencia no es el sueño — es la claridad. Cuando sabes exactamente qué mides y cuándo lo lograste, tu cerebro activa el sistema de búsqueda de soluciones de forma automática.</div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "¿Cuál es el objetivo que, si lo lograra este trimestre, cambiaría fundamentalmente la dirección de mi vida? ¿Qué 3 métricas me dirían que lo alcancé? ¿Qué me impide escribirlo hoy?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación del día</span>
+      "Mis metas no son sueños — son compromisos conmigo misma. Las mido, las cuido y las celebro cada paso del camino."
+    </div>
+  </div>
+</div>
+
+<!-- PAGE FOOTER -->
+<div class="footer">
+  <p><strong>Método Camino</strong> · Tabla OKR · Objetivos y Resultados Clave<br>Herramienta de metas para mujeres de 40+<br>© 2026 Jenifer Mendoza · Todos los derechos reservados</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'metodoCamino_okr';
+const KRS_DEFAULT = [
+  { ph:'Ej: Completar mi rutina matutina 5 días a la semana', ini:'0 días/sem', meta:'5 días/sem' },
+  { ph:'Ej: Lanzar mi primer producto digital y generar $500 USD', ini:'$0', meta:'$500 USD' },
+  { ph:'Ej: Leer un libro de desarrollo personal al mes', ini:'0 libros', meta:'3 libros' }
+];
+
+function loadData() {
+  try { return JSON.parse(localStorage.getItem(KEY)||'null')||{}; } catch(e){return{};}
+}
+function saveData(d) { try { localStorage.setItem(KEY,JSON.stringify(d)); } catch(e){} }
+
+function buildKRs(data) {
+  const body = document.getElementById('krBody');
+  body.innerHTML = '';
+  KRS_DEFAULT.forEach((kr,i)=>{
+    const s = data.krs?.[i]||{};
+    const pct = parseInt(s.pct)||0;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="td-kr"><div class="kr-badge">KR${i+1}</div></td>
+      <td><input type="text" id="krd-${i}" value="${s.desc||''}" placeholder="${kr.ph}"></td>
+      <td><input type="text" id="kri-${i}" value="${s.ini||''}"  placeholder="${kr.ini}"></td>
+      <td><input type="text" id="krm-${i}" value="${s.meta||''}" placeholder="${kr.meta}"></td>
+      <td><input type="text" id="krf-${i}" value="${s.fecha||''}" placeholder="DD/MM/AAAA"></td>
+      <td class="td-pct">
+        <div class="pct-wrap">
+          <div class="pct-track"><div class="pct-fill" id="pf-${i}" style="width:${pct}%"></div></div>
+          <input type="range" class="pct-slider" min="0" max="100" step="5" value="${pct}" id="ps-${i}" oninput="updatePct(${i},this.value)">
+          <span class="pct-num" id="pn-${i}">${pct}%</span>
+        </div>
+      </td>`;
+    body.appendChild(tr);
+  });
+}
+
+function updatePct(i,val) {
+  document.getElementById('pf-'+i).style.width=val+'%';
+  document.getElementById('pn-'+i).textContent=val+'%';
+}
+
+function loadFields(data) {
+  const set = (id,val)=>{ if(val&&document.getElementById(id)) document.getElementById(id).value=val; };
+  set('okrObjective',data.objective);
+  set('okrPeriod',   data.period);
+  set('ciAvance',    data.ciAvance);
+  set('ciBloqueo',   data.ciBloqueo);
+  set('ciAccion',    data.ciAccion);
+  set('ciEnergia',   data.ciEnergia);
+  set('fdCreacion',  data.fdCreacion);
+  set('fdRevision',  data.fdRevision);
+}
+
+function collectData() {
+  const krs = KRS_DEFAULT.map((_,i)=>({
+    desc:  document.getElementById('krd-'+i)?.value||'',
+    ini:   document.getElementById('kri-'+i)?.value||'',
+    meta:  document.getElementById('krm-'+i)?.value||'',
+    fecha: document.getElementById('krf-'+i)?.value||'',
+    pct:   document.getElementById('ps-'+i)?.value||0
+  }));
+  return {
+    objective:  document.getElementById('okrObjective').value,
+    period:     document.getElementById('okrPeriod').value,
+    krs,
+    ciAvance:   document.getElementById('ciAvance').value,
+    ciBloqueo:  document.getElementById('ciBloqueo').value,
+    ciAccion:   document.getElementById('ciAccion').value,
+    ciEnergia:  document.getElementById('ciEnergia').value,
+    fdCreacion: document.getElementById('fdCreacion').value,
+    fdRevision: document.getElementById('fdRevision').value
+  };
+}
+
+function saveOKR() { saveData(collectData()); showToast('✓ OKR guardado correctamente'); }
+
+function clearOKR() {
+  if(!confirm('¿Limpiar todos los campos del OKR?')) return;
+  saveData({}); location.reload();
+}
+
+function printOKR() {
+  const d = collectData();
+  const krRows = (d.krs||[]).map((kr,i)=>`
+    <tr>
+      <td style="text-align:center;padding:8px 10px;"><div style="width:28px;height:28px;border-radius:8px;background:#185FA5;color:#fff;font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;">KR${i+1}</div></td>
+      <td style="padding:8px 10px;font-family:'Raleway',sans-serif;font-size:13px;color:#042C53;">${kr.desc||'—'}</td>
+      <td style="padding:8px 10px;text-align:center;font-family:'Raleway',sans-serif;font-size:12px;color:#185FA5;">${kr.ini||'—'}</td>
+      <td style="padding:8px 10px;text-align:center;font-family:'Raleway',sans-serif;font-size:12px;font-weight:700;color:#0C447C;">${kr.meta||'—'}</td>
+      <td style="padding:8px 10px;text-align:center;font-family:'Raleway',sans-serif;font-size:12px;color:#888780;">${kr.fecha||'—'}</td>
+      <td style="padding:8px 10px;text-align:center;">
+        <div style="background:#E6F1FB;border-radius:3px;height:6px;width:80px;margin:0 auto 3px;overflow:hidden;">
+          <div style="background:#185FA5;height:100%;width:${kr.pct}%;border-radius:3px;"></div>
+        </div>
+        <span style="font-family:'Raleway',sans-serif;font-size:12px;font-weight:700;color:#185FA5;">${kr.pct}%</span>
+      </td>
+    </tr>`).join('');
+
+  const html=`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Mis OKR — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Playfair+Display:wght@700;900&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>body{font-family:'Raleway',sans-serif;margin:0;background:#FAF6F0;color:#4A2E22;}
+.hdr{background:linear-gradient(135deg,#185FA5 0%,#0C447C 60%,#042C53 100%);padding:20px 40px;display:flex;align-items:center;gap:12px;}
+.logo{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;text-align:center;line-height:1.3;flex-shrink:0;}
+h1{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#fff;margin:0;flex:1;}
+.period{font-size:11px;font-weight:600;color:#F5C87A;background:rgba(245,200,122,0.15);border:1px solid rgba(245,200,122,0.3);padding:4px 10px;border-radius:12px;}
+.obj{background:#E6F1FB;border-left:4px solid #185FA5;padding:12px 18px;margin:0 40px 0;}
+.obj-l{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#185FA5;display:block;margin-bottom:4px;}
+.obj-t{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:#0C447C;line-height:1.5;}
+.body{padding:16px 40px 24px;}
+.st{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#185FA5;margin:12px 0 8px;}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #B5D4F4;margin-bottom:16px;}
+thead{background:#0C447C;}th{padding:8px 10px;font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.85);text-align:left;}
+td{border-bottom:1px solid #E6F1FB;vertical-align:middle;}tr:last-child td{border-bottom:none;}
+.ci{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.ci-card{background:#E6F1FB;border-radius:8px;padding:10px 14px;}
+.ci-l{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#185FA5;display:block;margin-bottom:3px;}
+.ci-v{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:#0C447C;line-height:1.5;min-height:28px;}
+.ftr{background:#042C53;padding:10px 40px;display:flex;justify-content:space-between;}
+.fd{font-family:'Raleway',sans-serif;font-size:9px;color:rgba(255,255,255,0.5);}
+.fd span{display:block;font-weight:700;color:#F5C87A;margin-top:1px;font-size:11px;}
+@media print{body{background:#fff;}.hdr,.ftr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="hdr"><div class="logo">MÉTODO<br>CAMINO</div><h1>Mis OKR · Objetivos y Resultados Clave</h1><span class="period">${d.period||'Q1 · 2026'}</span></div>
+<div class="obj"><span class="obj-l">Objetivo</span><div class="obj-t">${d.objective||'Sin completar'}</div></div>
+<div class="body">
+<div class="st">Resultados Clave</div>
+<table><thead><tr><th style="width:44px;text-align:center;">KR</th><th>Resultado clave</th><th style="text-align:center;width:80px;">Inicial</th><th style="text-align:center;width:80px;">Meta</th><th style="text-align:center;width:90px;">Fecha</th><th style="text-align:center;width:90px;">Avance</th></tr></thead>
+<tbody>${krRows}</tbody></table>
+<div class="st">Check-in semanal</div>
+<div class="ci">
+<div class="ci-card"><span class="ci-l">¿Qué avancé?</span><div class="ci-v">${d.ciAvance||'—'}</div></div>
+<div class="ci-card"><span class="ci-l">¿Qué me bloqueó?</span><div class="ci-v">${d.ciBloqueo||'—'}</div></div>
+<div class="ci-card"><span class="ci-l">Próxima acción</span><div class="ci-v">${d.ciAccion||'—'}</div></div>
+<div class="ci-card"><span class="ci-l">Energía semanal</span><div class="ci-v">${d.ciEnergia||'—'}</div></div>
+</div></div>
+<div class="ftr"><div class="fd">Fecha de creación<span>${d.fdCreacion||'—'}</span></div><div class="fd" style="text-align:right;">Próxima revisión<span>${d.fdRevision||'—'}</span></div></div>
+</body></html>`;
+
+  const w=window.open('','_blank');
+  if(w){w.document.write(html);w.document.close();setTimeout(()=>w.print(),700);}
+  else showToast('Permite ventanas emergentes para imprimir');
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+const data = loadData();
+buildKRs(data);
+loadFields(data);
+if(!data.fdCreacion) {
+  document.getElementById('fdCreacion').value = new Date().toLocaleDateString('es-ES');
+}
+</script>
+</body>
+</html>

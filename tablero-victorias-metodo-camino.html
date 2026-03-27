@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablero de Victorias · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-dark: #085041;
+  --gold:      #C8A96E;
+  --amber:     #EF9F27;
+  --amber-pale:#FAEEDA;
+  --amber-dark:#633806;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --gray-pale: #F1EFE8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Raleway',sans-serif; background:var(--cream); color:var(--brown); min-height:100vh; }
+
+/* ══ HERO ══ */
+.hero { position:relative; overflow:hidden; background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%); }
+.hero-swoosh { position:absolute; top:0; left:0; right:0; height:100%; background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%); clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%); }
+.hero-bottom { position:absolute; bottom:0; left:0; right:0; height:35%; background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%); clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%); }
+.hero-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; padding:44px 24px 52px; text-align:center; }
+.hero-eyebrow { font-weight:300; font-size:10px; letter-spacing:0.65em; color:rgba(255,255,255,0.88); text-transform:uppercase; margin-bottom:8px; }
+.hero-metodo { font-weight:200; font-size:12px; letter-spacing:0.7em; color:rgba(255,255,255,0.65); text-transform:uppercase; margin-bottom:2px; }
+.hero-title { font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em; color:#fff; line-height:1.2; max-width:580px; text-shadow:0 3px 30px rgba(45,107,101,0.5); }
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:clamp(14px,2.2vw,17px); color:var(--brown); line-height:1.75; max-width:520px; }
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge { margin-top:16px; background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; padding:8px 24px; font-weight:600; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35); }
+.hero-author { margin-top:18px; font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:var(--teal); letter-spacing:0.05em; }
+.hero-author-by { font-weight:200; font-size:9px; letter-spacing:0.45em; color:var(--brown-mid); text-transform:uppercase; display:block; margin-bottom:3px; }
+.scroll-cta { margin-top:24px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; }
+.scroll-cta span { font-weight:300; font-size:10px; letter-spacing:0.35em; color:var(--teal); text-transform:uppercase; }
+.scroll-arrow { width:28px; height:28px; border:1px solid rgba(45,107,101,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; animation:bounceDown 2s ease-in-out infinite; }
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section { background:var(--sand); padding:36px 24px; text-align:center; }
+.intro-section h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:22px; color:var(--teal); margin-bottom:10px; }
+.intro-section p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75; }
+.quote-banner { background:rgba(255,255,255,0.6); border-left:3px solid var(--teal); border-radius:0 8px 8px 0; padding:14px 20px; max-width:540px; margin:0 auto; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown); line-height:1.8; }
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ POR QUÉ CELEBRAR ══ */
+.ciencia-section { max-width:800px; margin:0 auto; padding:28px 16px 0; }
+.ciencia-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--teal); margin-bottom:6px; }
+.ciencia-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:16px; }
+.ciencia-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
+@media(max-width:500px){ .ciencia-grid{ grid-template-columns:1fr; } }
+.ciencia-card { background:#fff; border-radius:10px; padding:16px 18px; border:0.5px solid rgba(0,0,0,0.08); }
+.ciencia-icon { font-size:24px; display:block; margin-bottom:6px; }
+.ciencia-name { font-family:'Raleway',sans-serif; font-weight:600; font-size:13px; color:var(--teal-dark); display:block; margin-bottom:4px; }
+.ciencia-desc { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--brown-mid); line-height:1.5; }
+
+/* ══ INSTRUCCIONES FÍSICAS ══ */
+.instrucciones-section { max-width:800px; margin:0 auto; padding:0 16px; }
+.inst-card { background:#fff; border-radius:12px; padding:20px 22px; border:0.5px solid rgba(45,107,101,0.2); margin-bottom:20px; }
+.inst-title { font-family:'Playfair Display',serif; font-weight:700; font-size:18px; color:var(--teal); margin-bottom:6px; }
+.inst-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--brown-mid); margin-bottom:14px; }
+.inst-steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+@media(max-width:500px){ .inst-steps-grid{ grid-template-columns:1fr 1fr; } }
+.inst-step { background:var(--teal-pale); border-radius:8px; padding:12px 14px; display:flex; gap:8px; align-items:flex-start; }
+.inst-num { width:22px; height:22px; border-radius:50%; background:var(--teal); color:#fff; font-family:'Playfair Display',serif; font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.inst-text { font-family:'Raleway',sans-serif; font-size:12px; color:var(--teal-dark); line-height:1.5; }
+
+/* ══ TABLERO ══ */
+.tablero-section { max-width:800px; margin:0 auto; padding:0 16px; }
+.tablero-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--teal); margin-bottom:6px; }
+.tablero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:16px; }
+
+/* Cork board */
+.cork-board {
+  background: #C8956C;
+  background-image: radial-gradient(circle at 20% 30%, rgba(180,120,60,0.4) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(200,140,80,0.3) 0%, transparent 45%), radial-gradient(circle at 50% 50%, rgba(160,100,50,0.2) 0%, transparent 60%);
+  border-radius: 12px; padding: 20px 18px 18px;
+  border: 6px solid #8B6338;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.15), 0 8px 24px rgba(0,0,0,0.15);
+  position: relative; margin-bottom: 16px;
+}
+.pin { position:absolute; width:14px; height:14px; border-radius:50%; background:radial-gradient(circle at 35% 35%, #ff6b6b, #cc2222); border:1px solid rgba(0,0,0,0.3); box-shadow:0 2px 4px rgba(0,0,0,0.4); z-index:10; }
+.pin-tl { top:8px; left:8px; }
+.pin-tr { top:8px; right:8px; }
+.pin-bl { bottom:8px; left:8px; }
+.pin-br { bottom:8px; right:8px; }
+
+.week-tape { background:rgba(255,255,255,0.75); border-radius:2px; padding:5px 14px; display:inline-flex; align-items:center; gap:6px; font-family:'Raleway',sans-serif; font-size:11px; font-weight:700; color:var(--brown); letter-spacing:0.1em; text-transform:uppercase; box-shadow:1px 1px 3px rgba(0,0,0,0.15); margin-bottom:12px; }
+.week-input { background:rgba(255,255,255,0.6); border:none; border-bottom:1px solid rgba(0,0,0,0.2); font-family:'Raleway',sans-serif; font-size:11px; font-weight:700; color:var(--brown); text-align:center; width:32px; padding:1px 0; }
+.week-input:focus { outline:none; }
+
+/* Victoria principal */
+.victoria-main { background:#fff; border-radius:4px; padding:14px 16px; margin-bottom:14px; border-left:5px solid var(--teal); box-shadow:2px 3px 8px rgba(0,0,0,0.2); position:relative; transform:rotate(-0.5deg); }
+.victoria-main::before { content:'📌'; position:absolute; top:-8px; left:50%; transform:translateX(-50%); font-size:16px; }
+.vm-label { font-family:'Raleway',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--teal); display:block; margin-bottom:6px; }
+.vm-ta { width:100%; border:none; background:transparent; resize:none; font-family:'Georgia',serif; font-size:14px; color:#2C2C2A; line-height:1.6; min-height:56px; }
+.vm-ta:focus { outline:none; }
+.vm-ta::placeholder { color:#B4B2A9; font-style:italic; font-size:13px; }
+
+/* Post-its section label */
+.postits-lbl { font-family:'Raleway',sans-serif; font-size:9px; font-weight:700; color:rgba(255,255,255,0.85); letter-spacing:0.1em; text-transform:uppercase; display:block; margin-bottom:8px; }
+
+/* Post-its grid */
+.postits-row { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:12px; }
+@media(max-width:480px){ .postits-row{ grid-template-columns:1fr 1fr; } }
+
+.postit { border-radius:2px; padding:10px 8px; box-shadow:2px 3px 6px rgba(0,0,0,0.2); position:relative; min-height:88px; display:flex; flex-direction:column; }
+.postit.teal { background:#B2E5D4; }
+.postit:nth-child(1) { transform:rotate(1deg); }
+.postit:nth-child(2) { transform:rotate(-1.5deg); }
+.postit:nth-child(3) { transform:rotate(0.8deg); }
+.postit:nth-child(4) { transform:rotate(-0.5deg); }
+.postit:nth-child(5) { transform:rotate(1.2deg); }
+
+.postit-pin { position:absolute; top:-6px; left:50%; transform:translateX(-50%); width:10px; height:10px; border-radius:50%; background:radial-gradient(circle at 35% 35%, #aaa, #555); border:1px solid rgba(0,0,0,0.2); box-shadow:0 1px 3px rgba(0,0,0,0.3); }
+.postit-num { font-family:'Raleway',sans-serif; font-size:9px; font-weight:700; color:rgba(0,0,0,0.3); margin-bottom:4px; display:block; }
+.postit-ta { flex:1; border:none; background:transparent; resize:none; font-family:'Georgia',serif; font-size:11px; color:#1A3A2A; line-height:1.5; width:100%; }
+.postit-ta:focus { outline:none; }
+.postit-ta::placeholder { color:rgba(0,0,0,0.3); font-style:italic; font-size:10px; }
+
+/* Bottom row */
+.bottom-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media(max-width:420px){ .bottom-row{ grid-template-columns:1fr; } }
+
+/* Naranja */
+.postit-orange { background:#FFB347; border-radius:2px; padding:12px 12px; box-shadow:2px 3px 6px rgba(0,0,0,0.2); transform:rotate(-1deg); position:relative; min-height:110px; }
+.postit-orange .postit-pin { background:radial-gradient(circle at 35% 35%, #ff9900, #cc6600); }
+.postit-orange label { font-family:'Raleway',sans-serif; font-size:9px; font-weight:700; color:rgba(0,0,0,0.5); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:6px; }
+.postit-orange textarea { width:100%; border:none; background:transparent; resize:none; font-family:'Georgia',serif; font-size:11px; color:#2C1A00; line-height:1.5; min-height:68px; }
+.postit-orange textarea:focus { outline:none; }
+.postit-orange textarea::placeholder { color:rgba(0,0,0,0.3); font-style:italic; font-size:10px; }
+
+/* Dorada */
+.celebracion-card { background:linear-gradient(135deg, #FFF3B0, #FFE066, #FFD700); border-radius:2px; padding:12px 12px; box-shadow:2px 3px 6px rgba(0,0,0,0.2); transform:rotate(0.8deg); position:relative; min-height:110px; border:1px solid rgba(200,160,0,0.4); }
+.celebracion-card .postit-pin { background:radial-gradient(circle at 35% 35%, #FFD700, #B8860B); }
+.celebracion-card label { font-family:'Raleway',sans-serif; font-size:9px; font-weight:700; color:rgba(100,70,0,0.7); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:4px; }
+.cel-star { font-size:18px; display:block; text-align:center; margin-bottom:4px; }
+.celebracion-card textarea { width:100%; border:none; background:transparent; resize:none; font-family:'Georgia',serif; font-size:11px; color:#4A3000; line-height:1.5; min-height:56px; }
+.celebracion-card textarea:focus { outline:none; }
+.celebracion-card textarea::placeholder { color:rgba(100,70,0,0.4); font-style:italic; font-size:10px; }
+
+/* Buttons */
+.btns-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:8px; }
+.btn { font-family:'Raleway',sans-serif; font-size:12px; font-weight:600; padding:9px 20px; border-radius:6px; cursor:pointer; border:none; transition:opacity 0.2s; white-space:nowrap; }
+.btn:hover { opacity:0.85; }
+.btn-save  { background:var(--teal); color:#fff; }
+.btn-print { background:var(--gold); color:var(--brown); }
+.btn-new   { background:var(--teal-svg); color:#fff; }
+.btn-clear { background:transparent; color:var(--gray); border:0.5px solid var(--gray-lt) !important; }
+
+/* Historial */
+.history-section { max-width:800px; margin:0 auto; padding:0 16px; }
+.hist-card { background:#fff; border-radius:12px; padding:18px 20px; border:0.5px solid rgba(45,107,101,0.2); margin-bottom:16px; }
+.hist-title { font-family:'Playfair Display',serif; font-weight:700; font-size:16px; color:var(--teal); margin-bottom:12px; }
+.hist-list { display:flex; flex-direction:column; gap:8px; max-height:260px; overflow-y:auto; }
+.hist-item { background:var(--sand); border-radius:8px; padding:10px 14px; display:flex; align-items:flex-start; gap:10px; cursor:pointer; transition:background 0.15s; }
+.hist-item:hover { background:#E0D6C8; }
+.hist-week { font-family:'Playfair Display',serif; font-weight:700; font-size:14px; color:var(--teal); min-width:72px; }
+.hist-preview { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--brown-mid); flex:1; line-height:1.4; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+.hist-del { color:var(--gray); cursor:pointer; font-size:13px; padding:2px 6px; border-radius:4px; border:0.5px solid var(--gray-lt); background:transparent; flex-shrink:0; }
+.hist-del:hover { background:#FBEAE7; color:#E24B4A; border-color:#E24B4A; }
+.hist-empty { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--brown-mid); text-align:center; padding:16px; }
+
+/* ══ REFLEXION ══ */
+.ref-section { max-width:800px; margin:24px auto 0; padding:0 16px 40px; }
+.ref-card { background:#fff; border-radius:12px; padding:26px 28px; border:0.5px solid rgba(45,107,101,0.2); }
+.ref-title { font-family:'Playfair Display',serif; font-weight:700; font-size:19px; color:var(--teal); margin-bottom:10px; }
+.ref-body { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); line-height:1.8; margin-bottom:16px; }
+.ref-q { background:var(--teal-pale); border-left:3px solid var(--teal-svg); border-radius:0 8px 8px 0; padding:14px 18px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--teal-dark); line-height:1.75; margin-bottom:16px; }
+.ref-q strong { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal); margin-bottom:4px; }
+.afirm { background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; border-radius:8px; padding:18px 24px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; line-height:1.7; text-align:center; }
+.afirm span { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px; }
+
+/* ══ FOOTER ══ */
+.footer { background:var(--teal); padding:28px 24px; text-align:center; }
+.footer p { font-weight:200; font-size:11px; letter-spacing:0.2em; color:rgba(255,255,255,0.7); line-height:2; }
+.footer strong { color:#fff; font-weight:600; }
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--teal); color:#fff; padding:10px 24px; border-radius:24px; font-size:13px; opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999; box-shadow:0 4px 20px rgba(45,107,101,0.4); }
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta Semanal · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Mi Tablero de Victorias</div>
+    <div class="hero-accent"><div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div></div>
+    <div class="hero-sub">Porque cada avance merece ser <strong>visto, nombrado y celebrado</strong><br>— por pequeño que parezca</div>
+    <div class="hero-badge">✦ &nbsp; Pizarra Semanal Interactiva &nbsp; ✦</div>
+    <div style="margin-top:18px;"><span class="hero-author-by">A u t o r a</span><div class="hero-author">Jenifer Mendoza</div></div>
+    <div class="scroll-cta" onclick="document.getElementById('tablero').scrollIntoView({behavior:'smooth'})">
+      <span>Celebrar mis victorias</span>
+      <div class="scroll-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-section">
+  <h2>Lo que no se celebra, se olvida</h2>
+  <p>Tu cerebro necesita evidencia de que estás avanzando. Sin celebración consciente, el progreso se vuelve invisible y el motor del cambio se apaga. Este tablero convierte tus victorias en combustible.</p>
+  <div class="quote-banner">
+    "La celebración no es un lujo al final del camino —<br>es el <strong>combustible que te mantiene en él</strong>."
+  </div>
+</div>
+
+<!-- POR QUÉ CELEBRAR -->
+<div class="ciencia-section">
+  <div class="ciencia-title">La ciencia de la celebración</div>
+  <div class="ciencia-sub">Por qué anotar y celebrar tus victorias cambia tu cerebro</div>
+  <div class="ciencia-grid">
+    <div class="ciencia-card">
+      <span class="ciencia-icon">🧠</span>
+      <span class="ciencia-name">Dopamina real</span>
+      <span class="ciencia-desc">Celebrar activa el sistema de recompensa del cerebro, generando dopamina que motiva continuar</span>
+    </div>
+    <div class="ciencia-card">
+      <span class="ciencia-icon">👁</span>
+      <span class="ciencia-name">Evidencia visible</span>
+      <span class="ciencia-desc">Ver tus victorias escritas combate el sesgo de negatividad — el cerebro tiende a recordar lo malo</span>
+    </div>
+    <div class="ciencia-card">
+      <span class="ciencia-icon">🌱</span>
+      <span class="ciencia-name">Identidad reforzada</span>
+      <span class="ciencia-desc">Cada victoria anotada refuerza la narrativa de "soy una mujer que avanza" — tu nueva identidad</span>
+    </div>
+  </div>
+</div>
+
+<!-- INSTRUCCIONES FÍSICAS -->
+<div class="instrucciones-section">
+  <div class="inst-card">
+    <div class="inst-title">Cómo usarlo físicamente en tu hogar</div>
+    <div class="inst-sub">Imprime tu tablero cada semana y pégalo donde puedas verlo todos los días</div>
+    <div class="inst-steps-grid">
+      <div class="inst-step"><div class="inst-num">1</div><div class="inst-text">Llena tu tablero digital cada <strong>domingo por la noche</strong></div></div>
+      <div class="inst-step"><div class="inst-num">2</div><div class="inst-text">Haz clic en <strong>"Imprimir tablero"</strong> y guárdalo como PDF o imprímelo</div></div>
+      <div class="inst-step"><div class="inst-num">3</div><div class="inst-text">Pégalo en un lugar <strong>visible</strong> — espejo, nevera, escritorio</div></div>
+      <div class="inst-step"><div class="inst-num">4</div><div class="inst-text">Léelo cada mañana durante la semana — <strong>30 segundos bastan</strong></div></div>
+      <div class="inst-step"><div class="inst-num">5</div><div class="inst-text">Al siguiente domingo, <strong>archívalo</strong> en una carpeta "Mis victorias"</div></div>
+      <div class="inst-step"><div class="inst-num">6</div><div class="inst-text">Cuando dudes de tu progreso, <strong>revisa tu archivo</strong> — la evidencia no miente</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TABLERO -->
+<div class="tablero-section" id="tablero">
+  <div class="tablero-title">Mi tablero esta semana</div>
+  <div class="tablero-sub">Llena cada sección con honestidad — todo avance cuenta, todo momento difícil superado es una victoria</div>
+
+  <div class="cork-board">
+    <div class="pin pin-tl"></div>
+    <div class="pin pin-tr"></div>
+    <div class="pin pin-bl"></div>
+    <div class="pin pin-br"></div>
+
+    <div style="text-align:center;margin-bottom:12px;">
+      <span class="week-tape">
+        ⭐ Mi tablero de victorias · Semana
+        <input type="text" class="week-input" id="weekNum" value="1" oninput="autoSave()">
+      </span>
+    </div>
+
+    <div class="victoria-main">
+      <span class="vm-label">⭐ Mi victoria principal de la semana</span>
+      <textarea class="vm-ta" id="tvMain" rows="3"
+        placeholder="¿Cuál fue tu mayor logro esta semana? No importa si fue pequeño — fue real y fue tuyo..." oninput="autoSave()"></textarea>
+    </div>
+
+    <span class="postits-lbl">5 pequeños avances que celebro esta semana:</span>
+    <div class="postits-row">
+      <div class="postit teal"><div class="postit-pin"></div><span class="postit-num">1</span><textarea class="postit-ta" id="pa0" placeholder="Avance pequeño..." rows="3" oninput="autoSave()"></textarea></div>
+      <div class="postit teal"><div class="postit-pin"></div><span class="postit-num">2</span><textarea class="postit-ta" id="pa1" placeholder="Avance pequeño..." rows="3" oninput="autoSave()"></textarea></div>
+      <div class="postit teal"><div class="postit-pin"></div><span class="postit-num">3</span><textarea class="postit-ta" id="pa2" placeholder="Avance pequeño..." rows="3" oninput="autoSave()"></textarea></div>
+      <div class="postit teal"><div class="postit-pin"></div><span class="postit-num">4</span><textarea class="postit-ta" id="pa3" placeholder="Avance pequeño..." rows="3" oninput="autoSave()"></textarea></div>
+      <div class="postit teal"><div class="postit-pin"></div><span class="postit-num">5</span><textarea class="postit-ta" id="pa4" placeholder="Avance pequeño..." rows="3" oninput="autoSave()"></textarea></div>
+    </div>
+
+    <div class="bottom-row">
+      <div class="postit-orange">
+        <div class="postit-pin"></div>
+        <label>💪 Momento difícil que superé</label>
+        <textarea id="tvDificil" placeholder="¿Qué fue difícil esta semana y cómo lo atravesaste? Eso también es una victoria enorme..." oninput="autoSave()"></textarea>
+      </div>
+      <div class="celebracion-card">
+        <div class="postit-pin"></div>
+        <label>⭐ Mi celebración elegida</label>
+        <span class="cel-star">🌟</span>
+        <textarea id="tvCelebracion" placeholder="¿Cómo vas a celebrar tus victorias? (un baño largo, tu café favorito, tiempo para ti, una llamada con tu amiga...)" oninput="autoSave()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="btns-row">
+    <button class="btn btn-save"  onclick="saveTV()">💾 Guardar semana</button>
+    <button class="btn btn-print" onclick="printTV()">📄 Imprimir tablero</button>
+    <button class="btn btn-new"   onclick="newWeek()">+ Nueva semana</button>
+    <button class="btn btn-clear" onclick="clearTV()">Limpiar</button>
+  </div>
+</div>
+
+<!-- HISTORIAL -->
+<div class="history-section">
+  <div class="hist-card">
+    <div class="hist-title">Mi archivo de victorias</div>
+    <div class="hist-list" id="histList"></div>
+  </div>
+</div>
+
+<!-- REFLEXION -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">Por qué tus victorias importan</div>
+    <div class="ref-body">Las mujeres de 40+ somos expertas en ver lo que falta. Este tablero entrena al cerebro a ver lo que hay — lo que avanzó, lo que se sostuvo, lo que se superó. Con el tiempo, tu narrativa interna cambia: de "no estoy llegando" a "estoy llegando, semana a semana, una victoria a la vez".</div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "¿Cuál fue la victoria de esta semana que más tiendo a minimizar? ¿Qué le diría a mi mejor amiga si ella me contara ese mismo logro?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación semanal</span>
+      "Mis victorias son reales aunque nadie las vea. Las nombro, las celebro y las guardo como evidencia de quien estoy siendo."
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p><strong>Método Camino</strong> · Tablero de Victorias · Celebración Semanal<br>Herramienta de progreso visible para mujeres de 40+<br>© 2026 Jenifer Mendoza · Todos los derechos reservados</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY     = 'metodoCamino_tableroVictorias';
+const KEY_HIST = 'metodoCamino_historialVictorias';
+
+function collectData() {
+  return {
+    week: document.getElementById('weekNum').value,
+    main: document.getElementById('tvMain').value,
+    pa:   [0,1,2,3,4].map(i=>document.getElementById('pa'+i).value),
+    dif:  document.getElementById('tvDificil').value,
+    cel:  document.getElementById('tvCelebracion').value,
+    date: new Date().toLocaleDateString('es-ES')
+  };
+}
+
+function loadCurrent() {
+  try { return JSON.parse(localStorage.getItem(KEY)||'null')||{}; } catch(e){return{};}
+}
+function loadHistory() {
+  try { return JSON.parse(localStorage.getItem(KEY_HIST)||'[]')||[]; } catch(e){return[];}
+}
+function saveHistory(h) { try { localStorage.setItem(KEY_HIST,JSON.stringify(h)); } catch(e){} }
+
+function autoSave() {
+  try { localStorage.setItem(KEY,JSON.stringify(collectData())); } catch(e){}
+  renderHistory();
+}
+
+function saveTV() {
+  const d = collectData();
+  try { localStorage.setItem(KEY,JSON.stringify(d)); } catch(e){}
+  const hist = loadHistory();
+  const idx  = hist.findIndex(h=>h.week===d.week);
+  if(idx>=0) hist[idx]=d; else hist.unshift(d);
+  if(hist.length>20) hist.splice(20);
+  saveHistory(hist);
+  renderHistory();
+  showToast('✓ Semana '+d.week+' guardada en tu archivo');
+}
+
+function newWeek() {
+  saveTV();
+  const d = collectData();
+  const newW = (parseInt(d.week||'0')+1).toString();
+  ['tvMain','tvDificil','tvCelebracion'].forEach(id=>document.getElementById(id).value='');
+  [0,1,2,3,4].forEach(i=>document.getElementById('pa'+i).value='');
+  document.getElementById('weekNum').value = newW;
+  autoSave();
+  showToast('Lista para semana '+newW);
+  document.getElementById('tablero').scrollIntoView({behavior:'smooth'});
+}
+
+function clearTV() {
+  if(!confirm('¿Limpiar el tablero actual?')) return;
+  ['tvMain','tvDificil','tvCelebracion'].forEach(id=>document.getElementById(id).value='');
+  [0,1,2,3,4].forEach(i=>document.getElementById('pa'+i).value='');
+  autoSave(); showToast('Tablero limpiado');
+}
+
+function loadWeek(week) {
+  const hist = loadHistory();
+  const d = hist.find(h=>h.week===week);
+  if(!d) return;
+  document.getElementById('weekNum').value = d.week||'';
+  document.getElementById('tvMain').value  = d.main||'';
+  document.getElementById('tvDificil').value = d.dif||'';
+  document.getElementById('tvCelebracion').value = d.cel||'';
+  (d.pa||[]).forEach((p,i)=>document.getElementById('pa'+i).value=p||'');
+  document.getElementById('tablero').scrollIntoView({behavior:'smooth'});
+  showToast('Semana '+week+' cargada');
+}
+
+function deleteWeek(week) {
+  const hist = loadHistory().filter(h=>h.week!==week);
+  saveHistory(hist); renderHistory();
+  showToast('Semana '+week+' eliminada del archivo');
+}
+
+function renderHistory() {
+  const hist = loadHistory();
+  const list = document.getElementById('histList');
+  if(!hist.length) {
+    list.innerHTML='<div class="hist-empty">Aún no hay semanas guardadas. ¡Guarda tu primera semana!</div>';
+    return;
+  }
+  list.innerHTML = hist.map(h=>`
+    <div class="hist-item" onclick="loadWeek('${h.week}')">
+      <span class="hist-week">Sem. ${h.week}</span>
+      <span class="hist-preview">${h.main||'Sin victoria principal anotada'}</span>
+      <button class="hist-del" onclick="event.stopPropagation();deleteWeek('${h.week}')">✕</button>
+    </div>`).join('');
+}
+
+function printTV() {
+  const d = collectData();
+  const pas = (d.pa||[]).map((p,i)=>`
+    <div style="background:#B2E5D4;border-radius:3px;padding:10px 8px;transform:rotate(${i%2===0?1:-1.2}deg);min-height:80px;box-shadow:2px 3px 6px rgba(0,0,0,0.15);position:relative;">
+      <div style="font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;color:rgba(0,0,0,0.35);margin-bottom:4px;">${i+1}</div>
+      <div style="font-family:'Georgia',serif;font-size:11px;color:#1A3A2A;line-height:1.5;">${p||'—'}</div>
+    </div>`).join('');
+
+  const html=`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Tablero de Victorias Sem ${d.week} — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Raleway:wght@200;300;400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Raleway',sans-serif;margin:0;background:#FAF6F0;color:#4A2E22;}
+.hdr{background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 40%,#5B9E98 70%,transparent 100%);padding:20px 40px;clip-path:polygon(0 0,100% 0,100% 82%,55% 96%,0 86%);}
+h1{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:#fff;margin:0;}
+.ey{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:4px;}
+.board{background:#C8956C;background-image:radial-gradient(circle at 20% 30%,rgba(180,120,60,0.4) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(200,140,80,0.3) 0%,transparent 45%);border:6px solid #8B6338;border-radius:10px;padding:18px;margin:16px 40px;box-shadow:inset 0 0 20px rgba(0,0,0,0.15);}
+.week-lbl{text-align:center;margin-bottom:12px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,0.9);letter-spacing:0.1em;text-transform:uppercase;}
+.main-card{background:#fff;border-left:5px solid #2D6B65;border-radius:3px;padding:14px 16px;margin-bottom:12px;box-shadow:2px 3px 8px rgba(0,0,0,0.2);transform:rotate(-0.5deg);}
+.main-lbl{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#2D6B65;display:block;margin-bottom:6px;}
+.main-val{font-family:'Georgia',serif;font-size:14px;color:#2C2C2A;line-height:1.6;min-height:40px;}
+.pas-lbl{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:8px;}
+.pas-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:10px;}
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.dif{background:#FFB347;border-radius:3px;padding:12px;min-height:80px;box-shadow:2px 3px 6px rgba(0,0,0,0.2);transform:rotate(-1deg);}
+.dif-l{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;color:rgba(0,0,0,0.5);text-transform:uppercase;letter-spacing:0.1em;display:block;margin-bottom:5px;}
+.dif-v{font-family:'Georgia',serif;font-size:11px;color:#2C1A00;line-height:1.5;}
+.cel{background:linear-gradient(135deg,#FFF3B0,#FFE066,#FFD700);border-radius:3px;padding:12px;min-height:80px;box-shadow:2px 3px 6px rgba(0,0,0,0.2);transform:rotate(0.8deg);text-align:center;}
+.cel-l{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;color:rgba(100,70,0,0.7);text-transform:uppercase;letter-spacing:0.1em;display:block;margin-bottom:4px;}
+.cel-v{font-family:'Georgia',serif;font-size:11px;color:#4A3000;line-height:1.5;}
+.inst{background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 40px 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:#085041;line-height:1.8;}
+.ft{background:#2D6B65;padding:12px 40px;text-align:center;margin-top:14px;}
+.ft p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}.ft strong{color:#fff;}
+@media print{body{background:#fff;}.hdr,.ft,.board{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="hdr"><div class="ey">✦ Método Camino · Tablero de Victorias</div><h1>Mi Tablero de Victorias · Semana ${d.week||'1'}</h1></div>
+<div class="board">
+  <div class="week-lbl">⭐ Semana ${d.week||'1'} · ${d.date||''} · Mis victorias merecen ser celebradas</div>
+  <div class="main-card"><span class="main-lbl">⭐ Victoria principal de la semana</span><div class="main-val">${d.main||'Escribe tu victoria principal aquí'}</div></div>
+  <span class="pas-lbl">5 pequeños avances que celebro:</span>
+  <div class="pas-grid">${pas}</div>
+  <div class="bottom-grid">
+    <div class="dif"><span class="dif-l">💪 Momento difícil superado</span><div class="dif-v">${d.dif||'—'}</div></div>
+    <div class="cel"><span class="cel-l">⭐ Mi celebración elegida</span><div style="font-size:18px;margin:4px 0;">🌟</div><div class="cel-v">${d.cel||'—'}</div></div>
+  </div>
+</div>
+<div class="inst">"Lo que no se celebra, se olvida. Pega este tablero donde puedas verlo cada mañana de esta semana. Al siguiente domingo, archívalo como evidencia de tu avance."</div>
+<div class="ft"><p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026<br>Imprime · Pega · Celebra · Archiva</p></div>
+</body></html>`;
+
+  const w=window.open('','_blank');
+  if(w){w.document.write(html);w.document.close();setTimeout(()=>w.print(),700);}
+  else showToast('Permite ventanas emergentes para imprimir');
+}
+
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+const saved=loadCurrent();
+if(saved.week) document.getElementById('weekNum').value=saved.week;
+if(saved.main) document.getElementById('tvMain').value=saved.main;
+if(saved.pa)   saved.pa.forEach((p,i)=>document.getElementById('pa'+i).value=p||'');
+if(saved.dif)  document.getElementById('tvDificil').value=saved.dif;
+if(saved.cel)  document.getElementById('tvCelebracion').value=saved.cel;
+renderHistory();
+</script>
+</body>
+</html>

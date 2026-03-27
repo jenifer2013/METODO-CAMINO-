@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis Tres Entornos · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-mid2: #9FE1CB;
+  --teal-dark: #085041;
+  --teal-deep: #0F6E56;
+  --blue:      #185FA5;
+  --blue-lt:   #378ADD;
+  --blue-pale: #E6F1FB;
+  --blue-dark: #0C447C;
+  --amber:     #EF9F27;
+  --amber-pale:#FAEEDA;
+  --amber-dark:#633806;
+  --red:       #E24B4A;
+  --gold:      #C8A96E;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --gray-pale: #F1EFE8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Raleway',sans-serif; background:var(--cream); color:var(--brown); min-height:100vh; }
+
+/* ══ HERO ══ */
+.hero { position:relative; overflow:hidden; background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%); }
+.hero-swoosh { position:absolute; top:0; left:0; right:0; height:100%; background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%); clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%); }
+.hero-bottom { position:absolute; bottom:0; left:0; right:0; height:35%; background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%); clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%); }
+.hero-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; padding:44px 24px 52px; text-align:center; }
+.hero-eyebrow { font-weight:300; font-size:10px; letter-spacing:0.65em; color:rgba(255,255,255,0.88); text-transform:uppercase; margin-bottom:8px; }
+.hero-metodo { font-weight:200; font-size:12px; letter-spacing:0.7em; color:rgba(255,255,255,0.65); text-transform:uppercase; margin-bottom:2px; }
+.hero-title { font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em; color:#fff; line-height:1.2; max-width:580px; text-shadow:0 3px 30px rgba(45,107,101,0.5); }
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:clamp(14px,2.2vw,17px); color:var(--brown); line-height:1.75; max-width:520px; }
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge { margin-top:16px; background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; padding:8px 24px; font-weight:600; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35); }
+.hero-author { margin-top:18px; font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:var(--teal); letter-spacing:0.05em; }
+.hero-author-by { font-weight:200; font-size:9px; letter-spacing:0.45em; color:var(--brown-mid); text-transform:uppercase; display:block; margin-bottom:3px; }
+.scroll-cta { margin-top:24px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; }
+.scroll-cta span { font-weight:300; font-size:10px; letter-spacing:0.35em; color:var(--teal); text-transform:uppercase; }
+.scroll-arrow { width:28px; height:28px; border:1px solid rgba(45,107,101,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; animation:bounceDown 2s ease-in-out infinite; }
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section { background:var(--sand); padding:36px 24px; text-align:center; }
+.intro-section h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:22px; color:var(--teal); margin-bottom:10px; }
+.intro-section p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75; }
+.quote-banner { background:rgba(255,255,255,0.6); border-left:3px solid var(--teal); border-radius:0 8px 8px 0; padding:14px 20px; max-width:540px; margin:0 auto; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown); line-height:1.8; }
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ MAIN SECTION ══ */
+.main-section { max-width:800px; margin:0 auto; padding:28px 16px 0; }
+.main-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--teal); margin-bottom:6px; }
+.main-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:20px; }
+
+/* Legend */
+.legend-bar { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:12px; }
+.leg-i { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--brown-mid); }
+.leg-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+
+/* SVG wrap */
+.svg-wrap { width:100%; max-width:480px; margin:0 auto 16px; }
+
+/* Circles legend row */
+.circles-legend { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px; }
+@media(max-width:480px){ .circles-legend{ grid-template-columns:1fr; } }
+.cl-item { border-radius:10px; padding:12px 14px; border:0.5px solid; text-align:center; cursor:pointer; transition:all 0.15s; }
+.cl-item:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+.cl-item.social   { background:var(--teal-pale); border-color:var(--teal-mid2); }
+.cl-item.digital  { background:var(--blue-pale); border-color:#85B7EB; }
+.cl-item.fisico   { background:var(--amber-pale); border-color:#FAC775; }
+.cl-name { font-family:'Raleway',sans-serif; font-weight:600; font-size:13px; display:block; margin-bottom:2px; }
+.cl-item.social  .cl-name { color:var(--teal-dark); }
+.cl-item.digital .cl-name { color:var(--blue-dark); }
+.cl-item.fisico  .cl-name { color:var(--amber-dark); }
+.cl-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12px; }
+.cl-item.social  .cl-sub { color:var(--teal-deep); }
+.cl-item.digital .cl-sub { color:var(--blue); }
+.cl-item.fisico  .cl-sub { color:#854F0B; }
+
+/* Detail card */
+.detail-card { background:#fff; border-radius:12px; border:0.5px solid; overflow:hidden; margin-bottom:16px; display:none; animation:fadeInUp 0.3s ease; }
+.detail-card.show { display:block; }
+@keyframes fadeInUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+.dc-header { padding:16px 20px 12px; display:flex; align-items:center; gap:10px; }
+.dc-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+.dc-title { font-family:'Playfair Display',serif; font-weight:700; font-size:18px; flex:1; }
+.dc-sub { font-family:'Raleway',sans-serif; font-size:11px; margin-top:2px; }
+.dc-close { font-family:'Raleway',sans-serif; font-size:11px; padding:5px 12px; border-radius:6px; cursor:pointer; background:transparent; border:0.5px solid var(--gray-lt); color:var(--gray); }
+.dc-close:hover { background:var(--gray-pale); }
+
+.dc-cols { display:grid; grid-template-columns:1fr 1fr; border-top:0.5px solid; }
+@media(max-width:480px){ .dc-cols{ grid-template-columns:1fr; } }
+.dc-col { padding:14px 18px; }
+.dc-col:first-child { border-right:0.5px solid; }
+.dc-col-label { font-family:'Raleway',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; display:flex; align-items:center; gap:5px; margin-bottom:10px; }
+.dc-col-label span { width:8px; height:8px; border-radius:50%; display:inline-block; }
+
+.dc-item { display:flex; gap:8px; align-items:flex-start; margin-bottom:10px; padding-bottom:10px; border-bottom:0.5px solid; }
+.dc-item:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.dc-item-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:5px; }
+.dc-item-title { font-family:'Raleway',sans-serif; font-weight:600; font-size:12px; display:block; margin-bottom:2px; }
+.dc-item-desc  { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--brown-mid); line-height:1.4; }
+
+.dc-action { padding:14px 20px; border-top:0.5px solid; font-family:'Cormorant Garamond',serif; font-size:15px; line-height:1.7; }
+.dc-action strong { font-style:normal; font-family:'Raleway',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; display:block; margin-bottom:4px; }
+
+/* Audit section */
+.audit-section { max-width:800px; margin:0 auto; padding:0 16px; }
+.audit-card { background:#fff; border-radius:12px; padding:20px 22px; border:0.5px solid rgba(45,107,101,0.2); margin-bottom:14px; }
+.audit-title { font-family:'Playfair Display',serif; font-weight:700; font-size:18px; color:var(--teal); margin-bottom:6px; }
+.audit-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--brown-mid); margin-bottom:16px; }
+.audit-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+@media(max-width:520px){ .audit-grid{ grid-template-columns:1fr; } }
+.audit-col { border-radius:10px; padding:14px 16px; border:0.5px solid; }
+.audit-col.soc { background:var(--teal-pale); border-color:var(--teal-mid2); }
+.audit-col.dig { background:var(--blue-pale); border-color:#85B7EB; }
+.audit-col.fis { background:var(--amber-pale); border-color:#FAC775; }
+.audit-col-title { font-family:'Raleway',sans-serif; font-weight:600; font-size:12px; display:block; margin-bottom:10px; padding-bottom:6px; border-bottom:0.5px solid rgba(0,0,0,0.1); }
+.audit-col.soc .audit-col-title { color:var(--teal-dark); }
+.audit-col.dig .audit-col-title { color:var(--blue-dark); }
+.audit-col.fis .audit-col-title { color:var(--amber-dark); }
+.audit-q { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; line-height:1.5; margin-bottom:6px; }
+.audit-col.soc .audit-q { color:var(--teal-deep); }
+.audit-col.dig .audit-q { color:var(--blue); }
+.audit-col.fis .audit-q { color:#854F0B; }
+.audit-col textarea { width:100%; border-radius:6px; padding:7px 9px; font-family:'Raleway',sans-serif; font-size:11px; color:var(--brown); resize:none; min-height:64px; line-height:1.5; border:0.5px solid; background:rgba(255,255,255,0.7); }
+.audit-col.soc textarea { border-color:var(--teal-mid2); }
+.audit-col.dig textarea { border-color:#85B7EB; }
+.audit-col.fis textarea { border-color:#FAC775; }
+.audit-col textarea:focus { outline:none; }
+.audit-col textarea::placeholder { font-style:italic; color:var(--gray); font-size:11px; }
+.audit-btns { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.abtn { font-family:'Raleway',sans-serif; font-size:12px; font-weight:600; padding:8px 18px; border-radius:6px; cursor:pointer; border:none; transition:opacity 0.2s; }
+.abtn:hover { opacity:0.85; }
+.abtn-save { background:var(--teal-svg); color:#fff; }
+.abtn-pdf  { background:var(--gold); color:var(--brown); }
+.abtn-clear{ background:transparent; color:var(--gray); border:0.5px solid var(--gray-lt) !important; }
+
+/* ══ REFLEXION ══ */
+.ref-section { max-width:800px; margin:24px auto 0; padding:0 16px 40px; }
+.ref-card { background:#fff; border-radius:12px; padding:26px 28px; border:0.5px solid rgba(45,107,101,0.2); }
+.ref-title { font-family:'Playfair Display',serif; font-weight:700; font-size:19px; color:var(--teal); margin-bottom:10px; }
+.ref-body { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); line-height:1.8; margin-bottom:16px; }
+.ref-q { background:var(--teal-pale); border-left:3px solid var(--teal-svg); border-radius:0 8px 8px 0; padding:14px 18px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--teal-dark); line-height:1.75; margin-bottom:16px; }
+.ref-q strong { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal); margin-bottom:4px; }
+.afirm { background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; border-radius:8px; padding:18px 24px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; line-height:1.7; text-align:center; }
+.afirm span { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px; }
+
+/* ══ FOOTER ══ */
+.footer { background:var(--teal); padding:28px 24px; text-align:center; }
+.footer p { font-weight:200; font-size:11px; letter-spacing:0.2em; color:rgba(255,255,255,0.7); line-height:2; }
+.footer strong { color:#fff; font-weight:600; }
+
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--teal-svg); color:#fff; padding:10px 24px; border-radius:24px; font-size:13px; opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999; box-shadow:0 4px 20px rgba(29,158,117,0.4); }
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta de Entornos · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Mis Tres Entornos</div>
+    <div class="hero-accent"><div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div></div>
+    <div class="hero-sub">Tu entorno no es neutro — cada capa te <strong>empuja hacia el crecimiento</strong><br>o te jala hacia el estancamiento</div>
+    <div class="hero-badge">✦ &nbsp; Infografía Circular Interactiva &nbsp; ✦</div>
+    <div style="margin-top:18px;"><span class="hero-author-by">A u t o r a</span><div class="hero-author">Jenifer Mendoza</div></div>
+    <div class="scroll-cta" onclick="document.getElementById('main').scrollIntoView({behavior:'smooth'})">
+      <span>Explorar mis entornos</span>
+      <div class="scroll-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-section">
+  <h2>Tú eres el promedio de tu entorno</h2>
+  <p>No basta con trabajar en ti misma si el entorno que te rodea te sabotea en silencio. Diseñar tu entorno conscientemente es uno de los actos más poderosos de amor propio que puedes hacer.</p>
+  <div class="quote-banner">
+    "No nadas contra la corriente — diseña una corriente<br>que te lleve hacia donde <strong>quieres ir</strong>."
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-section" id="main">
+  <div class="main-title">Los tres círculos de tu entorno</div>
+  <div class="main-sub">Haz clic en cada círculo o tarjeta para explorar qué ayuda y qué bloquea en cada capa</div>
+
+  <div class="legend-bar">
+    <div class="leg-i"><div class="leg-dot" style="background:var(--teal-svg);"></div>Elementos que ayudan</div>
+    <div class="leg-i"><div class="leg-dot" style="background:var(--red);"></div>Elementos que bloquean</div>
+  </div>
+
+  <div class="svg-wrap">
+    <svg width="100%" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+      <!-- EXTERIOR: Social -->
+      <g style="cursor:pointer;" onclick="showDetail('social')">
+        <circle cx="240" cy="240" r="220" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"/>
+        <text font-family="Raleway,sans-serif" font-size="12" font-weight="600" fill="#085041" text-anchor="middle" x="240" y="36">Entorno Social</text>
+        <text font-family="Raleway,sans-serif" font-size="10" fill="#0F6E56" text-anchor="middle" x="240" y="50">personas · comunidad · relaciones</text>
+        <circle cx="148" cy="100" r="14" fill="#1D9E75" opacity="0.85"/>
+        <text font-family="sans-serif" font-size="8" fill="#fff" text-anchor="middle" x="148" y="103.5">mentora</text>
+        <circle cx="332" cy="100" r="14" fill="#1D9E75" opacity="0.85"/>
+        <text font-family="sans-serif" font-size="8" fill="#fff" text-anchor="middle" x="332" y="103.5">comunidad</text>
+        <circle cx="88" cy="240" r="14" fill="#1D9E75" opacity="0.85"/>
+        <text font-family="sans-serif" font-size="8" fill="#fff" text-anchor="middle" x="88" y="243.5">aliada</text>
+        <circle cx="392" cy="240" r="14" fill="#1D9E75" opacity="0.85"/>
+        <text font-family="sans-serif" font-size="8" fill="#fff" text-anchor="middle" x="392" y="243.5">familia</text>
+        <circle cx="168" cy="380" r="13" fill="#E24B4A" opacity="0.8"/>
+        <text font-family="sans-serif" font-size="7.5" fill="#fff" text-anchor="middle" x="168" y="383.5">crítica</text>
+        <circle cx="310" cy="380" r="13" fill="#E24B4A" opacity="0.8"/>
+        <text font-family="sans-serif" font-size="7.5" fill="#fff" text-anchor="middle" x="310" y="383.5">tóxica</text>
+        <circle cx="108" cy="320" r="13" fill="#E24B4A" opacity="0.8"/>
+        <text font-family="sans-serif" font-size="7.5" fill="#fff" text-anchor="middle" x="108" y="323.5">saboteo</text>
+        <circle cx="370" cy="320" r="13" fill="#E24B4A" opacity="0.8"/>
+        <text font-family="sans-serif" font-size="7.5" fill="#fff" text-anchor="middle" x="370" y="323.5">drenaje</text>
+      </g>
+      <!-- MEDIO: Digital -->
+      <g style="cursor:pointer;" onclick="showDetail('digital')">
+        <circle cx="240" cy="240" r="150" fill="#E6F1FB" stroke="#378ADD" stroke-width="1.5"/>
+        <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#0C447C" text-anchor="middle" x="240" y="108">Entorno Digital</text>
+        <text font-family="Raleway,sans-serif" font-size="9.5" fill="#185FA5" text-anchor="middle" x="240" y="122">apps · redes · contenido</text>
+        <circle cx="170" cy="155" r="13" fill="#185FA5" opacity="0.85"/>
+        <text font-family="sans-serif" font-size="7.5" fill="#fff" text-anchor="middle" x="170" y="158.5">podcast</text>
+        <circle cx="310" cy="155" r="13" fill="#185FA5" opacity="0.85"/>
+        <text font-family="sans-serif" font-size="7.5" fill="#fff" text-anchor="middle" x="310" y="158.5">audios</text>
+        <circle cx="132" cy="240" r="13" fill="#185FA5" opacity="0.85"/>
+        <text font-family="sans-serif" font-size="7.5" fill="#fff" text-anchor="middle" x="132" y="243.5">cursos</text>
+        <circle cx="348" cy="240" r="13" fill="#185FA5" opacity="0.85"/>
+        <text font-family="sans-serif" font-size="7.5" fill="#fff" text-anchor="middle" x="348" y="243.5">diario</text>
+        <circle cx="174" cy="325" r="13" fill="#E24B4A" opacity="0.75"/>
+        <text font-family="sans-serif" font-size="7.5" fill="#fff" text-anchor="middle" x="174" y="328.5">scroll</text>
+        <circle cx="306" cy="325" r="13" fill="#E24B4A" opacity="0.75"/>
+        <text font-family="sans-serif" font-size="7.5" fill="#fff" text-anchor="middle" x="306" y="328.5">compar.</text>
+      </g>
+      <!-- INTERIOR: Físico -->
+      <g style="cursor:pointer;" onclick="showDetail('fisico')">
+        <circle cx="240" cy="240" r="85" fill="#FAEEDA" stroke="#EF9F27" stroke-width="1.5"/>
+        <text font-family="Raleway,sans-serif" font-size="10" font-weight="600" fill="#633806" text-anchor="middle" x="240" y="175">Entorno Físico</text>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="#854F0B" text-anchor="middle" x="240" y="188">espacio · objetos</text>
+        <circle cx="197" cy="212" r="11" fill="#EF9F27" opacity="0.9"/>
+        <text font-family="sans-serif" font-size="7" fill="#fff" text-anchor="middle" x="197" y="215">orden</text>
+        <circle cx="283" cy="212" r="11" fill="#EF9F27" opacity="0.9"/>
+        <text font-family="sans-serif" font-size="7" fill="#fff" text-anchor="middle" x="283" y="215">altar</text>
+        <circle cx="197" cy="268" r="11" fill="#E24B4A" opacity="0.75"/>
+        <text font-family="sans-serif" font-size="7" fill="#fff" text-anchor="middle" x="197" y="271">caos</text>
+        <circle cx="283" cy="268" r="11" fill="#E24B4A" opacity="0.75"/>
+        <text font-family="sans-serif" font-size="7" fill="#fff" text-anchor="middle" x="283" y="271">estímulo</text>
+      </g>
+      <!-- CENTRO -->
+      <circle cx="240" cy="240" r="36" fill="#2D6B65" stroke="#1D9E75" stroke-width="2"/>
+      <text font-family="Playfair Display,serif" font-size="15" font-weight="700" fill="#fff" text-anchor="middle" x="240" y="236" dominant-baseline="central">Tú</text>
+      <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" text-anchor="middle" x="240" y="252">en el centro</text>
+      <text font-family="Raleway,sans-serif" font-size="9" fill="#9FE1CB" opacity="0.6" text-anchor="middle" x="240" y="458">toca cada círculo para explorar</text>
+    </svg>
+  </div>
+
+  <!-- Circle shortcuts -->
+  <div class="circles-legend">
+    <div class="cl-item social"  onclick="showDetail('social')">
+      <span class="cl-name">Entorno Social</span>
+      <span class="cl-sub">personas · comunidad</span>
+    </div>
+    <div class="cl-item digital" onclick="showDetail('digital')">
+      <span class="cl-name">Entorno Digital</span>
+      <span class="cl-sub">apps · redes · contenido</span>
+    </div>
+    <div class="cl-item fisico"  onclick="showDetail('fisico')">
+      <span class="cl-name">Entorno Físico</span>
+      <span class="cl-sub">espacio · objetos</span>
+    </div>
+  </div>
+
+  <!-- Detail card -->
+  <div class="detail-card" id="detailCard"></div>
+</div>
+
+<!-- AUDITORÍA -->
+<div class="audit-section">
+  <div class="audit-card">
+    <div class="audit-title">Auditoría de mis entornos</div>
+    <div class="audit-sub">Escribe honestamente qué elementos de cada entorno quieres potenciar y cuáles quieres transformar</div>
+    <div class="audit-grid">
+      <div class="audit-col soc">
+        <span class="audit-col-title">Entorno Social</span>
+        <div class="audit-q">¿A quién quiero ver más? ¿A quién necesito poner un límite?</div>
+        <textarea id="auditSoc" placeholder="Escribe aquí tus reflexiones..."></textarea>
+      </div>
+      <div class="audit-col dig">
+        <span class="audit-col-title">Entorno Digital</span>
+        <div class="audit-q">¿Qué app o cuenta te quita energía? ¿Qué contenido te nutre?</div>
+        <textarea id="auditDig" placeholder="Escribe aquí tus reflexiones..."></textarea>
+      </div>
+      <div class="audit-col fis">
+        <span class="audit-col-title">Entorno Físico</span>
+        <div class="audit-q">¿Qué espacio necesita orden? ¿Qué rincón puedes intencionar?</div>
+        <textarea id="auditFis" placeholder="Escribe aquí tus reflexiones..."></textarea>
+      </div>
+    </div>
+    <div class="audit-btns">
+      <button class="abtn abtn-save"  onclick="saveAudit()">💾 Guardar auditoría</button>
+      <button class="abtn abtn-pdf"   onclick="printAudit()">📄 Imprimir / PDF</button>
+      <button class="abtn abtn-clear" onclick="clearAudit()">Limpiar</button>
+    </div>
+  </div>
+</div>
+
+<!-- REFLEXION -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">La arquitectura invisible de tu vida</div>
+    <div class="ref-body">Tu entorno toma decisiones por ti antes de que tú las tomes. Si el teléfono está en la mesa de noche, lo tocarás al despertar. Si hay chocolate en la alacena, lo comerás. Si las personas que te rodean no creen en el cambio, tú tampoco creerás. Diseñar tu entorno es el acto más estratégico de transformación personal.</div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "Si mi entorno actual fuera diseñado intencionalmente para apoyar a la mujer que quiero ser — ¿qué cambiaría en lo social, en lo digital y en lo físico? ¿Cuál de esos cambios puedo hacer esta semana?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación del día</span>
+      "Soy arquitecta de mi entorno. Elijo conscientemente con qué me rodeo, qué consumo y dónde habito — porque mi entorno me forma tanto como mis decisiones."
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p><strong>Método Camino</strong> · Mis Tres Entornos · Infografía Circular<br>Herramienta de diseño de entorno para mujeres de 40+<br>© 2026 Jenifer Mendoza · Todos los derechos reservados</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'metodoCamino_entornos';
+
+const DATA = {
+  social:{
+    color:'#1D9E75', borderColor:'#9FE1CB', bgColor:'#E1F5EE',
+    label:'Entorno Social', sub:'Personas · comunidad · relaciones',
+    ayudan:[
+      {t:'Mentora o coach',        d:'Alguien que ya estuvo donde tú quieres ir y te muestra el camino'},
+      {t:'Comunidad de mujeres',   d:'Un espacio donde te ven, te comprenden y te elevan'},
+      {t:'Aliada de crecimiento',  d:'Una amiga con quien compartir el camino conscientemente'},
+      {t:'Familia amorosa',        d:'Vínculos que te sostienen sin juzgarte ni frenarte'}
+    ],
+    bloquean:[
+      {t:'Persona crítica crónica', d:'La que siempre tiene un "pero" para tu avance'},
+      {t:'Relación tóxica',         d:'Vínculos que drenan más energía de la que dan'},
+      {t:'Saboteador encubierto',   d:'El que dice apoyarte pero te frena sin querer'},
+      {t:'Entorno de queja',        d:'Grupos donde solo se habla de lo que no funciona'}
+    ],
+    action:'Esta semana identifica: ¿quién de tu entorno social te eleva? ¿A quién necesitas ver más? ¿A quién necesitas ponerle un límite amoroso y firme?'
+  },
+  digital:{
+    color:'#185FA5', borderColor:'#85B7EB', bgColor:'#E6F1FB',
+    label:'Entorno Digital', sub:'Apps · redes sociales · contenido consumido',
+    ayudan:[
+      {t:'Podcast de crecimiento', d:'Contenido que te nutre mientras caminas, cocinas o manejas'},
+      {t:'Apps de meditación',     d:'Insight Timer, Calm u otras para tu ritual matutino'},
+      {t:'Cursos y formaciones',   d:'Contenido digital que invierte en tu transformación'},
+      {t:'Diario o app de hábitos',d:'Un sistema para registrar tus avances y emociones'}
+    ],
+    bloquean:[
+      {t:'Scroll infinito sin propósito', d:'Redes que consumen horas sin nutrirte ni inspirarte'},
+      {t:'Comparación digital',           d:'Seguir cuentas que te hacen sentir "menos que"'},
+      {t:'Noticias al despertar',         d:'Activar el modo de alerta antes de tu ritual matutino'},
+      {t:'Notificaciones 24/7',           d:'Interrupciones que fragmentan tu foco y drenan energía'}
+    ],
+    action:'Audita tu teléfono esta semana: ¿qué app te quita energía? ¿A qué cuentas deberías dejar de seguir? Elimina o silencia al menos 3 fuentes de distracción.'
+  },
+  fisico:{
+    color:'#EF9F27', borderColor:'#FAC775', bgColor:'#FAEEDA',
+    label:'Entorno Físico', sub:'Espacio · objetos · organización del hogar',
+    ayudan:[
+      {t:'Espacio ordenado',      d:'El desorden visual genera ruido mental — el orden invita a la calma'},
+      {t:'Rincón de ritual',      d:'Un lugar fijo para tu práctica matutina o de reflexión'},
+      {t:'Objetos con intención', d:'Libros, velas, diario a la vista — que te recuerden quién quieres ser'},
+      {t:'Naturaleza y luz',      d:'Plantas, luz natural, aire fresco como aliados de energía y claridad'}
+    ],
+    bloquean:[
+      {t:'Caos visual',           d:'Espacios desordenados que fragmentan la atención y aumentan el estrés'},
+      {t:'Estímulos excesivos',   d:'Televisión encendida, ruido constante, pantallas por todos lados'},
+      {t:'Objetos del pasado',    d:'Cosas que te anclan a quien ya no eres o quieres dejar de ser'},
+      {t:'Espacio sin propósito', d:'Ambientes sin intención que dispersan tu energía sin dirección'}
+    ],
+    action:'Elige UN espacio esta semana y límpialo, ordénalo e intenciónalo para tu crecimiento. No necesitas transformar toda la casa — solo un rincón que sea completamente tuyo.'
+  }
+};
+
+let activeKey = null;
+
+function showDetail(key) {
+  const d = DATA[key];
+  const card = document.getElementById('detailCard');
+  if(activeKey===key){ card.classList.remove('show'); activeKey=null; return; }
+  activeKey = key;
+  card.style.borderColor = d.borderColor;
+
+  const ayudanHTML = d.ayudan.map(i=>`
+    <div class="dc-item">
+      <div class="dc-item-dot" style="background:#1D9E75;margin-top:5px;"></div>
+      <div>
+        <span class="dc-item-title" style="color:var(--teal-dark);">${i.t}</span>
+        <span class="dc-item-desc">${i.d}</span>
+      </div>
+    </div>`).join('');
+
+  const bloqueanHTML = d.bloquean.map(i=>`
+    <div class="dc-item">
+      <div class="dc-item-dot" style="background:#E24B4A;margin-top:5px;"></div>
+      <div>
+        <span class="dc-item-title" style="color:#791F1F;">${i.t}</span>
+        <span class="dc-item-desc">${i.d}</span>
+      </div>
+    </div>`).join('');
+
+  card.innerHTML = `
+    <div class="dc-header" style="background:${d.bgColor};">
+      <div class="dc-dot" style="background:${d.color};"></div>
+      <div>
+        <div class="dc-title" style="color:${d.color};">${d.label}</div>
+        <div class="dc-sub" style="color:${d.color};">${d.sub}</div>
+      </div>
+      <button class="dc-close" onclick="closeDetail()">✕ Cerrar</button>
+    </div>
+    <div class="dc-cols" style="border-color:${d.borderColor};">
+      <div class="dc-col" style="border-color:${d.borderColor};">
+        <div class="dc-col-label" style="color:#1D9E75;">
+          <span style="background:#1D9E75;"></span>Elementos que ayudan
+        </div>
+        ${ayudanHTML}
+      </div>
+      <div class="dc-col">
+        <div class="dc-col-label" style="color:#E24B4A;">
+          <span style="background:#E24B4A;"></span>Elementos que bloquean
+        </div>
+        ${bloqueanHTML}
+      </div>
+    </div>
+    <div class="dc-action" style="border-color:${d.borderColor};background:${d.bgColor};">
+      <strong style="color:${d.color};">Acción para esta semana:</strong>
+      <span style="font-style:italic;color:${d.color};">${d.action}</span>
+    </div>
+  `;
+  card.classList.add('show');
+  card.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function closeDetail() {
+  document.getElementById('detailCard').classList.remove('show');
+  activeKey = null;
+}
+
+function saveAudit() {
+  const d = {
+    soc: document.getElementById('auditSoc').value,
+    dig: document.getElementById('auditDig').value,
+    fis: document.getElementById('auditFis').value
+  };
+  try { localStorage.setItem(KEY, JSON.stringify(d)); } catch(e){}
+  showToast('✓ Auditoría guardada');
+}
+
+function loadAudit() {
+  try {
+    const d = JSON.parse(localStorage.getItem(KEY)||'null');
+    if(!d) return;
+    document.getElementById('auditSoc').value = d.soc||'';
+    document.getElementById('auditDig').value = d.dig||'';
+    document.getElementById('auditFis').value = d.fis||'';
+  } catch(e){}
+}
+
+function clearAudit() {
+  if(!confirm('¿Limpiar la auditoría?')) return;
+  ['auditSoc','auditDig','auditFis'].forEach(id=>document.getElementById(id).value='');
+  try { localStorage.removeItem(KEY); } catch(e){}
+  showToast('Auditoría limpiada');
+}
+
+function printAudit() {
+  const soc = document.getElementById('auditSoc').value||'(sin notas)';
+  const dig = document.getElementById('auditDig').value||'(sin notas)';
+  const fis = document.getElementById('auditFis').value||'(sin notas)';
+  const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Auditoría de Entornos — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Raleway:wght@200;300;400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>body{font-family:'Raleway',sans-serif;margin:0;background:#FAF6F0;color:#4A2E22;}
+.hdr{background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 40%,#5B9E98 70%,transparent 100%);padding:36px 48px 44px;clip-path:polygon(0 0,100% 0,100% 82%,55% 96%,0 86%);}
+h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#fff;margin:0 0 4px;}
+.ey{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:6px;}
+.db{display:inline-block;background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);padding:5px 18px;border-radius:20px;font-size:11px;margin-top:12px;}
+.body{padding:32px 48px;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
+.col{border-radius:10px;padding:16px 18px;border:1.5px solid;}
+.col.soc{background:#E1F5EE;border-color:#9FE1CB;}.col.dig{background:#E6F1FB;border-color:#85B7EB;}.col.fis{background:#FAEEDA;border-color:#FAC775;}
+.ct{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bottom:6px;}
+.col.soc .ct{color:#085041;}.col.dig .ct{color:#0C447C;}.col.fis .ct{color:#633806;}
+.cq{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;margin-bottom:10px;}
+.col.soc .cq{color:#0F6E56;}.col.dig .cq{color:#185FA5;}.col.fis .cq{color:#854F0B;}
+.cn{font-family:'Raleway',sans-serif;font-size:13px;color:#4A2E22;line-height:1.6;min-height:60px;}
+.qt{background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:0 8px 8px 0;padding:14px 20px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:#085041;line-height:1.8;}
+.ft{background:#2D6B65;padding:18px 48px;text-align:center;margin-top:24px;}
+.ft p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}.ft strong{color:#fff;}
+@media print{body{background:#fff;}.hdr,.ft{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="hdr"><div class="ey">✦ Método Camino · Auditoría de Entornos</div><h1>Mis Tres Entornos</h1><div class="db">Fecha: ${new Date().toLocaleDateString('es-ES',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</div></div>
+<div class="body">
+<div class="grid">
+<div class="col soc"><div class="ct">Entorno Social</div><div class="cq">personas · comunidad · relaciones</div><div class="cn">${soc.replace(/\n/g,'<br>')}</div></div>
+<div class="col dig"><div class="ct">Entorno Digital</div><div class="cq">apps · redes · contenido</div><div class="cn">${dig.replace(/\n/g,'<br>')}</div></div>
+<div class="col fis"><div class="ct">Entorno Físico</div><div class="cq">espacio · objetos · organización</div><div class="cn">${fis.replace(/\n/g,'<br>')}</div></div>
+</div>
+<div class="qt">"Soy arquitecta de mi entorno. Elijo conscientemente con qué me rodeo, qué consumo y dónde habito — porque mi entorno me forma tanto como mis decisiones."</div>
+</div>
+<div class="ft"><p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026<br>Para imprimir: Archivo → Imprimir → Guardar como PDF</p></div>
+</body></html>`;
+  const w = window.open('','_blank');
+  if(w) { w.document.write(html); w.document.close(); setTimeout(()=>w.print(),600); }
+  else showToast('Permite ventanas emergentes para imprimir');
+}
+
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+loadAudit();
+</script>
+</body>
+</html>

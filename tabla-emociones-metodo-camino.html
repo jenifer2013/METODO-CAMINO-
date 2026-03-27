@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis Emociones vs Emociones que Absorbo · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:       #2D6B65;
+  --teal-mid:   #3D7D78;
+  --teal-lt:    #5B9E98;
+  --teal-svg:   #1D9E75;
+  --teal-pale:  #E1F5EE;
+  --teal-mid2:  #9FE1CB;
+  --teal-dark:  #085041;
+  --teal-deep:  #0F6E56;
+  --gold:       #C8A96E;
+  --brown:      #4A2E22;
+  --brown-mid:  #7A5545;
+  --cream:      #FAF6F0;
+  --sand:       #EDE4D8;
+  --gray:       #888780;
+  --gray-lt:    #D3D1C7;
+  --white:      #FFFFFF;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Raleway',sans-serif;
+  background:var(--cream);
+  color:var(--brown);
+  min-height:100vh;
+}
+
+/* ══ HERO ══ */
+.hero {
+  position:relative; overflow:hidden;
+  background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%);
+}
+.hero-swoosh {
+  position:absolute; top:0; left:0; right:0; height:100%;
+  background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%);
+  clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%);
+}
+.hero-bottom {
+  position:absolute; bottom:0; left:0; right:0; height:35%;
+  background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%);
+  clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center;
+  padding:44px 24px 52px; text-align:center;
+}
+.hero-eyebrow {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.65em; color:rgba(255,255,255,0.88);
+  text-transform:uppercase; margin-bottom:8px;
+}
+.hero-metodo {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:12px;
+  letter-spacing:0.7em; color:rgba(255,255,255,0.65);
+  text-transform:uppercase; margin-bottom:2px;
+}
+.hero-title {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(22px,5vw,44px); letter-spacing:0.05em;
+  color:#fff; line-height:1.2; max-width:580px;
+  text-shadow:0 3px 30px rgba(45,107,101,0.5);
+}
+.hero-accent {
+  display:flex; align-items:center; gap:10px; margin:14px 0 16px;
+}
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+  font-size:clamp(14px,2.2vw,17px); color:var(--brown);
+  line-height:1.75; max-width:520px;
+}
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge {
+  margin-top:16px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; padding:8px 24px;
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:10px;
+  letter-spacing:0.3em; text-transform:uppercase;
+  border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35);
+}
+.hero-author {
+  margin-top:18px;
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:20px; color:var(--teal); letter-spacing:0.05em;
+}
+.hero-author-by {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:9px;
+  letter-spacing:0.45em; color:var(--brown-mid);
+  text-transform:uppercase; display:block; margin-bottom:3px;
+}
+.scroll-cta {
+  margin-top:24px;
+  display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+}
+.scroll-cta span {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.35em; color:var(--teal); text-transform:uppercase;
+}
+.scroll-arrow {
+  width:28px; height:28px;
+  border:1px solid rgba(45,107,101,0.4); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  animation:bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section {
+  background:var(--sand); padding:36px 24px; text-align:center;
+}
+.intro-section h2 {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:22px;
+  color:var(--teal); margin-bottom:10px;
+}
+.intro-section p {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px;
+  color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75;
+}
+.quote-banner {
+  background:rgba(255,255,255,0.6);
+  border-left:3px solid var(--teal); border-radius:0 8px 8px 0;
+  padding:14px 20px; max-width:520px; margin:0 auto;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; color:var(--brown); line-height:1.8;
+}
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ TABLA SECTION ══ */
+.tabla-section {
+  max-width:800px; margin:0 auto; padding:32px 16px 0;
+}
+.tabla-header-bar {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:16px; flex-wrap:wrap; gap:10px;
+}
+.tabla-titulo {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal);
+}
+.tabla-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px;
+  color:var(--brown-mid);
+}
+
+/* ══ TABLA ══ */
+.tabla-wrap { overflow-x:auto; }
+table.emo-table {
+  width:100%; border-collapse:collapse;
+  background:var(--white);
+  border-radius:12px; overflow:hidden;
+  border:1.5px solid var(--teal-svg);
+  min-width:520px;
+}
+
+/* Column headers */
+thead tr th {
+  padding:0; border-bottom:1.5px solid var(--teal-svg);
+  background:var(--teal-pale);
+}
+thead tr th:first-child {
+  width:22%; border-right:1px solid var(--teal-mid2);
+}
+thead tr th:nth-child(2) {
+  width:39%; border-right:1.5px solid var(--teal-svg);
+}
+thead tr th:last-child { width:39%; }
+
+.th-inner {
+  display:flex; flex-direction:column; align-items:center;
+  padding:16px 12px 14px; gap:8px;
+}
+.th-label {
+  font-family:'Raleway',sans-serif; font-size:13px; font-weight:600;
+  color:var(--teal-dark); text-align:center; line-height:1.3;
+}
+.th-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px;
+  color:var(--teal-deep); text-align:center;
+}
+
+/* Row label cells */
+td.row-lbl {
+  background:#F5FDF9;
+  border-right:1px solid var(--teal-mid2);
+  border-bottom:1px solid #C8EEE0;
+  padding:12px 14px; vertical-align:middle;
+}
+.row-lbl-inner {
+  display:flex; align-items:center; gap:7px;
+}
+.row-lbl-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--teal-svg); flex-shrink:0;
+}
+.row-lbl-text {
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:600;
+  color:var(--teal-dark); line-height:1.3;
+}
+
+/* Data cells */
+td.data-cell {
+  padding:10px 12px;
+  border-bottom:1px solid #C8EEE0;
+  border-right:1.5px solid var(--teal-svg);
+  vertical-align:top;
+}
+td.data-cell:last-child { border-right:none; }
+td.data-cell textarea {
+  width:100%; border:0.5px solid var(--teal-mid2);
+  border-radius:6px; padding:8px 10px;
+  font-family:'Raleway',sans-serif; font-size:12px;
+  color:var(--brown); background:var(--white);
+  resize:none; line-height:1.55; min-height:56px;
+  transition:border-color 0.2s;
+}
+td.data-cell textarea:focus {
+  outline:none; border-color:var(--teal-svg);
+  box-shadow:0 0 0 3px rgba(29,158,117,0.1);
+}
+td.data-cell textarea::placeholder {
+  color:var(--gray); font-style:italic; font-size:11px;
+}
+.col-mia textarea  { background:rgba(225,245,238,0.35); }
+.col-otra textarea { background:rgba(245,244,241,0.35); }
+
+tr:last-child td { border-bottom:none; }
+
+/* ══ EJEMPLO SECTION ══ */
+.ejemplo-section {
+  max-width:800px; margin:24px auto 0; padding:0 16px;
+}
+.ej-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:18px;
+  color:var(--teal); margin-bottom:14px;
+}
+.ej-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media(max-width:500px){ .ej-grid{ grid-template-columns:1fr; } }
+
+.ej-card {
+  border-radius:10px; padding:18px 20px;
+  border:0.5px solid;
+}
+.ej-card.mia  { background:var(--teal-pale); border-color:var(--teal-mid2); }
+.ej-card.otra { background:#F5F4F1; border-color:var(--gray-lt); }
+.ej-card-title {
+  display:flex; align-items:center; gap:8px;
+  margin-bottom:12px;
+}
+.ej-card-title span {
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:13px;
+}
+.ej-card.mia  .ej-card-title span { color:var(--teal-dark); }
+.ej-card.otra .ej-card-title span { color:#444441; }
+
+.ej-row { margin-bottom:8px; }
+.ej-row-label {
+  font-family:'Raleway',sans-serif; font-size:10px; font-weight:600;
+  letter-spacing:0.15em; text-transform:uppercase; display:block; margin-bottom:2px;
+}
+.ej-card.mia  .ej-row-label { color:var(--teal-deep); }
+.ej-card.otra .ej-row-label { color:var(--gray); }
+.ej-row-val {
+  font-family:'Cormorant Garamond',serif; font-size:14px; line-height:1.6;
+}
+.ej-card.mia  .ej-row-val { color:var(--teal-dark); }
+.ej-card.otra .ej-row-val { color:#444441; }
+
+/* ══ BOTONES ══ */
+.btns-section {
+  max-width:800px; margin:20px auto 0; padding:0 16px;
+  display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+}
+.btn-act {
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:600;
+  padding:9px 20px; border-radius:6px; cursor:pointer;
+  transition:opacity 0.2s; border:none;
+}
+.btn-save  { background:var(--teal-svg); color:#fff; }
+.btn-add   { background:var(--teal-pale); color:var(--teal-dark); border:0.5px solid var(--teal-svg) !important; }
+.btn-pdf   { background:var(--gold); color:var(--brown); }
+.btn-clear { background:transparent; color:var(--gray); border:0.5px solid var(--gray-lt) !important; }
+.btn-act:hover { opacity:0.82; }
+
+.toast-bar {
+  text-align:center; margin-top:8px; font-size:12px;
+  color:var(--teal-deep); font-weight:500;
+  opacity:0; transition:opacity 0.3s; height:18px;
+}
+.toast-bar.show { opacity:1; }
+
+/* ══ REFLEXION ══ */
+.ref-section {
+  max-width:800px; margin:24px auto 0; padding:0 16px 40px;
+}
+.ref-card {
+  background:var(--white); border-radius:12px; padding:26px 28px;
+  border:0.5px solid rgba(45,107,101,0.2);
+}
+.ref-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:19px;
+  color:var(--teal); margin-bottom:10px;
+}
+.ref-body {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); line-height:1.8; margin-bottom:16px;
+}
+.ref-q {
+  background:var(--teal-pale); border-left:3px solid var(--teal-svg);
+  border-radius:0 8px 8px 0; padding:14px 18px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; color:var(--teal-dark); line-height:1.75;
+  margin-bottom:16px;
+}
+.ref-q strong {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:10px; font-weight:600; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--teal); margin-bottom:4px;
+}
+.afirm {
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; border-radius:8px; padding:16px 22px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; line-height:1.7; text-align:center;
+}
+.afirm span {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:9px; font-weight:600; letter-spacing:0.3em;
+  text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px;
+}
+
+/* ══ FOOTER ══ */
+.footer {
+  background:var(--teal); padding:28px 24px; text-align:center;
+}
+.footer p {
+  font-family:'Raleway',sans-serif; font-weight:200;
+  font-size:11px; letter-spacing:0.2em;
+  color:rgba(255,255,255,0.7); line-height:2;
+}
+.footer strong { color:#fff; font-weight:600; }
+
+/* Toast global */
+.toast {
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  background:var(--teal); color:#fff; padding:10px 24px; border-radius:24px;
+  font-family:'Raleway',sans-serif; font-size:13px;
+  opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999;
+  box-shadow:0 4px 20px rgba(45,107,101,0.4);
+}
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta de Autoconocimiento · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Mis Emociones vs<br>Emociones que Absorbo</div>
+    <div class="hero-accent">
+      <div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div>
+    </div>
+    <div class="hero-sub">
+      Aprende a distinguir lo que <strong>sientes tú</strong><br>
+      de lo que <strong>absorbes de otros</strong> — y actúa desde ese conocimiento
+    </div>
+    <div class="hero-badge">✦ &nbsp; Tabla Comparativa Interactiva &nbsp; ✦</div>
+    <div style="margin-top:18px;">
+      <span class="hero-author-by">A u t o r a</span>
+      <div class="hero-author">Jenifer Mendoza</div>
+    </div>
+    <div class="scroll-cta" onclick="document.getElementById('tabla').scrollIntoView({behavior:'smooth'})">
+      <span>Completar mi tabla</span>
+      <div class="scroll-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTRO ══ -->
+<div class="intro-section">
+  <h2>¿Sabes qué emociones son realmente tuyas?</h2>
+  <p>Las mujeres empáticas tendemos a absorber el dolor, la ansiedad y el malestar de quienes nos rodean. Con el tiempo, olvidamos qué sentimos nosotras y qué es de otros. Esta tabla te ayuda a distinguirlo.</p>
+  <div class="quote-banner">
+    "No tienes que cargar con el dolor de todos. Tu tarea es sostener el tuyo<br>
+    con compasión — y aprender a devolver el resto <strong>con amor</strong>."
+  </div>
+</div>
+
+<!-- ══ TABLA ══ -->
+<div class="tabla-section" id="tabla">
+  <div class="tabla-header-bar">
+    <div>
+      <div class="tabla-titulo">Mi tabla de emociones</div>
+      <div class="tabla-sub">Llena cada celda con honestidad — no hay respuestas correctas o incorrectas</div>
+    </div>
+  </div>
+
+  <div class="tabla-wrap">
+    <table class="emo-table" id="emoTable">
+      <thead>
+        <tr>
+          <th>
+            <div class="th-inner">
+              <svg width="30" height="46" viewBox="0 0 30 46" fill="none">
+                <circle cx="15" cy="7" r="6.5" fill="#C8EEE0"/>
+                <path d="M7 46 C7 35 4.5 29 4.5 23 C4.5 17 9 13.5 15 13.5 C21 13.5 25.5 17 25.5 23 C25.5 29 23 35 23 46Z" fill="#C8EEE0"/>
+              </svg>
+              <span class="th-label">Filas</span>
+            </div>
+          </th>
+          <th>
+            <div class="th-inner">
+              <svg width="30" height="46" viewBox="0 0 30 46" fill="none">
+                <circle cx="15" cy="7" r="6.5" fill="#085041"/>
+                <path d="M7 46 C7 35 4.5 29 4.5 23 C4.5 17 9 13.5 15 13.5 C21 13.5 25.5 17 25.5 23 C25.5 29 23 35 23 46Z" fill="#085041"/>
+                <circle cx="15" cy="7" r="4.5" fill="#1D9E75"/>
+                <path d="M8.5 44 C8.5 34 6.5 28.5 6.5 23 C6.5 17.5 10.5 15 15 15 C19.5 15 23.5 17.5 23.5 23 C23.5 28.5 21.5 34 21.5 44Z" fill="#1D9E75"/>
+              </svg>
+              <span class="th-label">Mis emociones</span>
+              <span class="th-sub">Lo que siento yo</span>
+            </div>
+          </th>
+          <th>
+            <div class="th-inner">
+              <svg width="30" height="46" viewBox="0 0 30 46" fill="none">
+                <circle cx="15" cy="7" r="6.5" fill="#B4B2A9" opacity="0.45"/>
+                <path d="M7 46 C7 35 4.5 29 4.5 23 C4.5 17 9 13.5 15 13.5 C21 13.5 25.5 17 25.5 23 C25.5 29 23 35 23 46Z" fill="#B4B2A9" opacity="0.35"/>
+              </svg>
+              <span class="th-label">Emociones que absorbo</span>
+              <span class="th-sub">Lo que tomo de otros</span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr>
+          <td class="row-lbl">
+            <div class="row-lbl-inner">
+              <div class="row-lbl-dot"></div>
+              <span class="row-lbl-text">Situación</span>
+            </div>
+          </td>
+          <td class="data-cell col-mia">
+            <textarea placeholder="¿Qué situación estás viviendo tú?"></textarea>
+          </td>
+          <td class="data-cell col-otra">
+            <textarea placeholder="¿Qué situación de otra persona estás cargando?"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="row-lbl">
+            <div class="row-lbl-inner">
+              <div class="row-lbl-dot"></div>
+              <span class="row-lbl-text">Emoción</span>
+            </div>
+          </td>
+          <td class="data-cell col-mia">
+            <textarea placeholder="¿Qué emoción sientes tú genuinamente?"></textarea>
+          </td>
+          <td class="data-cell col-otra">
+            <textarea placeholder="¿Qué emoción de otra persona has hecho tuya?"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="row-lbl">
+            <div class="row-lbl-inner">
+              <div class="row-lbl-dot"></div>
+              <span class="row-lbl-text">¿De quién es realmente?</span>
+            </div>
+          </td>
+          <td class="data-cell col-mia">
+            <textarea placeholder="Esta emoción es mía porque..."></textarea>
+          </td>
+          <td class="data-cell col-otra">
+            <textarea placeholder="Esta emoción es de... porque la absorbo cuando..."></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="row-lbl">
+            <div class="row-lbl-inner">
+              <div class="row-lbl-dot"></div>
+              <span class="row-lbl-text">Acción saludable</span>
+            </div>
+          </td>
+          <td class="data-cell col-mia">
+            <textarea placeholder="¿Cómo expreso o proceso esta emoción de forma saludable?"></textarea>
+          </td>
+          <td class="data-cell col-otra">
+            <textarea placeholder="¿Cómo devuelvo esta emoción con amor y sin culpa?"></textarea>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="btns-section" style="padding:0; margin-top:16px;">
+    <button class="btn-act btn-save"  onclick="saveTable()">💾 Guardar</button>
+    <button class="btn-act btn-add"   onclick="addRow()">+ Nueva fila</button>
+    <button class="btn-act btn-pdf"   onclick="downloadPDF()">📄 Descargar PDF</button>
+    <button class="btn-act btn-clear" onclick="clearTable()">Limpiar</button>
+  </div>
+  <div class="toast-bar" id="toastBar"></div>
+</div>
+
+<!-- ══ EJEMPLO ══ -->
+<div class="ejemplo-section">
+  <div class="ej-title">Ejemplo para guiarte</div>
+  <div class="ej-grid">
+    <div class="ej-card mia">
+      <div class="ej-card-title">
+        <svg width="22" height="34" viewBox="0 0 22 34" fill="none">
+          <circle cx="11" cy="5" r="4.5" fill="#1D9E75"/>
+          <path d="M4 34 C4 26 2 22 2 17 C2 12 5.5 10 11 10 C16.5 10 20 12 20 17 C20 22 18 26 18 34Z" fill="#1D9E75"/>
+        </svg>
+        <span>Mi emoción</span>
+      </div>
+      <div class="ej-row">
+        <span class="ej-row-label">Situación</span>
+        <span class="ej-row-val">Tuve una discusión con mi jefa que me pareció injusta</span>
+      </div>
+      <div class="ej-row">
+        <span class="ej-row-label">Emoción</span>
+        <span class="ej-row-val">Frustración y tristeza genuinas</span>
+      </div>
+      <div class="ej-row">
+        <span class="ej-row-label">¿De quién es?</span>
+        <span class="ej-row-val">Es mía — nace de mi propia experiencia vivida</span>
+      </div>
+      <div class="ej-row">
+        <span class="ej-row-label">Acción saludable</span>
+        <span class="ej-row-val">Escribir en mi diario lo que siento y pedir una reunión para expresarme</span>
+      </div>
+    </div>
+    <div class="ej-card otra">
+      <div class="ej-card-title">
+        <svg width="22" height="34" viewBox="0 0 22 34" fill="none">
+          <circle cx="11" cy="5" r="4.5" fill="#B4B2A9" opacity="0.5"/>
+          <path d="M4 34 C4 26 2 22 2 17 C2 12 5.5 10 11 10 C16.5 10 20 12 20 17 C20 22 18 26 18 34Z" fill="#B4B2A9" opacity="0.4"/>
+        </svg>
+        <span>Emoción absorbida</span>
+      </div>
+      <div class="ej-row">
+        <span class="ej-row-label">Situación</span>
+        <span class="ej-row-val">Mi madre está angustiada por problemas económicos</span>
+      </div>
+      <div class="ej-row">
+        <span class="ej-row-label">Emoción</span>
+        <span class="ej-row-val">Ansiedad constante que no sé de dónde viene</span>
+      </div>
+      <div class="ej-row">
+        <span class="ej-row-label">¿De quién es?</span>
+        <span class="ej-row-val">Es de mi madre — yo la hago mía por empatía automática</span>
+      </div>
+      <div class="ej-row">
+        <span class="ej-row-label">Acción saludable</span>
+        <span class="ej-row-val">Decirle "te escucho y te quiero" sin tomar su ansiedad como propia</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REFLEXION ══ -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">Reflexión profunda</div>
+    <div class="ref-body">
+      Las mujeres empáticas somos esponjas emocionales. Desde pequeñas aprendimos que era nuestra responsabilidad gestionar el bienestar emocional de quienes amamos. Distinguir lo que es tuyo de lo que es de otros no es egoísmo — es salud emocional.
+    </div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "¿Hay alguien en mi vida cuyas emociones cargo como propias habitualmente? ¿Qué pasaría si devolviera esa carga con amor, sin cargarla yo? ¿Cómo me sentiría más liviana?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación del día</span>
+      "Puedo amar profundamente a otros sin perderme a mí misma. Mi equilibrio emocional también importa."
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <p>
+    <strong>Método Camino</strong> · Tabla de Emociones Comparativa<br>
+    Herramienta de inteligencia emocional para mujeres de 40+<br>
+    © 2026 Jenifer Mendoza · Todos los derechos reservados
+  </p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'metodoCamino_tablaEmociones';
+
+const LABELS = ['Situación','Emoción','¿De quién es realmente?','Acción saludable'];
+const PLACEHOLDERS_MIA  = ['¿Qué situación estás viviendo tú?','¿Qué emoción sientes tú genuinamente?','Esta emoción es mía porque...','¿Cómo expreso o proceso esta emoción de forma saludable?'];
+const PLACEHOLDERS_OTRA = ['¿Qué situación de otra persona estás cargando?','¿Qué emoción de otra persona has hecho tuya?','Esta emoción es de... porque la absorbo cuando...','¿Cómo devuelvo esta emoción con amor y sin culpa?'];
+
+function getTableData() {
+  const rows = [];
+  document.querySelectorAll('#tableBody tr').forEach(tr => {
+    const tas = tr.querySelectorAll('textarea');
+    const lbl = tr.querySelector('.row-lbl-text');
+    rows.push({
+      label: lbl ? lbl.textContent : '',
+      mia:   tas[0] ? tas[0].value : '',
+      otra:  tas[1] ? tas[1].value : ''
+    });
+  });
+  return rows;
+}
+
+function saveTable() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(getTableData()));
+    showToast('✓ Guardado correctamente');
+  } catch(e) { showToast('Guarda disponible cuando publiques en Netlify'); }
+}
+
+function loadTable() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if(!saved) return;
+    const rows = document.querySelectorAll('#tableBody tr');
+    saved.forEach((d,i) => {
+      if(!rows[i]) return;
+      const tas = rows[i].querySelectorAll('textarea');
+      if(tas[0]) tas[0].value = d.mia  || '';
+      if(tas[1]) tas[1].value = d.otra || '';
+    });
+  } catch(e) {}
+}
+
+function addRow() {
+  const count = document.querySelectorAll('#tableBody tr').length;
+  const idx   = count % LABELS.length;
+  const label = LABELS[idx] || ('Fila ' + (count+1));
+  const pMia  = PLACEHOLDERS_MIA[idx]  || 'Escribe aquí...';
+  const pOtra = PLACEHOLDERS_OTRA[idx] || 'Escribe aquí...';
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="row-lbl">
+      <div class="row-lbl-inner">
+        <div class="row-lbl-dot"></div>
+        <span class="row-lbl-text">${label}</span>
+      </div>
+    </td>
+    <td class="data-cell col-mia"><textarea placeholder="${pMia}"></textarea></td>
+    <td class="data-cell col-otra"><textarea placeholder="${pOtra}"></textarea></td>
+  `;
+  document.getElementById('tableBody').appendChild(tr);
+  tr.querySelector('textarea').focus();
+}
+
+function clearTable() {
+  if(!confirm('¿Limpiar todas las respuestas?')) return;
+  document.querySelectorAll('#tableBody textarea').forEach(t => t.value = '');
+  showToast('Tabla limpiada');
+}
+
+function downloadPDF() {
+  const rows = getTableData();
+  const rowsHTML = rows.map(r => `
+    <tr>
+      <td style="padding:10px 14px;background:#F5FDF9;border-right:1px solid #C8EEE0;border-bottom:1px solid #C8EEE0;font-family:sans-serif;font-size:12px;font-weight:600;color:#085041;vertical-align:middle;">${r.label}</td>
+      <td style="padding:10px 14px;border-right:1.5px solid #1D9E75;border-bottom:1px solid #C8EEE0;font-family:Georgia,serif;font-size:13px;color:#2D6B65;vertical-align:top;background:rgba(225,245,238,0.3);">${r.mia||'—'}</td>
+      <td style="padding:10px 14px;border-bottom:1px solid #C8EEE0;font-family:Georgia,serif;font-size:13px;color:#5F5E5A;vertical-align:top;background:rgba(245,244,241,0.3);">${r.otra||'—'}</td>
+    </tr>
+  `).join('');
+
+  const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<title>Mis Emociones — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Playfair+Display:wght@700;900&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#FAF6F0;font-family:'Raleway',sans-serif;color:#4A2E22;}
+.hdr{background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 40%,#5B9E98 70%,transparent 100%);padding:36px 48px 44px;clip-path:polygon(0 0,100% 0,100% 82%,55% 96%,0 86%);}
+.ey{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:6px;}
+h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#fff;margin:0 0 4px;}
+.hs{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);}
+.db{display:inline-block;background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);padding:5px 18px;border-radius:20px;font-size:11px;margin-top:12px;}
+.body{padding:32px 48px;}
+.st{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#2D6B65;margin:0 0 14px;}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;border:1.5px solid #1D9E75;margin-bottom:28px;}
+th{background:#E1F5EE;padding:10px 14px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;color:#085041;text-align:center;}
+th:first-child{width:22%;border-right:1px solid #9FE1CB;text-align:left;}
+th:nth-child(2){width:39%;border-right:1.5px solid #1D9E75;}
+.qt{background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:24px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:#085041;line-height:1.8;}
+.ft{background:#2D6B65;padding:18px 48px;text-align:center;}
+.ft p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}
+.ft strong{color:#fff;}
+@media print{body{background:#fff;}.hdr,.ft{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="hdr"><div class="ey">✦ Método Camino · Tabla de Emociones · Para Mujeres de 40+</div><h1>Mis Emociones vs Emociones que Absorbo</h1><div class="hs">Registro de inteligencia emocional</div><div class="db">Fecha: ${new Date().toLocaleDateString('es-ES')}</div></div>
+<div class="body">
+<div class="st">Mi registro personal</div>
+<table>
+  <tr>
+    <th style="text-align:left;">Filas</th>
+    <th>Mis emociones · Lo que siento yo</th>
+    <th>Emociones que absorbo · Lo que tomo de otros</th>
+  </tr>
+  ${rowsHTML}
+</table>
+<div class="qt">"Puedo amar profundamente a otros sin perderme a mí misma. Distinguir mis emociones de las de otros es un acto de salud y amor propio."</div>
+</div>
+<div class="ft"><p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026<br>Para imprimir: Archivo → Imprimir → Guardar como PDF</p></div>
+</body></html>`;
+
+  const blob = new Blob([html],{type:'text/html'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href=url; a.download=`TablaEmociones_MetodoCamino_${new Date().toISOString().split('T')[0]}.html`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast('✓ Descargando tu tabla...');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+  const bar = document.getElementById('toastBar');
+  bar.textContent = msg; bar.classList.add('show');
+  setTimeout(()=>bar.classList.remove('show'), 2800);
+}
+
+loadTable();
+</script>
+</body>
+</html>

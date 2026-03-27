@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Torre de Hábitos · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-lt:   #5B9E98;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-mid2: #9FE1CB;
+  --teal-dark: #085041;
+  --teal-deep: #0F6E56;
+  --blue:      #185FA5;
+  --blue-lt:   #378ADD;
+  --blue-pale: #E6F1FB;
+  --blue-dark: #0C447C;
+  --gold:      #C8A96E;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --sand2:     #D6C4A8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --gray-pale: #F1EFE8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Raleway',sans-serif;
+  background:var(--cream);
+  color:var(--brown);
+  min-height:100vh;
+}
+
+/* ══ HERO ══ */
+.hero {
+  position:relative; overflow:hidden;
+  background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%);
+}
+.hero-swoosh {
+  position:absolute; top:0; left:0; right:0; height:100%;
+  background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%);
+  clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%);
+}
+.hero-bottom {
+  position:absolute; bottom:0; left:0; right:0; height:35%;
+  background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%);
+  clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center;
+  padding:44px 24px 52px; text-align:center;
+}
+.hero-eyebrow {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.65em; color:rgba(255,255,255,0.88);
+  text-transform:uppercase; margin-bottom:8px;
+}
+.hero-metodo {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:12px;
+  letter-spacing:0.7em; color:rgba(255,255,255,0.65);
+  text-transform:uppercase; margin-bottom:2px;
+}
+.hero-title {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em;
+  color:#fff; line-height:1.2; max-width:580px;
+  text-shadow:0 3px 30px rgba(45,107,101,0.5);
+}
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+  font-size:clamp(14px,2.2vw,17px); color:var(--brown);
+  line-height:1.75; max-width:520px;
+}
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge {
+  margin-top:16px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; padding:8px 24px;
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:10px;
+  letter-spacing:0.3em; text-transform:uppercase;
+  border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35);
+}
+.hero-author {
+  margin-top:18px;
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:20px; color:var(--teal); letter-spacing:0.05em;
+}
+.hero-author-by {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:9px;
+  letter-spacing:0.45em; color:var(--brown-mid);
+  text-transform:uppercase; display:block; margin-bottom:3px;
+}
+.scroll-cta {
+  margin-top:24px;
+  display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+}
+.scroll-cta span {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.35em; color:var(--teal); text-transform:uppercase;
+}
+.scroll-arrow {
+  width:28px; height:28px;
+  border:1px solid rgba(45,107,101,0.4); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  animation:bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section {
+  background:var(--sand); padding:36px 24px; text-align:center;
+}
+.intro-section h2 {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:22px;
+  color:var(--teal); margin-bottom:10px;
+}
+.intro-section p {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px;
+  color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75;
+}
+.quote-banner {
+  background:rgba(255,255,255,0.6);
+  border-left:3px solid var(--teal); border-radius:0 8px 8px 0;
+  padding:14px 20px; max-width:540px; margin:0 auto;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; color:var(--brown); line-height:1.8;
+}
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ CIENCIA ══ */
+.ciencia-section {
+  max-width:800px; margin:0 auto; padding:28px 16px 0;
+}
+.ciencia-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal); margin-bottom:6px;
+}
+.ciencia-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); margin-bottom:16px;
+}
+.ciencia-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px;
+}
+@media(max-width:500px){ .ciencia-grid{ grid-template-columns:1fr; } }
+.ciencia-card {
+  background:#fff; border-radius:10px; padding:16px 18px;
+  border:0.5px solid rgba(0,0,0,0.08); text-align:center;
+}
+.ciencia-icon { font-size:24px; display:block; margin-bottom:6px; }
+.ciencia-name {
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:13px;
+  color:var(--teal-dark); display:block; margin-bottom:4px;
+}
+.ciencia-desc {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px;
+  color:var(--brown-mid); line-height:1.5;
+}
+
+/* ══ INSTRUCCIONES ══ */
+.inst-section {
+  max-width:800px; margin:0 auto; padding:0 16px;
+}
+.inst-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal); margin-bottom:6px;
+}
+.inst-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); margin-bottom:16px;
+}
+.inst-steps {
+  display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:20px;
+}
+@media(max-width:500px){ .inst-steps{ grid-template-columns:1fr; } }
+.inst-step {
+  background:#fff; border-radius:10px; padding:14px 16px;
+  border:0.5px solid rgba(0,0,0,0.08); display:flex; gap:10px; align-items:flex-start;
+}
+.inst-num {
+  width:26px; height:26px; border-radius:50%; flex-shrink:0;
+  background:var(--teal-pale); color:var(--teal-dark);
+  font-family:'Playfair Display',serif; font-weight:700; font-size:13px;
+  display:flex; align-items:center; justify-content:center;
+}
+.inst-text {
+  font-family:'Raleway',sans-serif; font-size:12px;
+  color:var(--brown-mid); line-height:1.55;
+}
+.inst-text strong { color:var(--teal); font-weight:600; }
+
+/* ══ HERRAMIENTA ══ */
+.tool-section {
+  max-width:800px; margin:24px auto 0; padding:0 16px;
+}
+.tool-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal); margin-bottom:6px;
+}
+.tool-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); margin-bottom:16px;
+}
+
+/* Progress */
+.progress-bar {
+  display:flex; align-items:center; gap:10px;
+  background:#fff; border-radius:10px; padding:12px 16px;
+  border:0.5px solid rgba(45,107,101,0.2); margin-bottom:16px;
+}
+.pb-label { font-family:'Raleway',sans-serif; font-size:12px; color:var(--brown-mid); white-space:nowrap; }
+.pb-track { flex:1; height:8px; background:var(--gray-pale); border-radius:4px; overflow:hidden; }
+.pb-fill {
+  height:100%; border-radius:4px;
+  background:linear-gradient(90deg,var(--gray-lt),var(--teal-svg),var(--blue));
+  transition:width 0.5s ease;
+}
+.pb-count { font-family:'Playfair Display',serif; font-weight:700; font-size:16px; color:var(--teal); white-space:nowrap; }
+
+/* Tower */
+.tower-wrap {
+  background:#fff; border-radius:12px; padding:20px 24px;
+  border:0.5px solid rgba(45,107,101,0.2); margin-bottom:16px;
+}
+.tower-col { display:flex; flex-direction:column; }
+
+/* Blocks */
+.habit-block {
+  border-radius:10px; padding:14px 16px;
+  margin-bottom:6px; border:1.5px solid transparent;
+  transition:all 0.3s ease; animation:blockIn 0.4s ease both;
+}
+@keyframes blockIn {
+  from { opacity:0; transform:translateY(10px) scale(0.97); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+.block-anchor  { background:var(--gray-pale); border-color:var(--gray-lt); }
+.block-new     { background:var(--blue-pale); border-color:#85B7EB; }
+.block-forming { background:var(--teal-pale); border-color:var(--teal-mid2); }
+.block-solid   { background:var(--teal-svg);  border-color:var(--teal-deep); }
+
+.block-top { display:flex; align-items:center; gap:8px; margin-bottom:5px; }
+.block-badge {
+  font-family:'Raleway',sans-serif; font-size:9px; font-weight:600;
+  letter-spacing:0.1em; text-transform:uppercase;
+  padding:2px 9px; border-radius:10px; flex-shrink:0;
+}
+.block-anchor  .block-badge { background:var(--gray); color:#fff; }
+.block-new     .block-badge { background:var(--blue); color:#fff; }
+.block-forming .block-badge { background:var(--teal-svg); color:#fff; }
+.block-solid   .block-badge { background:rgba(255,255,255,0.25); color:#fff; }
+
+.block-name {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:15px;
+  line-height:1.3; flex:1;
+}
+.block-anchor  .block-name { color:#444441; }
+.block-new     .block-name { color:var(--blue-dark); }
+.block-forming .block-name { color:var(--teal-dark); }
+.block-solid   .block-name { color:#fff; }
+
+.block-trigger {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:13px; line-height:1.4;
+  padding-top:5px; border-top:0.5px solid rgba(0,0,0,0.08); margin-top:4px;
+}
+.block-anchor  .block-trigger { color:var(--gray); }
+.block-new     .block-trigger { color:var(--blue-lt); }
+.block-forming .block-trigger { color:var(--teal-deep); }
+.block-solid   .block-trigger { color:rgba(255,255,255,0.85); }
+
+.block-hint {
+  font-family:'Raleway',sans-serif; font-size:10px;
+  margin-top:6px; opacity:0.6; text-align:right;
+}
+.block-anchor  .block-hint { color:var(--gray); }
+.block-new     .block-hint { color:var(--blue); }
+.block-forming .block-hint { color:var(--teal-deep); }
+.block-solid   .block-hint { color:#fff; }
+
+/* Arrow between blocks */
+.block-arrow {
+  display:flex; align-items:center; gap:8px;
+  font-family:'Raleway',sans-serif; font-size:11px; font-weight:500;
+  color:var(--gray); margin:2px 0 4px; padding:0 4px;
+}
+.block-arrow-line { flex:1; height:1px; background:var(--gray-lt); }
+
+/* Add form */
+.add-card {
+  background:#fff; border-radius:12px; padding:20px 22px;
+  border:0.5px solid rgba(45,107,101,0.2); margin-bottom:16px;
+}
+.add-card-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:17px;
+  color:var(--teal); margin-bottom:6px;
+}
+.add-card-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px;
+  color:var(--brown-mid); margin-bottom:14px;
+}
+.add-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;
+}
+@media(max-width:500px){ .add-grid{ grid-template-columns:1fr; } }
+.add-field label {
+  display:block; font-family:'Raleway',sans-serif; font-size:10px; font-weight:600;
+  letter-spacing:0.12em; text-transform:uppercase; color:var(--brown-mid); margin-bottom:4px;
+}
+.add-field input {
+  width:100%; border:0.5px solid var(--gray-lt); border-radius:8px;
+  padding:9px 12px; font-family:'Raleway',sans-serif; font-size:13px;
+  color:var(--brown); background:var(--cream);
+  transition:border-color 0.2s;
+}
+.add-field input:focus {
+  outline:none; border-color:var(--teal-svg);
+  box-shadow:0 0 0 3px rgba(29,158,117,0.1);
+}
+.add-field input::placeholder { color:var(--gray); font-style:italic; font-size:12px; }
+.add-btns { display:flex; gap:8px; flex-wrap:wrap; }
+.abtn {
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:600;
+  padding:9px 18px; border-radius:6px; cursor:pointer; border:none;
+  transition:opacity 0.2s; white-space:nowrap;
+}
+.abtn:hover { opacity:0.85; }
+.abtn-add   { background:var(--teal-svg); color:#fff; }
+.abtn-save  { background:var(--blue); color:#fff; }
+.abtn-pdf   { background:var(--gold); color:var(--brown); }
+.abtn-clear { background:transparent; color:var(--gray); border:0.5px solid var(--gray-lt) !important; }
+
+/* Legend */
+.legend-bar {
+  display:flex; gap:14px; flex-wrap:wrap; justify-content:center;
+  margin-bottom:8px;
+}
+.leg-i { display:flex; align-items:center; gap:6px; font-family:'Raleway',sans-serif; font-size:11px; color:var(--brown-mid); }
+.leg-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
+.leg-tip {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px;
+  color:var(--gray); text-align:center; margin-bottom:16px;
+}
+
+/* ══ REFLEXION ══ */
+.ref-section {
+  max-width:800px; margin:0 auto; padding:0 16px 40px;
+}
+.ref-card {
+  background:#fff; border-radius:12px; padding:26px 28px;
+  border:0.5px solid rgba(45,107,101,0.2);
+}
+.ref-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:19px;
+  color:var(--teal); margin-bottom:10px;
+}
+.ref-body {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); line-height:1.8; margin-bottom:16px;
+}
+.ref-q {
+  background:var(--teal-pale); border-left:3px solid var(--teal-svg);
+  border-radius:0 8px 8px 0; padding:14px 18px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; color:var(--teal-dark); line-height:1.75; margin-bottom:16px;
+}
+.ref-q strong {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:10px; font-weight:600; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--teal); margin-bottom:4px;
+}
+.afirm {
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; border-radius:8px; padding:18px 24px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; line-height:1.7; text-align:center;
+}
+.afirm span {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:9px; font-weight:600; letter-spacing:0.3em;
+  text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px;
+}
+
+/* ══ FOOTER ══ */
+.footer { background:var(--teal); padding:28px 24px; text-align:center; }
+.footer p {
+  font-family:'Raleway',sans-serif; font-weight:200;
+  font-size:11px; letter-spacing:0.2em;
+  color:rgba(255,255,255,0.7); line-height:2;
+}
+.footer strong { color:#fff; font-weight:600; }
+
+/* Toast */
+.toast {
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  background:var(--teal-svg); color:#fff; padding:10px 24px; border-radius:24px;
+  font-family:'Raleway',sans-serif; font-size:13px;
+  opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999;
+  box-shadow:0 4px 20px rgba(29,158,117,0.4);
+}
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta de Hábitos · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Torre de Hábitos</div>
+    <div class="hero-accent">
+      <div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div>
+    </div>
+    <div class="hero-sub">
+      Construye nuevos hábitos <strong>uno a uno</strong><br>
+      apoyándote en lo que ya haces — así funciona el cerebro
+    </div>
+    <div class="hero-badge">✦ &nbsp; Apilamiento de Hábitos Interactivo &nbsp; ✦</div>
+    <div style="margin-top:18px;">
+      <span class="hero-author-by">A u t o r a</span>
+      <div class="hero-author">Jenifer Mendoza</div>
+    </div>
+    <div class="scroll-cta" onclick="document.getElementById('instrucciones').scrollIntoView({behavior:'smooth'})">
+      <span>Construir mi torre</span>
+      <div class="scroll-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTRO ══ -->
+<div class="intro-section">
+  <h2>El secreto de los hábitos que sí duran</h2>
+  <p>No se trata de fuerza de voluntad — se trata de diseño. El apilamiento de hábitos conecta lo nuevo con lo que ya existe, usando tu rutina actual como plataforma de lanzamiento.</p>
+  <div class="quote-banner">
+    "No tienes que ser la persona que quieres ser —<br>
+    solo tienes que <strong>actuar como ella</strong>, un pequeño hábito a la vez." — James Clear
+  </div>
+</div>
+
+<!-- ══ CIENCIA ══ -->
+<div class="ciencia-section">
+  <div class="ciencia-title">La ciencia detrás del apilamiento</div>
+  <div class="ciencia-sub">Cuando conectas un hábito nuevo a uno ya existente, aprovechas las vías neuronales ya formadas</div>
+  <div class="ciencia-grid">
+    <div class="ciencia-card">
+      <span class="ciencia-icon">⚓</span>
+      <span class="ciencia-name">Hábito ancla</span>
+      <span class="ciencia-desc">El hábito que ya haces automáticamente y que activa el nuevo</span>
+    </div>
+    <div class="ciencia-card">
+      <span class="ciencia-icon">🔗</span>
+      <span class="ciencia-name">La conexión</span>
+      <span class="ciencia-desc">"Después de [ancla], haré [nuevo]" — la frase que programa el cerebro</span>
+    </div>
+    <div class="ciencia-card">
+      <span class="ciencia-icon">🧱</span>
+      <span class="ciencia-name">La torre</span>
+      <span class="ciencia-desc">Cada hábito consolidado se convierte en ancla del siguiente</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INSTRUCCIONES ══ -->
+<div class="inst-section" id="instrucciones">
+  <div class="inst-title">Cómo construir tu torre de hábitos</div>
+  <div class="inst-sub">Empieza con un hábito ancla — algo que ya haces todos los días sin pensarlo</div>
+  <div class="inst-steps">
+    <div class="inst-step">
+      <div class="inst-num">1</div>
+      <div class="inst-text"><strong>Identifica tu hábito ancla</strong> — algo que ya haces a diario: café, ducha, cepillarte los dientes, despertar</div>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">2</div>
+      <div class="inst-text"><strong>Elige un hábito nuevo pequeño</strong> — tan pequeño que parezca ridículo no hacerlo. 2 minutos máximo al inicio</div>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">3</div>
+      <div class="inst-text"><strong>Conecta con la frase:</strong> "Después de [ancla], haré [nuevo]". Esta frase programa tu cerebro automáticamente</div>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">4</div>
+      <div class="inst-text"><strong>Practica 21 días</strong> el mismo bloque antes de agregar otro. La consistencia es más poderosa que la cantidad</div>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">5</div>
+      <div class="inst-text"><strong>Haz clic en cada bloque</strong> para avanzar su estado: Nuevo → Formándose → Consolidado</div>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">6</div>
+      <div class="inst-text"><strong>Cuando un hábito se consolida</strong> (azul oscuro), es momento de agregar el siguiente bloque a la torre</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HERRAMIENTA ══ -->
+<div class="tool-section" id="herramienta">
+  <div class="tool-title">Mi Torre de Hábitos</div>
+  <div class="tool-sub">Construye desde abajo hacia arriba — cada bloque apoya al siguiente</div>
+
+  <div class="progress-bar">
+    <span class="pb-label">Mi progreso:</span>
+    <div class="pb-track"><div class="pb-fill" id="pbFill" style="width:0%"></div></div>
+    <span class="pb-count" id="pbCount">0 hábitos</span>
+  </div>
+
+  <div class="legend-bar">
+    <div class="leg-i"><div class="leg-dot" style="background:var(--gray-pale);border:1.5px solid var(--gray-lt);"></div>Hábito ancla</div>
+    <div class="leg-i"><div class="leg-dot" style="background:var(--blue-pale);border:1.5px solid #85B7EB;"></div>Hábito nuevo</div>
+    <div class="leg-i"><div class="leg-dot" style="background:var(--teal-pale);border:1.5px solid var(--teal-mid2);"></div>Formándose</div>
+    <div class="leg-i"><div class="leg-dot" style="background:var(--teal-svg);"></div>Consolidado</div>
+  </div>
+  <div class="leg-tip">Haz clic en cualquier bloque para avanzar su estado de consolidación</div>
+
+  <div class="tower-wrap">
+    <div class="tower-col" id="towerCol"></div>
+  </div>
+
+  <div class="add-card">
+    <div class="add-card-title">Agregar nuevo bloque a la torre</div>
+    <div class="add-card-sub">El nuevo hábito se conectará automáticamente al último bloque de tu torre</div>
+    <div class="add-grid">
+      <div class="add-field">
+        <label>Nuevo hábito</label>
+        <input type="text" id="newHabit" placeholder="Ej: Escribir en mi diario" maxlength="50">
+      </div>
+      <div class="add-field">
+        <label>Después de...</label>
+        <input type="text" id="newTrigger" placeholder="Ej: tomar mi café de la mañana" maxlength="50">
+      </div>
+    </div>
+    <div class="add-btns">
+      <button class="abtn abtn-add"   onclick="addHabit()">+ Agregar bloque</button>
+      <button class="abtn abtn-save"  onclick="saveTower()">💾 Guardar torre</button>
+      <button class="abtn abtn-pdf"   onclick="downloadPDF()">📄 Descargar PDF</button>
+      <button class="abtn abtn-clear" onclick="clearTower()">Reiniciar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REFLEXION ══ -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">Reflexión sobre tus hábitos</div>
+    <div class="ref-body">
+      El problema no es que no tengas fuerza de voluntad — es que estás intentando construir hábitos sin una base. El apilamiento te da esa base. Lo que ya haces es tu mayor recurso para construir la persona que quieres ser.
+    </div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "¿Cuál es el hábito que más cambiaría mi vida si lo hiciera cada día? ¿A qué rutina que ya tengo podría conectarlo? ¿Qué tan pequeño puedo hacerlo para que sea imposible no cumplirlo?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación del día</span>
+      "No necesito cambiar todo de golpe. Un pequeño hábito, conectado a lo que ya hago, es suficiente para construir la vida que quiero — bloque a bloque."
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <p>
+    <strong>Método Camino</strong> · Torre de Hábitos · Apilamiento de Hábitos<br>
+    Herramienta de cambio de comportamiento para mujeres de 40+<br>
+    © 2026 Jenifer Mendoza · Todos los derechos reservados
+  </p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'metodoCamino_torreHabitos';
+const STATES = ['block-anchor','block-new','block-forming','block-solid'];
+const STATE_LABELS = ['Ancla','Nuevo','Formándose','Consolidado'];
+
+const DEFAULTS = [
+  { name:'Tomar café de la mañana',      trigger:'Al despertar cada mañana',               state:'block-anchor', locked:true },
+  { name:'3 respiraciones profundas',    trigger:'Después de servir mi café',               state:'block-new' },
+  { name:'Escribir mi intención del día',trigger:'Después de mis respiraciones',            state:'block-new' }
+];
+
+function load() {
+  try {
+    const d = JSON.parse(localStorage.getItem(KEY)||'null');
+    return d && d.length ? d : JSON.parse(JSON.stringify(DEFAULTS));
+  } catch(e) { return JSON.parse(JSON.stringify(DEFAULTS)); }
+}
+function save(h) { try { localStorage.setItem(KEY,JSON.stringify(h)); } catch(e){} }
+
+let habits = load();
+
+function advanceState(idx) {
+  if(habits[idx].locked) return;
+  const states = ['block-new','block-forming','block-solid'];
+  const cur = habits[idx].state;
+  const ci  = states.indexOf(cur);
+  if(ci < states.length-1) {
+    habits[idx].state = states[ci+1];
+    save(habits); render();
+    const labels = ['Formándose...','Consolidado'];
+    showToast('Estado actualizado → ' + (labels[ci]||'Completado'));
+  } else {
+    showToast('Este hábito ya está consolidado');
+  }
+}
+
+function render() {
+  const col = document.getElementById('towerCol');
+  col.innerHTML = '';
+
+  const total       = habits.length;
+  const consolidated = habits.filter(h=>h.state==='block-solid').length;
+  const pct = total > 1 ? Math.round(((total-1+consolidated)/((total-1)*2||1))*100) : 0;
+  document.getElementById('pbFill').style.width = Math.min(pct,100)+'%';
+  document.getElementById('pbCount').textContent = total + ' hábito' + (total!==1?'s':'') + ' · ' + consolidated + ' consolidado' + (consolidated!==1?'s':'');
+
+  habits.forEach((h,i) => {
+    const cls   = i===0 ? 'block-anchor' : (h.state||'block-new');
+    const label = STATE_LABELS[STATES.indexOf(cls)] || 'Nuevo';
+    const canAdvance = !h.locked && i>0 && cls !== 'block-solid';
+
+    if(i > 0) {
+      const arrow = document.createElement('div');
+      arrow.className = 'block-arrow';
+      arrow.innerHTML = `<div class="block-arrow-line"></div><span>después de...</span><div class="block-arrow-line"></div>`;
+      col.appendChild(arrow);
+    }
+
+    const block = document.createElement('div');
+    block.className = 'habit-block ' + cls;
+    block.style.animationDelay = (i*0.08)+'s';
+    if(canAdvance) { block.style.cursor='pointer'; block.title='Clic para avanzar consolidación'; }
+    block.onclick = () => { if(!h.locked && i>0) advanceState(i); };
+
+    block.innerHTML = `
+      <div class="block-top">
+        <span class="block-badge">${label}</span>
+        <span class="block-name">${h.name}</span>
+      </div>
+      <div class="block-trigger">${h.trigger}</div>
+      ${canAdvance ? '<div class="block-hint">Toca para avanzar →</div>' : ''}
+    `;
+    col.appendChild(block);
+  });
+}
+
+function addHabit() {
+  const name    = document.getElementById('newHabit').value.trim();
+  const trigger = document.getElementById('newTrigger').value.trim();
+  if(!name) { showToast('Escribe el nombre del nuevo hábito'); return; }
+  const prev = habits[habits.length-1];
+  habits.push({
+    name,
+    trigger: trigger ? ('Después de ' + trigger) : ('Después de ' + prev.name.toLowerCase()),
+    state: 'block-new'
+  });
+  save(habits); render();
+  document.getElementById('newHabit').value = '';
+  document.getElementById('newTrigger').value = '';
+  showToast('Bloque agregado a tu torre');
+  document.getElementById('towerCol').lastElementChild?.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function saveTower() {
+  save(habits);
+  showToast('✓ Torre guardada correctamente');
+}
+
+function clearTower() {
+  if(!confirm('¿Reiniciar la torre con los ejemplos por defecto?')) return;
+  habits = JSON.parse(JSON.stringify(DEFAULTS));
+  save(habits); render();
+  showToast('Torre reiniciada');
+}
+
+function downloadPDF() {
+  const colors = { 'block-anchor':'#888780','block-new':'#185FA5','block-forming':'#1D9E75','block-solid':'#0F6E56' };
+  const bgs    = { 'block-anchor':'#F1EFE8','block-new':'#E6F1FB','block-forming':'#E1F5EE','block-solid':'#1D9E75' };
+  const texts  = { 'block-anchor':'#444441','block-new':'#0C447C','block-forming':'#085041','block-solid':'#fff' };
+
+  const blocks = habits.map((h,i) => {
+    const cls   = i===0 ? 'block-anchor' : (h.state||'block-new');
+    const label = STATE_LABELS[STATES.indexOf(cls)]||'Nuevo';
+    const arrow = i>0 ? `<div style="text-align:center;font-size:11px;color:#888780;margin:5px 0;font-style:italic;font-family:'Cormorant Garamond',serif;">↓ después de...</div>` : '';
+    return `${arrow}
+    <div style="background:${bgs[cls]};border:1.5px solid ${colors[cls]};border-radius:10px;padding:14px 18px;margin-bottom:6px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <span style="background:${colors[cls]};color:#fff;font-family:'Raleway',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:2px 9px;border-radius:10px;">${label}</span>
+        <span style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:${texts[cls]};">${h.name}</span>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:${texts[cls]};opacity:0.85;border-top:0.5px solid rgba(0,0,0,0.1);padding-top:5px;">${h.trigger}</div>
+    </div>`;
+  }).join('');
+
+  const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<title>Mi Torre de Hábitos — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Playfair+Display:wght@700;900&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Raleway',sans-serif;margin:0;padding:0;background:#FAF6F0;color:#4A2E22;}
+.hdr{background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 40%,#5B9E98 70%,transparent 100%);padding:36px 48px 44px;clip-path:polygon(0 0,100% 0,100% 82%,55% 96%,0 86%);}
+.ey{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:6px;}
+h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#fff;margin:0 0 4px;}
+.hs{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);}
+.db{display:inline-block;background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);padding:5px 18px;border-radius:20px;font-size:11px;margin-top:12px;}
+.body{padding:32px 48px;}
+.st{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#2D6B65;margin:0 0 16px;}
+.qt{background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:0 8px 8px 0;padding:14px 20px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:#085041;line-height:1.8;margin-top:20px;}
+.ft{background:#2D6B65;padding:18px 48px;text-align:center;}
+.ft p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}.ft strong{color:#fff;}
+@media print{body{background:#fff;}.hdr,.ft{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="hdr"><div class="ey">✦ Método Camino · Torre de Hábitos · Para Mujeres de 40+</div>
+<h1>Mi Torre de Hábitos</h1>
+<div class="hs">Mi secuencia de apilamiento de hábitos</div>
+<div class="db">Fecha: ${new Date().toLocaleDateString('es-ES',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</div></div>
+<div class="body">
+<div class="st">Mi secuencia de hábitos apilados</div>
+${blocks}
+<div class="qt">"No tienes que ser la persona que quieres ser — solo tienes que actuar como ella, un pequeño hábito a la vez." — James Clear<br><br>
+Recuerda: consolida cada bloque antes de agregar el siguiente. La consistencia supera a la cantidad.</div>
+</div>
+<div class="ft"><p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026<br>Para imprimir: Archivo → Imprimir → Guardar como PDF</p></div>
+</body></html>`;
+
+  const blob = new Blob([html],{type:'text/html'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href=url; a.download=`TorreHabitos_MetodoCamino_${new Date().toISOString().split('T')[0]}.html`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast('✓ Descargando tu torre...');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+render();
+</script>
+</body>
+</html>

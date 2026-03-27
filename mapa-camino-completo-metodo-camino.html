@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa del Camino · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-dark: #085041;
+  --gold:      #C8A96E;
+  --amber:     #EF9F27;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Raleway',sans-serif; background:var(--cream); color:var(--brown); min-height:100vh; }
+
+/* ══ HERO ══ */
+.hero { position:relative; overflow:hidden; background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%); }
+.hero-swoosh { position:absolute; top:0; left:0; right:0; height:100%; background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%); clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%); }
+.hero-bottom { position:absolute; bottom:0; left:0; right:0; height:35%; background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%); clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%); }
+.hero-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; padding:44px 24px 52px; text-align:center; }
+.hero-eyebrow { font-weight:300; font-size:10px; letter-spacing:0.65em; color:rgba(255,255,255,0.88); text-transform:uppercase; margin-bottom:8px; }
+.hero-metodo { font-weight:200; font-size:12px; letter-spacing:0.7em; color:rgba(255,255,255,0.65); text-transform:uppercase; margin-bottom:2px; }
+.hero-title { font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em; color:#fff; line-height:1.2; max-width:580px; text-shadow:0 3px 30px rgba(45,107,101,0.5); }
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:clamp(14px,2.2vw,17px); color:var(--brown); line-height:1.75; max-width:520px; }
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge { margin-top:16px; background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; padding:8px 24px; font-weight:600; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35); }
+.hero-author { margin-top:18px; font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:var(--teal); }
+.hero-author-by { font-weight:200; font-size:9px; letter-spacing:0.45em; color:var(--brown-mid); text-transform:uppercase; display:block; margin-bottom:3px; }
+.scroll-cta { margin-top:24px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; }
+.scroll-cta span { font-weight:300; font-size:10px; letter-spacing:0.35em; color:var(--teal); text-transform:uppercase; }
+.scroll-arrow { width:28px; height:28px; border:1px solid rgba(45,107,101,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; animation:bounceDown 2s ease-in-out infinite; }
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ CAMINO LETTERS ══ */
+.camino-section { background:var(--sand); padding:36px 24px; }
+.camino-title { font-family:'Playfair Display',serif; font-weight:700; font-size:22px; color:var(--teal); text-align:center; margin-bottom:6px; }
+.camino-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); text-align:center; margin-bottom:20px; }
+.camino-letters { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; max-width:720px; margin:0 auto; }
+@media(max-width:540px){ .camino-letters{ grid-template-columns:repeat(3,1fr); } }
+.cl-card { border-radius:10px; padding:14px 12px; text-align:center; border:0.5px solid rgba(255,255,255,0.3); }
+.cl-letter { font-family:'Playfair Display',serif; font-weight:900; font-size:32px; display:block; margin-bottom:4px; }
+.cl-word { font-family:'Raleway',sans-serif; font-weight:600; font-size:11px; display:block; margin-bottom:4px; letter-spacing:0.08em; text-transform:uppercase; }
+.cl-desc { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12px; line-height:1.4; }
+
+/* ══ MAPA ══ */
+.mapa-section { max-width:800px; margin:0 auto; padding:28px 16px 0; }
+.mapa-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--teal); margin-bottom:6px; }
+.mapa-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:16px; }
+
+/* Mapa container */
+.mapa-container { border-radius:16px; overflow:hidden; box-shadow:0 24px 64px rgba(0,0,0,0.45); margin-bottom:16px; }
+.mapa-container svg { width:100%; display:block; }
+
+/* Panel detalle */
+.step-panel { display:none; border-radius:12px; overflow:hidden; border:0.5px solid rgba(200,169,110,0.3); margin-bottom:16px; animation:fadeUp 0.22s ease; }
+.step-panel.show { display:block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.sp-header { padding:14px 20px 10px; display:flex; align-items:center; gap:12px; background:linear-gradient(135deg,#0D1F1A,#1A2E28); }
+.sp-badge { width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#FFF0A0; flex-shrink:0; }
+.sp-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:#FFF0A0; flex:1; }
+.sp-camp { font-family:'Raleway',sans-serif; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(200,169,110,0.8); }
+.sp-close { font-size:11px; color:rgba(255,255,255,0.4); cursor:pointer; padding:4px 10px; border-radius:5px; border:1px solid rgba(255,255,255,0.15); background:transparent; flex-shrink:0; }
+.sp-body { padding:14px 20px 16px; background:#0A1A14; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:rgba(255,255,255,0.78); line-height:1.8; }
+
+/* Legend -->*/
+.legend-bar { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:20px; }
+.leg-i { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--brown-mid); padding:4px 10px; border-radius:10px; background:rgba(255,255,255,0.6); border:0.5px solid rgba(0,0,0,0.06); }
+.leg-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+
+/* ══ CAMINO COMPLETO CARDS ══ */
+.steps-section { max-width:800px; margin:0 auto; padding:0 16px; }
+.steps-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--teal); margin-bottom:6px; }
+.steps-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:16px; }
+.steps-group { margin-bottom:20px; }
+.sg-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; padding:10px 16px; border-radius:10px; }
+.sg-letter { font-family:'Playfair Display',serif; font-weight:900; font-size:24px; }
+.sg-word { font-family:'Raleway',sans-serif; font-weight:600; font-size:14px; }
+.sg-desc { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; flex:1; }
+.steps-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+@media(max-width:460px){ .steps-grid{ grid-template-columns:1fr; } }
+.step-card { background:#fff; border-radius:10px; padding:12px 14px; border:0.5px solid; display:flex; gap:10px; align-items:flex-start; }
+.sc-num { width:26px; height:26px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-weight:700; font-size:13px; color:#fff; flex-shrink:0; }
+.sc-content { flex:1; }
+.sc-title { font-family:'Raleway',sans-serif; font-weight:600; font-size:12px; display:block; margin-bottom:3px; }
+.sc-body { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12px; color:var(--brown-mid); line-height:1.5; }
+
+/* ══ REFLEXION ══ */
+.ref-section { max-width:800px; margin:24px auto 0; padding:0 16px 40px; }
+.ref-card { background:#fff; border-radius:12px; padding:26px 28px; border:0.5px solid rgba(45,107,101,0.2); }
+.ref-title { font-family:'Playfair Display',serif; font-weight:700; font-size:19px; color:var(--teal); margin-bottom:10px; }
+.ref-body { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); line-height:1.8; margin-bottom:16px; }
+.ref-q { background:var(--teal-pale); border-left:3px solid var(--teal-svg); border-radius:0 8px 8px 0; padding:14px 18px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--teal-dark); line-height:1.75; margin-bottom:16px; }
+.ref-q strong { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal); margin-bottom:4px; }
+.afirm { background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; border-radius:8px; padding:20px 28px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:17px; line-height:1.75; text-align:center; }
+.afirm span { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:6px; }
+
+/* ══ FOOTER ══ */
+.footer { background:var(--teal); padding:28px 24px; text-align:center; }
+.footer p { font-weight:200; font-size:11px; letter-spacing:0.2em; color:rgba(255,255,255,0.7); line-height:2; }
+.footer strong { color:#fff; font-weight:600; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Mapa Completo · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">El Mapa del Camino</div>
+    <div class="hero-accent"><div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div></div>
+    <div class="hero-sub">20 pasos · 6 campamentos · Un destino:<br><strong>tú en tu plenitud</strong></div>
+    <div class="hero-badge">✦ &nbsp; Sendero de Montaña Interactivo &nbsp; ✦</div>
+    <div style="margin-top:18px;"><span class="hero-author-by">A u t o r a</span><div class="hero-author">Jenifer Mendoza</div></div>
+    <div class="scroll-cta" onclick="document.getElementById('mapa').scrollIntoView({behavior:'smooth'})">
+      <span>Ver mi camino</span>
+      <div class="scroll-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- LETRAS CAMINO -->
+<div class="camino-section">
+  <div class="camino-title">El Método C · A · M · I · N · O</div>
+  <div class="camino-sub">Seis campamentos base · Veinte pasos · Una transformación completa</div>
+  <div class="camino-letters">
+    <div class="cl-card" style="background:linear-gradient(135deg,rgba(90,46,8,0.9),rgba(90,46,8,0.7));"><span class="cl-letter" style="color:#FFF0A0;">C</span><span class="cl-word" style="color:#C8A050;">Conciencia</span><span class="cl-desc" style="color:rgba(255,240,160,0.8);">Ver lo que antes no veías</span></div>
+    <div class="cl-card" style="background:linear-gradient(135deg,rgba(106,62,8,0.9),rgba(106,62,8,0.7));"><span class="cl-letter" style="color:#FFF0A0;">A</span><span class="cl-word" style="color:#E8B840;">Aceptación</span><span class="cl-desc" style="color:rgba(255,240,160,0.8);">Abrazar tu historia sin juicio</span></div>
+    <div class="cl-card" style="background:linear-gradient(135deg,rgba(96,21,53,0.9),rgba(96,21,53,0.7));"><span class="cl-letter" style="color:#FFF0A0;">M</span><span class="cl-word" style="color:#E080A8;">Mentalidad</span><span class="cl-desc" style="color:rgba(255,240,160,0.8);">Reprogramar tu narrativa interna</span></div>
+    <div class="cl-card" style="background:linear-gradient(135deg,rgba(6,30,104,0.9),rgba(6,30,104,0.7));"><span class="cl-letter" style="color:#FFF0A0;">I</span><span class="cl-word" style="color:#6898D8;">Intención</span><span class="cl-desc" style="color:rgba(255,240,160,0.8);">Vivir proactiva, no reactiva</span></div>
+    <div class="cl-card" style="background:linear-gradient(135deg,rgba(4,52,40,0.9),rgba(4,52,40,0.7));"><span class="cl-letter" style="color:#FFF0A0;">N</span><span class="cl-word" style="color:#50C898;">Nuevos Hábitos</span><span class="cl-desc" style="color:rgba(255,240,160,0.8);">Sistemas pequeños, grandes cambios</span></div>
+    <div class="cl-card" style="background:linear-gradient(135deg,rgba(10,48,34,0.9),rgba(10,48,34,0.7));"><span class="cl-letter" style="color:#FFF0A0;">O</span><span class="cl-word" style="color:#5DCAA5;">Objetivos Reales</span><span class="cl-desc" style="color:rgba(255,240,160,0.8);">Del sueño a la ejecución</span></div>
+  </div>
+</div>
+
+<!-- MAPA -->
+<div class="mapa-section" id="mapa">
+  <div class="mapa-title">Tu sendero de montaña</div>
+  <div class="mapa-sub">Haz clic en cada punto del camino para explorar cada paso</div>
+
+  <div class="legend-bar">
+    <div class="leg-i"><div class="leg-dot" style="background:#5A2E08;"></div>C · Conciencia</div>
+    <div class="leg-i"><div class="leg-dot" style="background:#6A3E08;"></div>A · Aceptación</div>
+    <div class="leg-i"><div class="leg-dot" style="background:#601535;"></div>M · Mentalidad</div>
+    <div class="leg-i"><div class="leg-dot" style="background:#061E68;"></div>I · Intención</div>
+    <div class="leg-i"><div class="leg-dot" style="background:#043428;"></div>N · Nuevos Hábitos</div>
+    <div class="leg-i"><div class="leg-dot" style="background:#0A3022;"></div>O · Objetivos Reales</div>
+  </div>
+
+  <div class="mapa-container">
+    <svg viewBox="0 0 680 1020" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#04060E"/>
+        <stop offset="15%"  stop-color="#0A0E22"/>
+        <stop offset="32%"  stop-color="#1C0D3A"/>
+        <stop offset="50%"  stop-color="#58182E"/>
+        <stop offset="65%"  stop-color="#9A3820"/>
+        <stop offset="78%"  stop-color="#C46828"/>
+        <stop offset="90%"  stop-color="#DC9848"/>
+        <stop offset="100%" stop-color="#EDB868"/>
+      </linearGradient>
+      <linearGradient id="mfar" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#1E1040" stop-opacity=".8"/>
+        <stop offset="100%" stop-color="#0C0820" stop-opacity=".65"/>
+      </linearGradient>
+      <linearGradient id="mmid" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#16301E" stop-opacity=".95"/>
+        <stop offset="100%" stop-color="#081408" stop-opacity=".9"/>
+      </linearGradient>
+      <linearGradient id="mnear" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#0E1E12"/>
+        <stop offset="100%" stop-color="#040808"/>
+      </linearGradient>
+      <linearGradient id="earth" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#180C04"/>
+        <stop offset="100%" stop-color="#060402"/>
+      </linearGradient>
+      <linearGradient id="road" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%"   stop-color="#3A1E08" stop-opacity=".95"/>
+        <stop offset="18%"  stop-color="#7A4A18"/>
+        <stop offset="40%"  stop-color="#B88030"/>
+        <stop offset="62%"  stop-color="#D8A848"/>
+        <stop offset="82%"  stop-color="#ECC870"/>
+        <stop offset="100%" stop-color="#FFF0B0"/>
+      </linearGradient>
+      <linearGradient id="glow" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%"   stop-color="#B88030" stop-opacity="0"/>
+        <stop offset="55%"  stop-color="#ECC870" stop-opacity=".22"/>
+        <stop offset="100%" stop-color="#FFF0B0" stop-opacity=".45"/>
+      </linearGradient>
+      <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#FFF8D0"/>
+        <stop offset="30%"  stop-color="#FCDC70" stop-opacity=".9"/>
+        <stop offset="70%"  stop-color="#E09040" stop-opacity=".5"/>
+        <stop offset="100%" stop-color="#C06020" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="dhalo" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#FFF0A0" stop-opacity=".9"/>
+        <stop offset="45%"  stop-color="#E8B840" stop-opacity=".35"/>
+        <stop offset="100%" stop-color="#C88020" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="f3"><feGaussianBlur stdDeviation="3"/></filter>
+      <filter id="f6"><feGaussianBlur stdDeviation="6"/></filter>
+      <filter id="f12"><feGaussianBlur stdDeviation="12"/></filter>
+      <filter id="f18"><feGaussianBlur stdDeviation="18"/></filter>
+      <clipPath id="cp"><rect width="680" height="1020"/></clipPath>
+    </defs>
+    <g clip-path="url(#cp)">
+      <rect width="680" height="1020" fill="url(#sky)"/>
+      <ellipse cx="180" cy="110" rx="200" ry="55" fill="#5A2855" opacity=".07" filter="url(#f18)"/>
+      <ellipse cx="480" cy="75"  rx="160" ry="40" fill="#2A1860" opacity=".07" filter="url(#f12)"/>
+      <!-- Estrellas -->
+      <circle cx="38"  cy="22"  r="1.3" fill="#fff" opacity=".9"/>
+      <circle cx="92"  cy="10"  r=".9"  fill="#fff" opacity=".7"/>
+      <circle cx="148" cy="38"  r="1.4" fill="#fff" opacity=".85"/>
+      <circle cx="205" cy="14"  r=".8"  fill="#fff" opacity=".65"/>
+      <circle cx="262" cy="30"  r="1.2" fill="#fff" opacity=".8"/>
+      <circle cx="318" cy="8"   r=".9"  fill="#fff" opacity=".6"/>
+      <circle cx="375" cy="26"  r="1.3" fill="#fff" opacity=".78"/>
+      <circle cx="432" cy="5"   r=".8"  fill="#fff" opacity=".7"/>
+      <circle cx="490" cy="18"  r="1.4" fill="#fff" opacity=".88"/>
+      <circle cx="548" cy="35"  r=".9"  fill="#fff" opacity=".62"/>
+      <circle cx="605" cy="10"  r="1.3" fill="#fff" opacity=".9"/>
+      <circle cx="655" cy="28"  r="1.1" fill="#fff" opacity=".72"/>
+      <circle cx="65"  cy="68"  r=".8"  fill="#fff" opacity=".5"/>
+      <circle cx="472" cy="55"  r=".8"  fill="#fff" opacity=".5"/>
+      <circle cx="590" cy="68"  r="1.1" fill="#fff" opacity=".6"/>
+      <!-- Destellos cruciformes -->
+      <g opacity=".75" transform="translate(78,45)"><line x1="-5" y1="0" x2="5" y2="0" stroke="#FFF8D0" stroke-width=".7"/><line x1="0" y1="-5" x2="0" y2="5" stroke="#FFF8D0" stroke-width=".7"/><circle r="1.6" fill="#FFF8D0"/></g>
+      <g opacity=".65" transform="translate(548,20)"><line x1="-4" y1="0" x2="4" y2="0" stroke="#FFF8D0" stroke-width=".6"/><line x1="0" y1="-4" x2="0" y2="4" stroke="#FFF8D0" stroke-width=".6"/><circle r="1.3" fill="#FFF8D0"/></g>
+      <g opacity=".8" transform="translate(345,14)"><line x1="-5" y1="0" x2="5" y2="0" stroke="#FFF8D0" stroke-width=".7"/><line x1="0" y1="-5" x2="0" y2="5" stroke="#FFF8D0" stroke-width=".7"/><circle r="1.8" fill="#FFF8D0"/></g>
+      <!-- Luna -->
+      <circle cx="95"  cy="88" r="26" fill="#ECD8A8" opacity=".2" filter="url(#f6)"/>
+      <circle cx="95"  cy="88" r="19" fill="#F0E0B8" opacity=".24"/>
+      <circle cx="101" cy="82" r="15" fill="#0A0E22" opacity=".16"/>
+      <!-- Sol -->
+      <circle cx="520" cy="128" r="130" fill="url(#sun)" filter="url(#f18)" opacity=".85"/>
+      <circle cx="520" cy="128" r="58"  fill="#FDE070" opacity=".5" filter="url(#f6)"/>
+      <circle cx="520" cy="128" r="34"  fill="#FFF4B0" opacity=".88"/>
+      <circle cx="520" cy="128" r="20"  fill="#fff"    opacity=".92"/>
+      <g opacity=".1" stroke="#FDE070" stroke-linecap="round" transform="translate(520,128)">
+        <line x1="0" y1="-88" x2="0" y2="-60" stroke-width="3"/>
+        <line x1="62" y1="-62" x2="42" y2="-42" stroke-width="2.5"/>
+        <line x1="88" y1="0"  x2="60" y2="0"  stroke-width="3"/>
+        <line x1="62" y1="62" x2="42" y2="42" stroke-width="2.5"/>
+        <line x1="-62" y1="-62" x2="-42" y2="-42" stroke-width="2.5"/>
+        <line x1="-88" y1="0" x2="-60" y2="0" stroke-width="3"/>
+      </g>
+      <!-- Nubes cálidas -->
+      <ellipse cx="130" cy="195" rx="140" ry="28" fill="#C07038" opacity=".07" filter="url(#f12)"/>
+      <ellipse cx="560" cy="178" rx="125" ry="24" fill="#B86030" opacity=".07" filter="url(#f12)"/>
+      <ellipse cx="320" cy="240" rx="165" ry="20" fill="#C07838" opacity=".06" filter="url(#f12)"/>
+      <ellipse cx="180" cy="330" rx="105" ry="17" fill="#D08040" opacity=".06" filter="url(#f6)"/>
+      <ellipse cx="510" cy="310" rx="115" ry="16" fill="#C07038" opacity=".06" filter="url(#f6)"/>
+      <!-- Montaña lejana -->
+      <path d="M-30 575 L80 295 L160 395 L255 215 L345 168 L440 252 L530 185 L645 315 L710 540 L710 695 L-30 695Z" fill="url(#mfar)"/>
+      <path d="M233 233 L255 215 L277 233 L269 226 L255 222 L241 227Z" fill="#E8D8C0" opacity=".32"/>
+      <path d="M323 186 L345 168 L367 186 L358 180 L345 177 L332 181Z" fill="#E8D8C0" opacity=".32"/>
+      <path d="M509 203 L530 185 L551 203 L542 197 L530 194 L518 198Z" fill="#E8D8C0" opacity=".28"/>
+      <!-- Niebla -->
+      <rect x="0" y="498" width="680" height="75" fill="#A09080" opacity=".05" filter="url(#f12)"/>
+      <!-- Montaña media -->
+      <path d="M-30 678 L55 438 L148 528 L228 368 L345 432 L438 348 L528 462 L618 378 L710 532 L710 778 L-30 778Z" fill="url(#mmid)"/>
+      <path d="M215 386 L228 368 L241 386 L235 381 L228 378 L221 382Z" fill="#C0D0C0" opacity=".22"/>
+      <ellipse cx="340" cy="652" rx="390" ry="32" fill="#908878" opacity=".06" filter="url(#f12)"/>
+      <!-- Montaña cercana -->
+      <path d="M-30 778 L48 592 L128 660 L198 542 L275 615 L340 568 L405 618 L475 548 L552 628 L632 558 L710 648 L710 868 L-30 868Z" fill="url(#mnear)"/>
+      <!-- Pinos -->
+      <g fill="#0A1610" opacity=".8">
+        <polygon points="52,756 62,726 72,756"/><polygon points="65,760 76,724 87,760"/>
+        <polygon points="145,752 158,718 171,752"/>
+        <polygon points="570,750 582,716 594,750"/><polygon points="600,756 613,722 626,756"/>
+        <polygon points="636,760 650,722 664,760"/>
+      </g>
+      <!-- Niebla baja -->
+      <rect x="0" y="798" width="680" height="55" fill="#B0A090" opacity=".05" filter="url(#f12)"/>
+      <!-- Tierra -->
+      <path d="M-30 858 Q170 835 340 844 Q510 853 710 834 L710 1020 L-30 1020Z" fill="url(#earth)"/>
+      <g stroke="#140A02" stroke-width=".8" opacity=".45">
+        <path d="M55 858 Q57 849 59 858"/><path d="M98 854 Q100 845 102 854"/>
+        <path d="M178 850 Q180 841 182 850"/><path d="M498 845 Q500 836 502 845"/>
+        <path d="M578 850 Q580 841 582 850"/><path d="M618 854 Q620 845 622 854"/>
+      </g>
+      <circle cx="68" cy="857" r="3.5" fill="#EF9F27" opacity=".55"/>
+      <circle cx="178" cy="851" r="3" fill="#D4537E" opacity=".5"/>
+      <circle cx="503" cy="846" r="3.5" fill="#1D9E75" opacity=".55"/>
+      <circle cx="620" cy="853" r="3" fill="#EF9F27" opacity=".5"/>
+      <!-- Sendero -->
+      <path d="M340 975 Q318 928 304 880 Q284 822 316 782 Q348 742 346 700 Q344 658 316 628 Q286 598 288 554 Q290 510 320 484 Q350 458 350 416 Q350 374 318 344 Q284 314 288 268 Q292 222 326 200 Q360 178 362 138 Q364 102 350 74" fill="none" stroke="rgba(80,40,5,.45)" stroke-width="24" stroke-linecap="round" filter="url(#f6)"/>
+      <path d="M340 975 Q318 928 304 880 Q284 822 316 782 Q348 742 346 700 Q344 658 316 628 Q286 598 288 554 Q290 510 320 484 Q350 458 350 416 Q350 374 318 344 Q284 314 288 268 Q292 222 326 200 Q360 178 362 138 Q364 102 350 74" fill="none" stroke="url(#road)" stroke-width="12" stroke-linecap="round"/>
+      <path d="M340 975 Q318 928 304 880 Q284 822 316 782 Q348 742 346 700 Q344 658 316 628 Q286 598 288 554 Q290 510 320 484 Q350 458 350 416 Q350 374 318 344 Q284 314 288 268 Q292 222 326 200 Q360 178 362 138 Q364 102 350 74" fill="none" stroke="url(#glow)" stroke-width="5" stroke-linecap="round"/>
+      <path d="M340 975 Q318 928 304 880 Q284 822 316 782 Q348 742 346 700 Q344 658 316 628 Q286 598 288 554 Q290 510 320 484 Q350 458 350 416 Q350 374 318 344 Q284 314 288 268 Q292 222 326 200 Q360 178 362 138 Q364 102 350 74" fill="none" stroke="rgba(255,240,160,.1)" stroke-width="10" stroke-linecap="round" stroke-dasharray="2 24"/>
+      <!-- Campamentos -->
+      <rect x="168" y="752" width="115" height="30" rx="15" fill="rgba(70,35,10,.88)" stroke="#C8A050" stroke-width="1.8"/>
+      <text font-family="sans-serif" font-size="10" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="225" y="772">⛺ C · CONCIENCIA</text>
+      <rect x="352" y="608" width="116" height="30" rx="15" fill="rgba(95,50,8,.88)" stroke="#E8B840" stroke-width="1.8"/>
+      <text font-family="sans-serif" font-size="10" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="410" y="628">⛺ A · ACEPTACIÓN</text>
+      <rect x="168" y="466" width="116" height="30" rx="15" fill="rgba(95,20,58,.88)" stroke="#E080A8" stroke-width="1.8"/>
+      <text font-family="sans-serif" font-size="10" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="226" y="486">⛺ M · MENTALIDAD</text>
+      <rect x="352" y="330" width="108" height="30" rx="15" fill="rgba(8,40,105,.88)" stroke="#6898D8" stroke-width="1.8"/>
+      <text font-family="sans-serif" font-size="10" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="406" y="350">⛺ I · INTENCIÓN</text>
+      <rect x="148" y="200" width="130" height="30" rx="15" fill="rgba(5,60,44,.88)" stroke="#50C898" stroke-width="1.8"/>
+      <text font-family="sans-serif" font-size="10" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="213" y="220">⛺ N · NV. HÁBITOS</text>
+      <rect x="276" y="116" width="130" height="30" rx="15" fill="rgba(10,50,36,.95)" stroke="#5DCAA5" stroke-width="2"/>
+      <text font-family="sans-serif" font-size="10" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="341" y="136">⛺ O · OBJ. REALES</text>
+      <!-- Pasos C -->
+      <g onclick="sp(0)" style="cursor:pointer;"><circle cx="324" cy="943" r="17" fill="#5A2E08" stroke="#C8A050" stroke-width="2.2"/><text font-family="sans-serif" font-size="12" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="324" y="947">1</text></g>
+      <g onclick="sp(1)" style="cursor:pointer;"><circle cx="308" cy="895" r="17" fill="#5A2E08" stroke="#C8A050" stroke-width="2.2"/><text font-family="sans-serif" font-size="12" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="308" y="899">2</text></g>
+      <g onclick="sp(2)" style="cursor:pointer;"><circle cx="314" cy="840" r="17" fill="#5A2E08" stroke="#C8A050" stroke-width="2.2"/><text font-family="sans-serif" font-size="12" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="314" y="844">3</text></g>
+      <!-- Pasos A -->
+      <g onclick="sp(3)" style="cursor:pointer;"><circle cx="332" cy="798" r="15" fill="#6A3E08" stroke="#E8B840" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="332" y="802">4</text></g>
+      <g onclick="sp(4)" style="cursor:pointer;"><circle cx="344" cy="756" r="15" fill="#6A3E08" stroke="#E8B840" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="344" y="760">5</text></g>
+      <g onclick="sp(5)" style="cursor:pointer;"><circle cx="332" cy="712" r="15" fill="#6A3E08" stroke="#E8B840" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="332" y="716">6</text></g>
+      <g onclick="sp(6)" style="cursor:pointer;"><circle cx="314" cy="670" r="15" fill="#6A3E08" stroke="#E8B840" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="314" y="674">7</text></g>
+      <!-- Pasos M -->
+      <g onclick="sp(7)" style="cursor:pointer;"><circle cx="294" cy="630" r="15" fill="#601535" stroke="#E080A8" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="294" y="634">8</text></g>
+      <g onclick="sp(8)" style="cursor:pointer;"><circle cx="288" cy="586" r="15" fill="#601535" stroke="#E080A8" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="288" y="590">9</text></g>
+      <g onclick="sp(9)" style="cursor:pointer;"><circle cx="298" cy="540" r="15" fill="#601535" stroke="#E080A8" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="298" y="544">10</text></g>
+      <g onclick="sp(10)" style="cursor:pointer;"><circle cx="320" cy="498" r="15" fill="#601535" stroke="#E080A8" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="320" y="502">11</text></g>
+      <!-- Pasos I -->
+      <g onclick="sp(11)" style="cursor:pointer;"><circle cx="344" cy="460" r="14" fill="#061E68" stroke="#6898D8" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="344" y="464">12</text></g>
+      <g onclick="sp(12)" style="cursor:pointer;"><circle cx="350" cy="420" r="14" fill="#061E68" stroke="#6898D8" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="350" y="424">13</text></g>
+      <g onclick="sp(13)" style="cursor:pointer;"><circle cx="334" cy="378" r="14" fill="#061E68" stroke="#6898D8" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="334" y="382">14</text></g>
+      <g onclick="sp(14)" style="cursor:pointer;"><circle cx="310" cy="340" r="14" fill="#061E68" stroke="#6898D8" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="310" y="344">15</text></g>
+      <!-- Pasos N -->
+      <g onclick="sp(15)" style="cursor:pointer;"><circle cx="292" cy="300" r="13" fill="#043428" stroke="#50C898" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="292" y="304">16</text></g>
+      <g onclick="sp(16)" style="cursor:pointer;"><circle cx="308" cy="262" r="13" fill="#043428" stroke="#50C898" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="308" y="266">17</text></g>
+      <g onclick="sp(17)" style="cursor:pointer;"><circle cx="330" cy="225" r="13" fill="#043428" stroke="#50C898" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="330" y="229">18</text></g>
+      <!-- Pasos O -->
+      <g onclick="sp(18)" style="cursor:pointer;"><circle cx="348" cy="186" r="13" fill="#0A3022" stroke="#5DCAA5" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="348" y="190">19</text></g>
+      <g onclick="sp(19)" style="cursor:pointer;"><circle cx="354" cy="148" r="13" fill="#0A3022" stroke="#5DCAA5" stroke-width="2"/><text font-family="sans-serif" font-size="11" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="354" y="152">20</text></g>
+      <!-- Halo destino -->
+      <circle cx="340" cy="64" r="88" fill="url(#dhalo)" filter="url(#f18)"/>
+      <circle cx="340" cy="64" r="55" fill="#122818" stroke="#F0D060" stroke-width="3"/>
+      <circle cx="340" cy="64" r="46" fill="rgba(255,240,140,.06)" stroke="rgba(255,240,140,.18)" stroke-width="1"/>
+      <text font-family="sans-serif" font-size="22" text-anchor="middle" x="340" y="50">🌟</text>
+      <text font-family="Georgia,serif" font-size="10" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="340" y="68">Tú en tu</text>
+      <text font-family="Georgia,serif" font-size="10" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="340" y="82">plenitud</text>
+      <!-- Inicio -->
+      <ellipse cx="340" cy="988" rx="72" ry="20" fill="rgba(25,12,4,.92)" stroke="#C8A050" stroke-width="2"/>
+      <text font-family="Georgia,serif" font-size="12" font-weight="700" fill="#FFF0A0" text-anchor="middle" x="340" y="992">🌱  Tú hoy</text>
+      <!-- Destellos -->
+      <g fill="#FFF0A0" opacity=".28">
+        <text font-size="11" x="44"  y="215">✦</text><text font-size="7" x="88" y="282">✦</text>
+        <text font-size="13" x="565" y="238">✦</text><text font-size="8" x="598" y="328">✦</text>
+        <text font-size="9"  x="84"  y="468">✦</text><text font-size="6" x="608" y="508">✦</text>
+      </g>
+      <text font-family="Georgia,serif" font-size="12" font-weight="700" fill="rgba(255,240,160,.3)" text-anchor="middle" x="340" y="1010">Método C · A · M · I · N · O</text>
+      <text font-family="sans-serif" font-size="10" fill="rgba(255,240,180,.35)" text-anchor="middle" x="340" y="1026">Toca cada punto del camino para explorar</text>
+    </g>
+    </svg>
+  </div>
+
+  <!-- Panel detalle -->
+  <div class="step-panel" id="stepPanel"></div>
+</div>
+
+<!-- TODOS LOS PASOS -->
+<div class="steps-section">
+  <div class="steps-title">Los 20 pasos del Método CAMINO</div>
+  <div class="steps-sub">Cada paso es un proceso, no un evento — se vive, se repite y se profundiza</div>
+  <div id="stepsGroups"></div>
+</div>
+
+<!-- REFLEXION -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">Este mapa ya es tuyo</div>
+    <div class="ref-body">No tienes que recorrer todos los pasos en orden perfecto ni terminar uno para empezar otro. El Camino no es una lista de tareas — es una forma de vivir. Algunos pasos los recorrerás rápido, otros los transitarás una y otra vez en espiral, cada vez desde un nivel más alto. Eso no es fallar — eso es crecer.</div>
+    <div class="ref-q">
+      <strong>Pregunta final del Método:</strong>
+      "Mirando este mapa completo, ¿en qué campamento estás hoy? ¿Cuál es el siguiente paso que más resuena contigo en este momento — no el que crees que deberías dar, sino el que tu intuición te señala?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación del Camino</span>
+      "No necesito llegar rápido — necesito llegar. Y cada paso, por pequeño que sea, me acerca a la mujer que ya soy en esencia. El Camino ya ha comenzado."
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p><strong>Método Camino</strong> · Mapa Completo · 20 Pasos · 6 Campamentos<br>El sendero de transformación para mujeres de 40+<br>© 2026 Jenifer Mendoza · Todos los derechos reservados</p>
+</div>
+
+<script>
+const GROUPS = [
+  {
+    letter:'C', word:'Conciencia', color:'#5A2E08', bc:'#C8A050', bg:'rgba(90,46,8,0.08)', border:'rgba(200,160,80,0.3)',
+    desc:'El despertar del piloto automático — ver lo que antes no veías',
+    steps:[
+      {n:1, t:'El despertar',              b:'El primer paso es ver lo que antes no veías. Reconocer que hay un piloto automático gobernando tus decisiones — y que tienes el poder de tomarlo tú misma.'},
+      {n:2, t:'Observar sin juzgar',       b:'Aprender a observar tus patrones, reacciones y hábitos con curiosidad en lugar de autocrítica. La conciencia sin juicio es el fundamento de todo cambio real.'},
+      {n:3, t:'Mapear tu realidad actual', b:'La Rueda de Vida, el Radar de Energía y el diagnóstico de piloto automático te dan el mapa honesto de dónde estás hoy — antes de saber hacia dónde vas.'}
+    ]
+  },
+  {
+    letter:'A', word:'Aceptación', color:'#6A3E08', bc:'#E8B840', bg:'rgba(106,62,8,0.08)', border:'rgba(232,184,64,0.3)',
+    desc:'Abrazar la historia que te trajo hasta aquí sin juicio ni arrepentimiento',
+    steps:[
+      {n:4, t:'Abrazar tu historia',        b:'Aceptar no es resignarse — es dejar de gastar energía en resistir lo que ya es. Tu historia, con todo su dolor y su belleza, te trajo exactamente aquí.'},
+      {n:5, t:'Soltar el arrepentimiento',  b:'El arrepentimiento ancla. La aceptación libera. No se trata de olvidar lo que pasó, sino de dejar de cargar con lo que ya no te pertenece.'},
+      {n:6, t:'Reconocer tus emociones',    b:'Aprender a distinguir las emociones que son genuinamente tuyas de las que absorbes de otros. Sentir sin fusionarte con lo que sientes.'},
+      {n:7, t:'Procesar el dolor',          b:'El dolor no procesado se convierte en el combustible del piloto automático. Aprende a atravesarlo con compasión en lugar de evitarlo con distracción.'}
+    ]
+  },
+  {
+    letter:'M', word:'Mentalidad', color:'#601535', bc:'#E080A8', bg:'rgba(96,21,53,0.08)', border:'rgba(224,128,168,0.3)',
+    desc:'Desaprender las creencias limitantes y reprogramar tu narrativa interna',
+    steps:[
+      {n:8,  t:'Identificar creencias',     b:'Las creencias limitantes no son verdades — son pensamientos repetidos que se convirtieron en convicciones. El primer paso es verlas por su nombre.'},
+      {n:9,  t:'Cuestionar la narrativa',   b:'Preguntar: "¿Es esto realmente verdad?" La duda inteligente es el inicio de la reprogramación. Tu mente puede aprender a cuestionarse a sí misma.'},
+      {n:10, t:'Reescribir tu historia',    b:'Del "no puedo" al "¿cómo puedo?" Del "siempre me pasa esto" al "¿qué quiero crear?" Reprogramar tu narrativa cambia lo que percibes como posible.'},
+      {n:11, t:'Anclar la nueva identidad', b:'"Soy una mujer que..." — Declarar quién eres en el presente, no quien quieres ser algún día. La identidad precede a la acción, no al revés.'}
+    ]
+  },
+  {
+    letter:'I', word:'Intención', color:'#061E68', bc:'#6898D8', bg:'rgba(6,30,104,0.08)', border:'rgba(104,152,216,0.3)',
+    desc:'Aprender a elegir tus batallas y vivir de manera proactiva, no reactiva',
+    steps:[
+      {n:12, t:'Vivir proactiva',          b:'La vida reactiva te lleva a donde el viento sopla. La vida intencional empieza cada día con: "¿Qué quiero crear hoy?" — antes de que el mundo te lo diga.'},
+      {n:13, t:'Elegir tus batallas',      b:'No todo merece tu energía. Aprender a decir no con amor y sí con convicción es el acto más poderoso de la autodirección consciente.'},
+      {n:14, t:'Diseñar tu día',           b:'El Ritual Matutino y el Flujograma del Día Intencional te dan la estructura desde la cual todo lo demás fluye. Tus mañanas determinan tus días.'},
+      {n:15, t:'Priorizar lo importante',  b:'La Matriz Eisenhower adaptada te ayuda a proteger el tiempo y la energía que le pertenecen a tu transformación — separando lo urgente de lo importante.'}
+    ]
+  },
+  {
+    letter:'N', word:'Nuevos Hábitos', color:'#043428', bc:'#50C898', bg:'rgba(4,52,40,0.08)', border:'rgba(80,200,152,0.3)',
+    desc:'Construir sistemas pequeños y sostenibles que produzcan grandes cambios',
+    steps:[
+      {n:16, t:'Sistemas pequeños',    b:'Los grandes cambios no vienen de grandes esfuerzos — vienen de pequeños sistemas sostenibles. Un hábito del 1% mejor cada día produce resultados extraordinarios.'},
+      {n:17, t:'Apilar y anclar',      b:'El Apilamiento de Hábitos conecta lo nuevo con lo que ya haces. Tu rutina actual es la plataforma de lanzamiento perfecta para los nuevos hábitos.'},
+      {n:18, t:'Sostener y celebrar', b:'El Tablero de Victorias y el rastreador de 90 días hacen visible el progreso invisible. Lo que se celebra, continúa. La celebración es parte del sistema.'}
+    ]
+  },
+  {
+    letter:'O', word:'Objetivos Reales', color:'#0A3022', bc:'#5DCAA5', bg:'rgba(10,48,34,0.08)', border:'rgba(93,202,165,0.3)',
+    desc:'Pasar del sueño al diseño — de la visión a la ejecución medible',
+    steps:[
+      {n:19, t:'Del sueño al diseño',        b:'Los OKR y el Cronograma Trimestral convierten tu visión en compromisos medibles con fecha real. Un sueño con fecha es un objetivo. Un objetivo con plan, un destino.'},
+      {n:20, t:'De la visión a la ejecución', b:'El paso 20 no es el final — es el comienzo de la siguiente vuelta de la espiral, desde un nivel más alto. Tú en tu plenitud no es un destino: es quien eliges ser cada día.'}
+    ]
+  }
+];
+
+const STEPS_DATA = GROUPS.flatMap(g => g.steps.map(s=>({...s, camp:`${g.letter} · ${g.word}`, color:g.color, bc:g.bc})));
+
+function buildStepsHTML() {
+  const container = document.getElementById('stepsGroups');
+  GROUPS.forEach(g => {
+    const div = document.createElement('div');
+    div.className = 'steps-group';
+    div.innerHTML = `
+      <div class="sg-header" style="background:${g.bg};border:0.5px solid ${g.border};">
+        <span class="sg-letter" style="color:${g.color};">${g.letter}</span>
+        <span class="sg-word" style="color:${g.color};">${g.word}</span>
+        <span class="sg-desc" style="color:${g.color};">${g.desc}</span>
+      </div>
+      <div class="steps-grid">
+        ${g.steps.map(s=>`
+          <div class="step-card" style="border-color:${g.border};" onclick="sp(${s.n-1})">
+            <div class="sc-num" style="background:${g.color};">${s.n}</div>
+            <div class="sc-content">
+              <span class="sc-title" style="color:${g.color};">${s.t}</span>
+              <span class="sc-body">${s.b.substring(0,80)}...</span>
+            </div>
+          </div>`).join('')}
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+let act = null;
+function sp(i) {
+  const panel = document.getElementById('stepPanel');
+  if(act===i){ panel.classList.remove('show'); act=null; return; }
+  act=i;
+  const s = STEPS_DATA[i];
+  panel.innerHTML = `
+    <div class="sp-header" style="border-bottom:1px solid ${s.bc}33;">
+      <div class="sp-badge" style="background:${s.color};border:1px solid ${s.bc};">${s.n}</div>
+      <span class="sp-title">${s.t}</span>
+      <span class="sp-camp">${s.camp}</span>
+      <button class="sp-close" onclick="closePanel()">✕</button>
+    </div>
+    <div class="sp-body">${s.b}</div>
+  `;
+  panel.classList.add('show');
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function closePanel(){ document.getElementById('stepPanel').classList.remove('show'); act=null; }
+
+buildStepsHTML();
+</script>
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diario Neuronal · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-lt:   #5B9E98;
+  --gold:      #C8A96E;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --sand2:     #D6C4A8;
+  --blue:      #185FA5;
+  --blue-lt:   #378ADD;
+  --blue-pale: #E6F1FB;
+  --blue-dark: #0C447C;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --gray-pale: #F1EFE8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Raleway',sans-serif;
+  background:var(--cream);
+  color:var(--brown);
+  min-height:100vh;
+}
+
+/* ══ HERO ══ */
+.hero {
+  position:relative; overflow:hidden;
+  background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%);
+}
+.hero-swoosh {
+  position:absolute; top:0; left:0; right:0; height:100%;
+  background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%);
+  clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%);
+}
+.hero-bottom {
+  position:absolute; bottom:0; left:0; right:0; height:35%;
+  background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%);
+  clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center;
+  padding:44px 24px 52px; text-align:center;
+}
+.hero-eyebrow {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.65em; color:rgba(255,255,255,0.88);
+  text-transform:uppercase; margin-bottom:8px;
+}
+.hero-metodo {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:12px;
+  letter-spacing:0.7em; color:rgba(255,255,255,0.65);
+  text-transform:uppercase; margin-bottom:2px;
+}
+.hero-title {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em;
+  color:#fff; line-height:1.2; max-width:580px;
+  text-shadow:0 3px 30px rgba(45,107,101,0.5);
+}
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+  font-size:clamp(14px,2.2vw,17px); color:var(--brown);
+  line-height:1.75; max-width:520px;
+}
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge {
+  margin-top:16px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; padding:8px 24px;
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:10px;
+  letter-spacing:0.3em; text-transform:uppercase;
+  border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35);
+}
+.hero-author {
+  margin-top:18px;
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:20px; color:var(--teal); letter-spacing:0.05em;
+}
+.hero-author-by {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:9px;
+  letter-spacing:0.45em; color:var(--brown-mid);
+  text-transform:uppercase; display:block; margin-bottom:3px;
+}
+.scroll-cta {
+  margin-top:24px;
+  display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+}
+.scroll-cta span {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.35em; color:var(--teal); text-transform:uppercase;
+}
+.scroll-arrow {
+  width:28px; height:28px;
+  border:1px solid rgba(45,107,101,0.4); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  animation:bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ CIENCIA SECTION ══ */
+.ciencia {
+  background:var(--sand); padding:36px 24px; text-align:center;
+}
+.ciencia h2 {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:22px;
+  color:var(--teal); margin-bottom:10px;
+}
+.ciencia p {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px;
+  color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75;
+}
+.ciencia-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px;
+  max-width:700px; margin:0 auto;
+}
+@media(max-width:500px){ .ciencia-grid{ grid-template-columns:1fr; } }
+.ciencia-card {
+  background:rgba(255,255,255,0.7); border-radius:10px;
+  padding:16px; border:0.5px solid rgba(45,107,101,0.15);
+}
+.ciencia-num {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:32px; color:var(--blue); display:block; margin-bottom:4px;
+}
+.ciencia-label {
+  font-family:'Raleway',sans-serif; font-size:12px;
+  color:var(--brown-mid); line-height:1.4;
+}
+
+/* ══ INSTRUCCIONES ══ */
+.instrucciones {
+  max-width:760px; margin:0 auto; padding:28px 16px 0;
+}
+.inst-grid {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:10px;
+}
+@media(max-width:540px){ .inst-grid{ grid-template-columns:1fr 1fr; } }
+.inst-step {
+  background:#fff; border-radius:10px; padding:14px 16px;
+  border:0.5px solid rgba(0,0,0,0.08); text-align:center;
+}
+.inst-num {
+  width:28px; height:28px; border-radius:50%;
+  background:var(--blue-pale); color:var(--blue-dark);
+  font-family:'Playfair Display',serif; font-weight:700; font-size:14px;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 8px;
+}
+.inst-step p {
+  font-family:'Raleway',sans-serif; font-size:12px;
+  color:var(--brown-mid); line-height:1.5;
+}
+
+/* ══ DIARIO SECTION ══ */
+.diario-section {
+  max-width:760px; margin:24px auto 0; padding:0 16px 40px;
+}
+.diario-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:22px;
+  color:var(--teal); margin-bottom:6px;
+}
+.diario-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); margin-bottom:20px;
+}
+
+/* Circuit cards */
+.circuits-grid { display:flex; flex-direction:column; gap:14px; }
+
+.circuit-card {
+  border:0.5px solid var(--gray-lt);
+  border-radius:12px; background:#fff;
+  padding:18px 20px; transition:all 0.2s;
+}
+.circuit-card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.08); }
+.circuit-card.complete {
+  border-color:var(--blue); background:var(--blue-pale);
+}
+
+.cc-top { display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
+.cc-icon {
+  width:40px; height:40px; border-radius:50%;
+  background:var(--blue-pale); border:2px solid var(--blue-lt);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; font-family:'Playfair Display',serif;
+  font-weight:700; font-size:15px; color:var(--blue-dark);
+}
+.circuit-card.complete .cc-icon {
+  background:var(--blue); color:#fff; border-color:var(--blue);
+}
+.cc-info { flex:1; min-width:0; }
+.cc-name {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:16px;
+  color:var(--brown); margin-bottom:2px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.circuit-card.complete .cc-name { color:var(--blue-dark); }
+.cc-meta {
+  font-family:'Raleway',sans-serif; font-size:11px; color:var(--gray);
+}
+
+.cc-progress-wrap { margin-bottom:10px; }
+.cc-track {
+  height:10px; background:var(--gray-pale);
+  border-radius:5px; overflow:hidden; margin-bottom:5px;
+}
+.cc-fill {
+  height:100%; border-radius:5px; background:var(--blue-lt);
+  transition:width 0.5s ease;
+}
+.circuit-card.complete .cc-fill { background:var(--blue); }
+.cc-prog-labels {
+  display:flex; justify-content:space-between;
+  font-family:'Raleway',sans-serif; font-size:11px;
+}
+.cc-stage { color:var(--gray); font-style:italic; flex:1; }
+.cc-pct { color:var(--blue); font-weight:600; }
+
+.cc-viz { margin:10px 0; }
+.cc-viz svg { width:100%; display:block; height:72px; }
+
+.cc-bottom {
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  margin-top:10px;
+}
+.btn-practice {
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:600;
+  padding:8px 18px; border-radius:6px; cursor:pointer;
+  background:var(--blue); color:#fff; border:none;
+  transition:opacity 0.2s;
+}
+.btn-practice:hover { opacity:0.85; }
+.btn-practice:disabled {
+  background:var(--gray-lt); color:var(--gray);
+  cursor:default; opacity:1;
+}
+.btn-del {
+  font-family:'Raleway',sans-serif; font-size:11px;
+  padding:6px 12px; border-radius:6px; cursor:pointer;
+  background:transparent; color:var(--gray);
+  border:0.5px solid var(--gray-lt); transition:all 0.2s;
+}
+.btn-del:hover { border-color:#E24B4A; color:#E24B4A; }
+
+.cc-celebrate {
+  display:none; margin-top:12px;
+  background:var(--blue); color:#fff;
+  border-radius:8px; padding:12px 16px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; text-align:center; line-height:1.6;
+}
+.cc-celebrate strong {
+  font-style:normal; display:block;
+  font-family:'Raleway',sans-serif; font-size:10px;
+  font-weight:600; letter-spacing:0.2em; text-transform:uppercase;
+  color:rgba(255,255,255,0.8); margin-bottom:4px;
+}
+.circuit-card.complete .cc-celebrate { display:block; }
+
+/* Add form */
+.add-card {
+  background:#fff; border-radius:12px; padding:22px 24px;
+  border:0.5px solid rgba(45,107,101,0.2); margin-top:14px;
+}
+.add-card-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:18px;
+  color:var(--teal); margin-bottom:6px;
+}
+.add-card-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px;
+  color:var(--brown-mid); margin-bottom:14px;
+}
+.add-card input {
+  width:100%; border:0.5px solid var(--gray-lt); border-radius:8px;
+  padding:10px 14px; font-family:'Raleway',sans-serif; font-size:13px;
+  color:var(--brown); background:var(--cream); margin-bottom:10px;
+}
+.add-card input:focus {
+  outline:none; border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(24,95,165,0.1);
+}
+.add-card input::placeholder { color:var(--gray); font-style:italic; }
+.btn-create {
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:600;
+  padding:9px 22px; border-radius:6px; cursor:pointer;
+  background:var(--blue); color:#fff; border:none; transition:opacity 0.2s;
+}
+.btn-create:hover { opacity:0.85; }
+
+/* Stats bar */
+.stats-bar {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
+  margin-bottom:20px;
+}
+.stat-card {
+  background:#fff; border-radius:10px; padding:14px 16px;
+  border:0.5px solid var(--gray-lt); text-align:center;
+}
+.stat-num {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:28px; color:var(--blue); display:block;
+}
+.stat-label {
+  font-family:'Raleway',sans-serif; font-size:11px;
+  color:var(--gray); margin-top:2px;
+}
+
+/* ══ FOOTER ══ */
+.footer {
+  background:var(--teal); padding:28px 24px; text-align:center;
+}
+.footer p {
+  font-family:'Raleway',sans-serif; font-weight:200;
+  font-size:11px; letter-spacing:0.2em;
+  color:rgba(255,255,255,0.7); line-height:2;
+}
+.footer strong { color:#fff; font-weight:600; }
+
+/* Toast */
+.toast {
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  background:var(--blue); color:#fff; padding:10px 24px; border-radius:24px;
+  font-family:'Raleway',sans-serif; font-size:13px;
+  opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999;
+  box-shadow:0 4px 20px rgba(24,95,165,0.4);
+}
+.toast.show { opacity:1; }
+
+@keyframes pulse-node { 0%,100%{opacity:1} 50%{opacity:0.4} }
+@keyframes flow-anim { to { stroke-dashoffset:-20; } }
+@media(prefers-reduced-motion:reduce){
+  .flow-anim,.pulse-node{ animation:none; }
+  .scroll-arrow{ animation:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta de Neuroplasticidad · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Diario Neuronal</div>
+    <div class="hero-accent">
+      <div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div>
+    </div>
+    <div class="hero-sub">
+      Instala tus <strong>nuevos hábitos y pensamientos</strong><br>
+      una repetición a la vez — así funciona tu cerebro
+    </div>
+    <div class="hero-badge">✦ &nbsp; 21 Días para un Nuevo Automático &nbsp; ✦</div>
+    <div style="margin-top:18px;">
+      <span class="hero-author-by">A u t o r a</span>
+      <div class="hero-author">Jenifer Mendoza</div>
+    </div>
+    <div class="scroll-cta" onclick="document.getElementById('diario').scrollIntoView({behavior:'smooth'})">
+      <span>Activar mis circuitos</span>
+      <div class="scroll-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CIENCIA ══ -->
+<div class="ciencia">
+  <h2>La ciencia detrás del cambio</h2>
+  <p>Tu cerebro forma nuevas conexiones neuronales cada vez que repites un pensamiento o acción de forma consciente. Esto se llama neuroplasticidad — y tú puedes usarla intencionalmente.</p>
+  <div class="ciencia-grid">
+    <div class="ciencia-card">
+      <span class="ciencia-num">21</span>
+      <span class="ciencia-label">días mínimos para mielinizar un nuevo circuito neuronal</span>
+    </div>
+    <div class="ciencia-card">
+      <span class="ciencia-num">66</span>
+      <span class="ciencia-label">días promedio para que un hábito se vuelva completamente automático</span>
+    </div>
+    <div class="ciencia-card">
+      <span class="ciencia-num">∞</span>
+      <span class="ciencia-label">capacidad de tu cerebro para cambiar a cualquier edad</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INSTRUCCIONES ══ -->
+<div class="instrucciones">
+  <div class="inst-grid">
+    <div class="inst-step">
+      <div class="inst-num">1</div>
+      <p>Crea un circuito con el hábito o pensamiento que quieres instalar</p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">2</div>
+      <p>Cada día que lo practicas, haz clic en "+ Practicar hoy"</p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">3</div>
+      <p>Observa cómo tu circuito azul crece y se fortalece visualmente</p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">4</div>
+      <p>A los 21 días tu nuevo automático está instalado en el cerebro</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DIARIO ══ -->
+<div class="diario-section" id="diario">
+  <div class="diario-title">Mis circuitos neuronales</div>
+  <div class="diario-sub">Cada circuito es un cambio real que estás instalando en tu cerebro</div>
+
+  <div class="stats-bar" id="statsBar"></div>
+  <div class="circuits-grid" id="circuitsGrid"></div>
+
+  <div class="add-card">
+    <div class="add-card-title">Crear nuevo circuito</div>
+    <div class="add-card-sub">¿Qué nuevo hábito, pensamiento o comportamiento quieres instalar en tu cerebro?</div>
+    <input type="text" id="newName" placeholder="Ej: Hablarme con amor · Poner límites sin culpa · Dedicar tiempo para mí cada día" maxlength="80">
+    <button class="btn-create" onclick="addCircuit()">+ Crear circuito neuronal</button>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <p>
+    <strong>Método Camino</strong> · Diario Neuronal · Herramienta de Neuroplasticidad<br>
+    Instala tus nuevos automáticos — 21 repeticiones a la vez<br>
+    © 2026 Jenifer Mendoza · Todos los derechos reservados
+  </p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'metodoCamino_diarioNeuronal';
+const MAX = 21;
+
+const STAGES = [
+  'Empieza hoy — cada repetición cuenta',
+  'Primera activación neuronal',
+  'El circuito comienza a formarse',
+  'Las neuronas se conectan',
+  'La mielina empieza a crecer',
+  'Tu cerebro está cambiando',
+  'Conexión cada vez más fuerte',
+  'El nuevo circuito se asienta',
+  'Mielinización en progreso',
+  'Casi a la mitad — ¡sigue!',
+  'Punto de inflexión neuronal',
+  'El circuito nuevo compite con el viejo',
+  'La nueva vía gana fuerza',
+  'Tu cerebro prefiere el nuevo camino',
+  'Mielina casi completa',
+  'El pensamiento nuevo es más rápido',
+  'Circuito dominante establecido',
+  'La transformación es real',
+  'Nuevo automático casi listo',
+  'Un paso más para completarlo',
+  'Mielinización completa',
+  'Nuevo automático instalado en tu cerebro'
+];
+
+const DEFAULTS = [
+  { id:1, name:'Hablarme con amor y sin crítica',  reps:0, created:today() },
+  { id:2, name:'Poner límites sin sentir culpa',    reps:0, created:today() },
+  { id:3, name:'Dedicar tiempo solo para mí',       reps:0, created:today() }
+];
+
+function today() { return new Date().toISOString().split('T')[0]; }
+
+function load() {
+  try {
+    const d = JSON.parse(localStorage.getItem(KEY)||'null');
+    return d && d.length ? d : JSON.parse(JSON.stringify(DEFAULTS));
+  } catch(e) { return JSON.parse(JSON.stringify(DEFAULTS)); }
+}
+
+function save(c) {
+  try { localStorage.setItem(KEY, JSON.stringify(c)); } catch(e) {}
+}
+
+function getC() { return window._nc || (window._nc = load()); }
+
+function addCircuit() {
+  const name = document.getElementById('newName').value.trim();
+  if(!name) { showToast('Escribe el hábito o pensamiento que quieres instalar'); return; }
+  const c = getC();
+  c.push({ id:Date.now(), name, reps:0, created:today() });
+  window._nc = c; save(c);
+  document.getElementById('newName').value = '';
+  render(); showToast('Circuito creado — empieza a practicar hoy');
+  document.getElementById('circuitsGrid').lastElementChild.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function practice(id) {
+  const c = getC();
+  const item = c.find(x=>x.id===id);
+  if(!item || item.reps >= MAX) return;
+  item.reps++;
+  item.lastPractice = today();
+  window._nc = c; save(c);
+  render();
+  if(item.reps === MAX) showToast('Circuito completo · Nuevo automático instalado');
+  else showToast('Repetición registrada · ' + item.reps + '/' + MAX);
+}
+
+function deleteCircuit(id) {
+  if(!confirm('¿Eliminar este circuito y su progreso?')) return;
+  window._nc = getC().filter(x=>x.id!==id);
+  save(window._nc); render();
+  showToast('Circuito eliminado');
+}
+
+function makeViz(reps) {
+  const pct = reps / MAX;
+  const thick = 1.5 + pct * 6;
+  const nr = 7 + pct * 6;
+  const oldOp = Math.max(0.08, 1 - pct * 0.92);
+  const newOp = 0.25 + pct * 0.75;
+  const xs = [28, 96, 164, 232, 300];
+  let s = `<svg viewBox="0 0 340 72" xmlns="http://www.w3.org/2000/svg">`;
+
+  xs.forEach((x,i)=>{
+    if(i<xs.length-1) s+=`<line x1="${x+8}" y1="16" x2="${xs[i+1]-8}" y2="16" stroke="#B4B2A9" stroke-width="1" stroke-dasharray="3 2" opacity="${oldOp.toFixed(2)}"/>`;
+  });
+  xs.forEach(x=>{
+    s+=`<circle cx="${x}" cy="16" r="7" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="1" opacity="${oldOp.toFixed(2)}"/>`;
+  });
+
+  xs.forEach((x,i)=>{
+    if(i<xs.length-1) s+=`<line x1="${x+nr}" y1="50" x2="${xs[i+1]-nr}" y2="50" stroke="#378ADD" stroke-width="${thick.toFixed(1)}" stroke-dasharray="5 2" opacity="${newOp.toFixed(2)}" style="animation:flow-anim 0.9s linear infinite;"/>`;
+  });
+  xs.forEach(x=>{
+    s+=`<circle cx="${x}" cy="50" r="${nr.toFixed(1)}" fill="#E6F1FB" stroke="#378ADD" stroke-width="${(1.5+pct*2.5).toFixed(1)}" opacity="${newOp.toFixed(2)}"/>`;
+    if(reps>0) s+=`<circle cx="${x}" cy="50" r="${(2.5+pct*4).toFixed(1)}" fill="#185FA5" opacity="${newOp.toFixed(2)}" style="animation:pulse-node 1.3s ease-in-out infinite;"/>`;
+  });
+
+  const labels = ['Pensam.','Emoción','Acción','Mielina','Autom.'];
+  xs.forEach((x,i)=>{
+    s+=`<text font-family="sans-serif" font-size="8" fill="#888780" x="${x}" y="33" text-anchor="middle">${labels[i]}</text>`;
+  });
+
+  const bw = Math.round(pct*300);
+  s+=`<rect x="20" y="64" width="300" height="5" rx="2.5" fill="#E6F1FB"/>`;
+  s+=`<rect x="20" y="64" width="${bw}" height="5" rx="2.5" fill="#185FA5" opacity="${newOp.toFixed(2)}"/>`;
+  s+=`</svg>`;
+  return s;
+}
+
+function renderStats(circuits) {
+  const total    = circuits.length;
+  const active   = circuits.filter(c=>c.reps>0&&c.reps<MAX).length;
+  const complete = circuits.filter(c=>c.reps>=MAX).length;
+  const totalReps= circuits.reduce((s,c)=>s+c.reps,0);
+  document.getElementById('statsBar').innerHTML = `
+    <div class="stat-card">
+      <span class="stat-num">${total}</span>
+      <span class="stat-label">Circuitos creados</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num">${complete}</span>
+      <span class="stat-label">Completados al 100%</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num">${totalReps}</span>
+      <span class="stat-label">Repeticiones totales</span>
+    </div>
+  `;
+}
+
+function render() {
+  const circuits = getC();
+  renderStats(circuits);
+  const grid = document.getElementById('circuitsGrid');
+  grid.innerHTML = '';
+
+  if(!circuits.length) {
+    grid.innerHTML = '<div style="text-align:center;font-size:14px;color:var(--gray);padding:24px;font-family:Cormorant Garamond,serif;font-style:italic;">Crea tu primer circuito neuronal abajo</div>';
+    return;
+  }
+
+  circuits.forEach(c => {
+    const pct      = Math.round(c.reps / MAX * 100);
+    const complete = c.reps >= MAX;
+    const stage    = STAGES[Math.min(c.reps, STAGES.length-1)];
+
+    const card = document.createElement('div');
+    card.className = 'circuit-card' + (complete ? ' complete' : '');
+    card.innerHTML = `
+      <div class="cc-top">
+        <div class="cc-icon">${complete ? '✓' : c.reps}</div>
+        <div class="cc-info">
+          <div class="cc-name">${c.name}</div>
+          <div class="cc-meta">
+            Iniciado: ${c.created}
+            ${c.lastPractice ? ' · Última práctica: '+c.lastPractice : ''}
+          </div>
+        </div>
+      </div>
+      <div class="cc-progress-wrap">
+        <div class="cc-track">
+          <div class="cc-fill" style="width:${pct}%"></div>
+        </div>
+        <div class="cc-prog-labels">
+          <span class="cc-stage">${stage}</span>
+          <span class="cc-pct">${pct}% · ${c.reps}/${MAX}</span>
+        </div>
+      </div>
+      <div class="cc-viz">${makeViz(c.reps)}</div>
+      <div class="cc-bottom">
+        <button class="btn-practice" onclick="practice(${c.id})" ${complete?'disabled':''}>
+          ${complete ? '✓ Completado' : '+ Practicar hoy'}
+        </button>
+        <button class="btn-del" onclick="deleteCircuit(${c.id})">Eliminar</button>
+      </div>
+      <div class="cc-celebrate">
+        <strong>Circuito neuronal completo</strong>
+        Tu nuevo automático está instalado en tu cerebro. Cada vez que lo hagas de ahora en adelante, será tu respuesta natural.
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+render();
+</script>
+</body>
+</html>

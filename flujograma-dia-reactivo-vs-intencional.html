@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Día Reactivo vs Intencional · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-lt:   #5B9E98;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-mid2: #9FE1CB;
+  --teal-dark: #085041;
+  --teal-deep: #0F6E56;
+  --gold:      #C8A96E;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --gray-pale: #F1EFE8;
+  --amber:     #EF9F27;
+  --amber-pale:#FAEEDA;
+  --amber-dark:#633806;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Raleway',sans-serif;
+  background:var(--cream);
+  color:var(--brown);
+  min-height:100vh;
+}
+
+/* ══ HERO ══ */
+.hero {
+  position:relative; overflow:hidden;
+  background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%);
+}
+.hero-swoosh {
+  position:absolute; top:0; left:0; right:0; height:100%;
+  background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%);
+  clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%);
+}
+.hero-bottom {
+  position:absolute; bottom:0; left:0; right:0; height:35%;
+  background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%);
+  clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center;
+  padding:44px 24px 52px; text-align:center;
+}
+.hero-eyebrow {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.65em; color:rgba(255,255,255,0.88);
+  text-transform:uppercase; margin-bottom:8px;
+}
+.hero-metodo {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:12px;
+  letter-spacing:0.7em; color:rgba(255,255,255,0.65);
+  text-transform:uppercase; margin-bottom:2px;
+}
+.hero-title {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(24px,5vw,46px); letter-spacing:0.05em;
+  color:#fff; line-height:1.2; max-width:580px;
+  text-shadow:0 3px 30px rgba(45,107,101,0.5);
+}
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+  font-size:clamp(14px,2.2vw,17px); color:var(--brown);
+  line-height:1.75; max-width:520px;
+}
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge {
+  margin-top:16px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; padding:8px 24px;
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:10px;
+  letter-spacing:0.3em; text-transform:uppercase;
+  border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35);
+}
+.hero-author {
+  margin-top:18px;
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:20px; color:var(--teal); letter-spacing:0.05em;
+}
+.hero-author-by {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:9px;
+  letter-spacing:0.45em; color:var(--brown-mid);
+  text-transform:uppercase; display:block; margin-bottom:3px;
+}
+.scroll-cta {
+  margin-top:24px;
+  display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+}
+.scroll-cta span {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.35em; color:var(--teal); text-transform:uppercase;
+}
+.scroll-arrow {
+  width:28px; height:28px;
+  border:1px solid rgba(45,107,101,0.4); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  animation:bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section {
+  background:var(--sand); padding:36px 24px; text-align:center;
+}
+.intro-section h2 {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:22px;
+  color:var(--teal); margin-bottom:10px;
+}
+.intro-section p {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px;
+  color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75;
+}
+.quote-banner {
+  background:rgba(255,255,255,0.6);
+  border-left:3px solid var(--teal); border-radius:0 8px 8px 0;
+  padding:14px 20px; max-width:520px; margin:0 auto;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; color:var(--brown); line-height:1.8;
+}
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ DIAGRAMA ══ */
+.diagram-section {
+  max-width:800px; margin:0 auto; padding:24px 16px 0;
+}
+.legend-bar {
+  display:flex; gap:14px; justify-content:center;
+  flex-wrap:wrap; margin-bottom:16px;
+}
+.leg-i {
+  display:flex; align-items:center; gap:7px;
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:600;
+  padding:5px 14px; border-radius:20px; border:0.5px solid;
+}
+.diagram-section svg { width:100%; display:block; }
+
+/* ══ DETAIL CARDS ══ */
+.detail-section {
+  max-width:800px; margin:0 auto; padding:0 16px;
+}
+.detail-card {
+  background:#fff; border-radius:12px; border:0.5px solid var(--gray-lt);
+  padding:22px 26px; margin-top:0; display:none;
+  animation:fadeInUp 0.3s ease;
+}
+.detail-card.show { display:block; }
+@keyframes fadeInUp {
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.dc-label {
+  font-family:'Raleway',sans-serif; font-size:10px; font-weight:600;
+  letter-spacing:0.2em; text-transform:uppercase; display:block; margin-bottom:5px;
+}
+.dc-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--brown); margin-bottom:10px;
+}
+.dc-body {
+  font-family:'Cormorant Garamond',serif; font-size:16px;
+  color:var(--brown-mid); line-height:1.8; margin-bottom:14px;
+}
+.dc-action {
+  padding:14px 18px; border-radius:0 8px 8px 0; border-left:3px solid;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; line-height:1.75;
+}
+.dc-action strong {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:10px; font-weight:600; letter-spacing:0.2em;
+  text-transform:uppercase; margin-bottom:4px;
+}
+.btn-close {
+  float:right; font-family:'Raleway',sans-serif; font-size:11px;
+  padding:5px 12px; border-radius:6px; cursor:pointer;
+  background:transparent; color:var(--gray);
+  border:0.5px solid var(--gray-lt);
+}
+.btn-close:hover { background:var(--sand); }
+
+/* ══ COMPARATIVA CARDS ══ */
+.compare-section {
+  max-width:800px; margin:24px auto 0; padding:0 16px;
+}
+.compare-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal); text-align:center; margin-bottom:16px;
+}
+.compare-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:14px;
+}
+@media(max-width:540px){ .compare-grid{ grid-template-columns:1fr; } }
+
+.compare-col {
+  border-radius:12px; padding:20px 22px; border:0.5px solid;
+}
+.compare-col.reactivo  { background:var(--gray-pale); border-color:var(--gray-lt); }
+.compare-col.intencional { background:var(--teal-pale); border-color:var(--teal-mid2); }
+
+.compare-col-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:16px;
+  margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid;
+  display:flex; align-items:center; gap:8px;
+}
+.compare-col.reactivo .compare-col-title   { color:#444441; border-color:var(--gray-lt); }
+.compare-col.intencional .compare-col-title { color:var(--teal-dark); border-color:var(--teal-mid2); }
+
+.compare-step {
+  display:flex; gap:10px; align-items:flex-start;
+  margin-bottom:12px; padding-bottom:12px; border-bottom:0.5px solid;
+}
+.compare-col.reactivo .compare-step   { border-color:#E8E6E0; }
+.compare-col.intencional .compare-step { border-color:var(--teal-mid2); }
+.compare-step:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+
+.cs-emoji { font-size:18px; flex-shrink:0; margin-top:2px; }
+.cs-info {}
+.cs-name {
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:13px;
+  display:block; margin-bottom:2px;
+}
+.compare-col.reactivo   .cs-name { color:#444441; }
+.compare-col.intencional .cs-name { color:var(--teal-dark); }
+.cs-desc {
+  font-family:'Cormorant Garamond',serif; font-size:13px; line-height:1.5;
+}
+.compare-col.reactivo   .cs-desc { color:var(--gray); }
+.compare-col.intencional .cs-desc { color:var(--teal-deep); }
+
+/* ══ REFLEXION ══ */
+.ref-section {
+  max-width:800px; margin:24px auto 0; padding:0 16px 40px;
+}
+.ref-card {
+  background:#fff; border-radius:12px; padding:26px 28px;
+  border:0.5px solid rgba(45,107,101,0.2);
+}
+.ref-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:19px;
+  color:var(--teal); margin-bottom:10px;
+}
+.ref-body {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); line-height:1.8; margin-bottom:16px;
+}
+.ref-q {
+  background:var(--teal-pale); border-left:3px solid var(--teal-svg);
+  border-radius:0 8px 8px 0; padding:14px 18px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; color:var(--teal-dark); line-height:1.75; margin-bottom:16px;
+}
+.ref-q strong {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:10px; font-weight:600; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--teal); margin-bottom:4px;
+}
+.afirm {
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; border-radius:8px; padding:18px 24px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; line-height:1.7; text-align:center;
+}
+.afirm span {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:9px; font-weight:600; letter-spacing:0.3em;
+  text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px;
+}
+
+/* ══ FOOTER ══ */
+.footer {
+  background:var(--teal); padding:28px 24px; text-align:center;
+}
+.footer p {
+  font-family:'Raleway',sans-serif; font-weight:200;
+  font-size:11px; letter-spacing:0.2em;
+  color:rgba(255,255,255,0.7); line-height:2;
+}
+.footer strong { color:#fff; font-weight:600; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta de Intencionalidad · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Día Reactivo vs<br>Día Intencional</div>
+    <div class="hero-accent">
+      <div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div>
+    </div>
+    <div class="hero-sub">
+      Cada día tienes una elección:<br>
+      dejar que el día te lleve o <strong>dirigir tu día con intención</strong>
+    </div>
+    <div class="hero-badge">✦ &nbsp; Flujograma Comparativo Interactivo &nbsp; ✦</div>
+    <div style="margin-top:18px;">
+      <span class="hero-author-by">A u t o r a</span>
+      <div class="hero-author">Jenifer Mendoza</div>
+    </div>
+    <div class="scroll-cta" onclick="document.getElementById('diagrama').scrollIntoView({behavior:'smooth'})">
+      <span>Ver los dos caminos</span>
+      <div class="scroll-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTRO ══ -->
+<div class="intro-section">
+  <h2>El día empieza antes de que empiece</h2>
+  <p>Los primeros 10 minutos del día determinan el tono de todo lo que viene después. No es magia — es neurología. Tu cerebro en estado de alerta temprana es el más receptivo a la intención o al caos.</p>
+  <div class="quote-banner">
+    "O tú diriges el día, o el día te dirige a ti.<br>
+    La diferencia está en los primeros <strong>cinco minutos</strong>."
+  </div>
+</div>
+
+<!-- ══ DIAGRAMA ══ -->
+<div class="diagram-section" id="diagrama">
+  <div class="legend-bar">
+    <div class="leg-i" style="background:var(--gray-pale);border-color:var(--gray-lt);color:var(--gray);">
+      😮‍💨 &nbsp; Día reactivo
+    </div>
+    <div class="leg-i" style="background:var(--teal-pale);border-color:var(--teal-mid2);color:var(--teal-dark);">
+      😌 &nbsp; Día intencional
+    </div>
+  </div>
+
+  <svg viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+    <marker id="arrT" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+  </defs>
+
+  <!-- Títulos columnas -->
+  <rect x="40" y="18" width="270" height="32" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="13" font-weight="500" fill="#5F5E5A" x="175" y="34" text-anchor="middle" dominant-baseline="central">😮‍💨 Día reactivo</text>
+  <rect x="370" y="18" width="270" height="32" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="13" font-weight="500" fill="#085041" x="505" y="34" text-anchor="middle" dominant-baseline="central">😌 Día intencional</text>
+
+  <!-- Divisoria -->
+  <line x1="340" y1="16" x2="340" y2="664" stroke="#E8E4DC" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- DESPERTAR compartido -->
+  <g style="cursor:pointer;" onclick="showDetail('despertar')">
+    <rect x="215" y="68" width="250" height="54" rx="27" fill="#FAEEDA" stroke="#EF9F27" stroke-width="1.5"/>
+    <text font-family="sans-serif" font-size="20" x="272" y="95" dominant-baseline="central">☀</text>
+    <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#633806" x="360" y="88" text-anchor="middle" dominant-baseline="central">Despertar</text>
+    <text font-family="Raleway,sans-serif" font-size="11" fill="#854F0B" x="360" y="107" text-anchor="middle" dominant-baseline="central">El momento de la elección</text>
+  </g>
+  <path d="M288 122 L188 162" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrG)"/>
+  <path d="M432 122 L512 162" fill="none" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arrT)"/>
+
+  <!-- PASO 2 GRIS: Teléfono -->
+  <g style="cursor:pointer;" onclick="showDetail('telefono')">
+    <rect x="58" y="172" width="260" height="54" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.8"/>
+    <text font-family="sans-serif" font-size="18" x="94" y="199" dominant-baseline="central">📱</text>
+    <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#444441" x="218" y="192" text-anchor="middle" dominant-baseline="central">Teléfono al instante</text>
+    <text font-family="Raleway,sans-serif" font-size="11" fill="#888780" x="218" y="211" text-anchor="middle" dominant-baseline="central">Redes · noticias · mensajes</text>
+  </g>
+  <line x1="188" y1="226" x2="188" y2="266" stroke="#888780" stroke-width="1.5" marker-end="url(#arrG)"/>
+
+  <!-- PASO 2 TEAL: Intención -->
+  <g style="cursor:pointer;" onclick="showDetail('intencion')">
+    <rect x="362" y="172" width="260" height="54" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.8"/>
+    <text font-family="sans-serif" font-size="18" x="398" y="199" dominant-baseline="central">🌿</text>
+    <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#085041" x="502" y="192" text-anchor="middle" dominant-baseline="central">Establecer intención</text>
+    <text font-family="Raleway,sans-serif" font-size="11" fill="#0F6E56" x="502" y="211" text-anchor="middle" dominant-baseline="central">Silencio · respiración · propósito</text>
+  </g>
+  <line x1="492" y1="226" x2="492" y2="266" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arrT)"/>
+
+  <!-- PASO 3 GRIS: Problemas ajenos -->
+  <g style="cursor:pointer;" onclick="showDetail('ajenos')">
+    <rect x="58" y="276" width="260" height="54" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.8"/>
+    <text font-family="sans-serif" font-size="18" x="94" y="303" dominant-baseline="central">😰</text>
+    <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#444441" x="218" y="296" text-anchor="middle" dominant-baseline="central">Problemas ajenos</text>
+    <text font-family="Raleway,sans-serif" font-size="11" fill="#888780" x="218" y="315" text-anchor="middle" dominant-baseline="central">Cargando el peso de otros</text>
+  </g>
+  <line x1="188" y1="330" x2="188" y2="370" stroke="#888780" stroke-width="1.5" marker-end="url(#arrG)"/>
+
+  <!-- PASO 3 TEAL: Prioridad propia -->
+  <g style="cursor:pointer;" onclick="showDetail('prioridad')">
+    <rect x="362" y="276" width="260" height="54" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.8"/>
+    <text font-family="sans-serif" font-size="18" x="398" y="303" dominant-baseline="central">⭐</text>
+    <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#085041" x="502" y="296" text-anchor="middle" dominant-baseline="central">Prioridad propia primero</text>
+    <text font-family="Raleway,sans-serif" font-size="11" fill="#0F6E56" x="502" y="315" text-anchor="middle" dominant-baseline="central">Lo importante antes que urgente</text>
+  </g>
+  <line x1="492" y1="330" x2="492" y2="370" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arrT)"/>
+
+  <!-- PASO 4 GRIS: Urgencias -->
+  <g style="cursor:pointer;" onclick="showDetail('urgencias')">
+    <rect x="58" y="380" width="260" height="54" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.8"/>
+    <text font-family="sans-serif" font-size="18" x="94" y="407" dominant-baseline="central">🔥</text>
+    <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#444441" x="218" y="400" text-anchor="middle" dominant-baseline="central">Apagando urgencias</text>
+    <text font-family="Raleway,sans-serif" font-size="11" fill="#888780" x="218" y="419" text-anchor="middle" dominant-baseline="central">Reactiva · sin control · agotada</text>
+  </g>
+  <line x1="188" y1="434" x2="188" y2="474" stroke="#888780" stroke-width="1.5" marker-end="url(#arrG)"/>
+
+  <!-- PASO 4 TEAL: Respuesta elegida -->
+  <g style="cursor:pointer;" onclick="showDetail('respuesta')">
+    <rect x="362" y="380" width="260" height="54" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.8"/>
+    <text font-family="sans-serif" font-size="18" x="398" y="407" dominant-baseline="central">🧭</text>
+    <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#085041" x="502" y="400" text-anchor="middle" dominant-baseline="central">Respuesta elegida</text>
+    <text font-family="Raleway,sans-serif" font-size="11" fill="#0F6E56" x="502" y="419" text-anchor="middle" dominant-baseline="central">Consciente · desde mis valores</text>
+  </g>
+  <line x1="492" y1="434" x2="492" y2="474" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arrT)"/>
+
+  <!-- Flechas hacia finales -->
+  <path d="M188 484 L272 524" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrG)"/>
+  <path d="M492 484 L408 524" fill="none" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arrT)"/>
+
+  <!-- FINAL GRIS -->
+  <g style="cursor:pointer;" onclick="showDetail('cama-reactiva')">
+    <rect x="38" y="534" width="260" height="58" rx="29" fill="#D3D1C7" stroke="#5F5E5A" stroke-width="1.5"/>
+    <text font-family="sans-serif" font-size="20" x="78" y="563" dominant-baseline="central">😮‍💨</text>
+    <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#2C2C2A" x="188" y="554" text-anchor="middle" dominant-baseline="central">Cama exhausta</text>
+    <text font-family="Raleway,sans-serif" font-size="11" fill="#444441" x="188" y="573" text-anchor="middle" dominant-baseline="central">"¿Para qué fue este día?"</text>
+  </g>
+
+  <!-- FINAL TEAL -->
+  <g style="cursor:pointer;" onclick="showDetail('cama-intencional')">
+    <rect x="382" y="534" width="260" height="58" rx="29" fill="#1D9E75" stroke="#0F6E56" stroke-width="1.5"/>
+    <text font-family="sans-serif" font-size="20" x="420" y="563" dominant-baseline="central">😌</text>
+    <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#fff" x="522" y="554" text-anchor="middle" dominant-baseline="central">Cama satisfecha</text>
+    <text font-family="Raleway,sans-serif" font-size="11" fill="#9FE1CB" x="522" y="573" text-anchor="middle" dominant-baseline="central">"Viví desde mí hoy"</text>
+  </g>
+
+  <!-- Notas inferiores -->
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#888780" x="340" y="618" text-anchor="middle">Haz clic en cada nodo para explorar cómo aplicarlo</text>
+  <text font-family="Raleway,sans-serif" font-size="12" font-weight="500" fill="#1D9E75" x="340" y="638" text-anchor="middle">No se trata de perfección — se trata de dirección</text>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#888780" x="340" y="656" text-anchor="middle">Un pequeño giro en la mañana cambia todo el día</text>
+  </svg>
+</div>
+
+<!-- ══ DETAIL CARD ══ -->
+<div class="detail-section">
+  <div class="detail-card" id="detailCard"></div>
+</div>
+
+<!-- ══ COMPARATIVA ══ -->
+<div class="compare-section">
+  <div class="compare-title">Los dos días en detalle</div>
+  <div class="compare-grid">
+    <div class="compare-col reactivo">
+      <div class="compare-col-title">😮‍💨 Día reactivo</div>
+      <div class="compare-step">
+        <div class="cs-emoji">☀</div>
+        <div class="cs-info">
+          <span class="cs-name">Despertar</span>
+          <span class="cs-desc">Sin intención, sin dirección</span>
+        </div>
+      </div>
+      <div class="compare-step">
+        <div class="cs-emoji">📱</div>
+        <div class="cs-info">
+          <span class="cs-name">Teléfono al instante</span>
+          <span class="cs-desc">El mundo entra antes que tú</span>
+        </div>
+      </div>
+      <div class="compare-step">
+        <div class="cs-emoji">😰</div>
+        <div class="cs-info">
+          <span class="cs-name">Problemas ajenos</span>
+          <span class="cs-desc">Cargas lo que no es tuyo</span>
+        </div>
+      </div>
+      <div class="compare-step">
+        <div class="cs-emoji">🔥</div>
+        <div class="cs-info">
+          <span class="cs-name">Apagando urgencias</span>
+          <span class="cs-desc">Reactiva, sin control propio</span>
+        </div>
+      </div>
+      <div class="compare-step">
+        <div class="cs-emoji">😮‍💨</div>
+        <div class="cs-info">
+          <span class="cs-name">Cama exhausta</span>
+          <span class="cs-desc">"¿Para qué fue este día?"</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare-col intencional">
+      <div class="compare-col-title">😌 Día intencional</div>
+      <div class="compare-step">
+        <div class="cs-emoji">☀</div>
+        <div class="cs-info">
+          <span class="cs-name">Despertar</span>
+          <span class="cs-desc">Momento de elección consciente</span>
+        </div>
+      </div>
+      <div class="compare-step">
+        <div class="cs-emoji">🌿</div>
+        <div class="cs-info">
+          <span class="cs-name">Establecer intención</span>
+          <span class="cs-desc">Silencio, respiración, propósito</span>
+        </div>
+      </div>
+      <div class="compare-step">
+        <div class="cs-emoji">⭐</div>
+        <div class="cs-info">
+          <span class="cs-name">Prioridad propia</span>
+          <span class="cs-desc">Lo importante antes que urgente</span>
+        </div>
+      </div>
+      <div class="compare-step">
+        <div class="cs-emoji">🧭</div>
+        <div class="cs-info">
+          <span class="cs-name">Respuesta elegida</span>
+          <span class="cs-desc">Consciente, desde tus valores</span>
+        </div>
+      </div>
+      <div class="compare-step">
+        <div class="cs-emoji">😌</div>
+        <div class="cs-info">
+          <span class="cs-name">Cama satisfecha</span>
+          <span class="cs-desc">"Viví desde mí hoy"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REFLEXION ══ -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">Tu reflexión de hoy</div>
+    <div class="ref-body">
+      Nadie tiene días perfectamente intencionales. La meta no es eliminar los días reactivos — es ir aumentando los momentos de intención dentro de cada día. Un solo momento consciente ya cambia la dirección.
+    </div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "¿Cómo fueron mis últimos 7 días — más reactivos o más intencionales? ¿Qué ONE cosa podría hacer diferente mañana en los primeros 10 minutos que cambie el tono de todo el día?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación del día</span>
+      "Hoy elijo dirigir mi día. Aunque sea por un momento, aunque sea imperfecto — hoy vivo desde mí."
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <p>
+    <strong>Método Camino</strong> · Día Reactivo vs Día Intencional<br>
+    Herramienta de intencionalidad para mujeres de 40+<br>
+    © 2026 Jenifer Mendoza · Todos los derechos reservados
+  </p>
+</div>
+
+<script>
+const DATA = {
+  despertar:{
+    color:'#854F0B',bg:'#FAEEDA',border:'#EF9F27',label:'Momento de elección',
+    title:'El despertar — donde todo empieza',
+    body:'Los primeros 5 minutos del día determinan el tono del resto. Antes de que el mundo entre en tu mente, tienes una ventana de oro para elegir desde qué lugar vas a vivir este día.',
+    action:'Mañana, antes de tocar el teléfono, haz tres respiraciones profundas y pregúntate: ¿Cómo quiero sentirme al final de este día? Esa respuesta es tu intención.'
+  },
+  telefono:{
+    color:'#444441',bg:'#F1EFE8',border:'#888780',label:'Día reactivo — paso 1',
+    title:'El teléfono como primer contacto',
+    body:'Cuando el teléfono es lo primero que tocas, le cedes el control de tu estado emocional al algoritmo. Las noticias, los mensajes pendientes, las redes — todo pasa a ser tu realidad antes de que hayas decidido cuál quieres que sea.',
+    action:'Prueba el reto de los 30 minutos: no toques el teléfono hasta 30 minutos después de despertar. Esos minutos son completamente tuyos.'
+  },
+  intencion:{
+    color:'#085041',bg:'#E1F5EE',border:'#1D9E75',label:'Día intencional — paso 1',
+    title:'Establecer intención antes de que el mundo entre',
+    body:'La intención no es una meta — es una energía. "Hoy quiero estar presente", "Hoy elijo responder en lugar de reaccionar", "Hoy me trato bien". Una frase es suficiente para anclar tu dirección.',
+    action:'Escribe UNA intención cada mañana. No más de 10 palabras. Léela en voz alta. Eso activa tu sistema de activación reticular — tu cerebro literalmente busca lo que declaras.'
+  },
+  ajenos:{
+    color:'#444441',bg:'#F1EFE8',border:'#888780',label:'Día reactivo — paso 2',
+    title:'Cargando el peso de los problemas ajenos',
+    body:'Tu cuerpo segrega cortisol ante los problemas de otros como si fueran tuyos. Tu sistema nervioso no distingue entre una amenaza real y una historia que leíste. Cuando absorbes el mundo antes del desayuno, llegas al mediodía ya agotada.',
+    action:'Pregúntate: ¿Es este problema mío resolver hoy? Si la respuesta es no, respira y suéltalo. Puedes cuidar sin cargar.'
+  },
+  prioridad:{
+    color:'#085041',bg:'#E1F5EE',border:'#1D9E75',label:'Día intencional — paso 2',
+    title:'Lo importante antes que lo urgente',
+    body:'Las urgencias siempre gritan más fuerte. Pero lo importante rara vez grita — espera en silencio hasta que te ocupas de él o lo abandonas. El día intencional protege un espacio para lo que de verdad importa antes de que lo urgente lo devore.',
+    action:'Cada mañana identifica UNA cosa que, si la haces hoy, te hará sentir que el día valió la pena. Hazla primero. Antes de correos, antes de llamadas.'
+  },
+  urgencias:{
+    color:'#444441',bg:'#F1EFE8',border:'#888780',label:'Día reactivo — paso 3',
+    title:'La trampa de las urgencias interminables',
+    body:'En el día reactivo, las urgencias se reproducen. Resolver una genera otra. Tu energía se fragmenta en decenas de pequeñas crisis que en su mayoría no eran tuyas ni tan urgentes. Al final sientes que hiciste mucho y avanzaste nada.',
+    action:'Al final de la semana, revisa cuántas de las urgencias que resolviste eran realmente urgentes y realmente tuyas. La respuesta te cambiará la perspectiva.'
+  },
+  respuesta:{
+    color:'#085041',bg:'#E1F5EE',border:'#1D9E75',label:'Día intencional — paso 3',
+    title:'Responder desde tus valores, no desde el miedo',
+    body:'Responder es diferente de reaccionar. La respuesta tiene una pausa, tiene intención. Viene de saber quién quieres ser, no de lo que el momento exige. Cada vez que respondes en lugar de reaccionar, fortaleces tu brújula interior.',
+    action:'Cuando sientas que estás a punto de reaccionar, di internamente: "Pausa". Respira. Pregúntate: ¿Cómo respondería la versión más tranquila de mí? Esa es tu respuesta.'
+  },
+  'cama-reactiva':{
+    color:'#444441',bg:'#F1EFE8',border:'#888780',label:'Final del día reactivo',
+    title:'Cama exhausta — el costo del piloto automático',
+    body:'No es cansancio físico — es cansancio del alma. La mujer que vivió el día reactivo hizo mucho, pero nada desde sí misma. Se dio toda pero no se incluyó. Mañana se despertará con la misma sensación de vacío.',
+    action:'Si hoy fue un día reactivo, no te juzgues. Solo pregúntate: ¿Qué haría diferente mañana en los primeros 10 minutos? Una sola cosa. Mañana empieza de nuevo.'
+  },
+  'cama-intencional':{
+    color:'#085041',bg:'#E1F5EE',border:'#1D9E75',label:'Final del día intencional',
+    title:'Cama satisfecha — el regalo de vivir desde ti',
+    body:'La satisfacción no viene de haber hecho todo — viene de haber vivido desde tus valores al menos una parte del día. De haber elegido conscientemente, aunque sea una vez. No perfecto, sino dirigido.',
+    action:'"Hoy viví desde mí." Esa frase al cerrar los ojos es el mayor logro que puedes tener. Escríbela en tu diario cada noche que lo logres. Es tu evidencia de que el cambio está ocurriendo.'
+  }
+};
+
+function showDetail(key) {
+  const d = DATA[key];
+  if(!d) return;
+  const card = document.getElementById('detailCard');
+  card.innerHTML = `
+    <button class="btn-close" onclick="document.getElementById('detailCard').classList.remove('show')">✕ Cerrar</button>
+    <span class="dc-label" style="color:${d.color};">${d.label}</span>
+    <div class="dc-title">${d.title}</div>
+    <div class="dc-body">${d.body}</div>
+    <div class="dc-action" style="background:${d.bg};border-left-color:${d.border};color:${d.color};">
+      <strong style="color:${d.color};">Acción para hoy:</strong>
+      ${d.action}
+    </div>
+  `;
+  card.classList.add('show');
+  card.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+</script>
+</body>
+</html>

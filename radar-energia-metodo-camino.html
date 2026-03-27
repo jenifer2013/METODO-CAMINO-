@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar de Energía · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-lt:   #5B9E98;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-mid2: #9FE1CB;
+  --teal-dark: #085041;
+  --blue:      #185FA5;
+  --blue-lt:   #378ADD;
+  --blue-pale: #E6F1FB;
+  --blue-dark: #0C447C;
+  --gold:      #C8A96E;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --sand2:     #D6C4A8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --gray-pale: #F1EFE8;
+  --amber:     #EF9F27;
+  --amber-pale:#FAEEDA;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Raleway',sans-serif;
+  background:var(--cream);
+  color:var(--brown);
+  min-height:100vh;
+}
+
+/* ══ HERO ══ */
+.hero {
+  position:relative; overflow:hidden;
+  background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%);
+}
+.hero-swoosh {
+  position:absolute; top:0; left:0; right:0; height:100%;
+  background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%);
+  clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%);
+}
+.hero-bottom {
+  position:absolute; bottom:0; left:0; right:0; height:35%;
+  background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%);
+  clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center;
+  padding:44px 24px 52px; text-align:center;
+}
+.hero-eyebrow {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.65em; color:rgba(255,255,255,0.88);
+  text-transform:uppercase; margin-bottom:8px;
+}
+.hero-metodo {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:12px;
+  letter-spacing:0.7em; color:rgba(255,255,255,0.65);
+  text-transform:uppercase; margin-bottom:2px;
+}
+.hero-title {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em;
+  color:#fff; line-height:1.2; max-width:580px;
+  text-shadow:0 3px 30px rgba(45,107,101,0.5);
+}
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+  font-size:clamp(14px,2.2vw,17px); color:var(--brown);
+  line-height:1.75; max-width:520px;
+}
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge {
+  margin-top:16px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; padding:8px 24px;
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:10px;
+  letter-spacing:0.3em; text-transform:uppercase;
+  border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35);
+}
+.hero-author {
+  margin-top:18px;
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:20px; color:var(--teal); letter-spacing:0.05em;
+}
+.hero-author-by {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:9px;
+  letter-spacing:0.45em; color:var(--brown-mid);
+  text-transform:uppercase; display:block; margin-bottom:3px;
+}
+.scroll-cta {
+  margin-top:24px;
+  display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+}
+.scroll-cta span {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.35em; color:var(--teal); text-transform:uppercase;
+}
+.scroll-arrow {
+  width:28px; height:28px;
+  border:1px solid rgba(45,107,101,0.4); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  animation:bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ LAS 4 DIMENSIONES ══ */
+.dims-section {
+  background:var(--sand); padding:36px 24px;
+}
+.dims-section h2 {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:22px;
+  color:var(--teal); margin-bottom:10px; text-align:center;
+}
+.dims-section p {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px;
+  color:var(--brown-mid); max-width:600px; margin:0 auto 24px; line-height:1.75; text-align:center;
+}
+.dims-grid {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
+  max-width:760px; margin:0 auto;
+}
+@media(max-width:560px){ .dims-grid{ grid-template-columns:1fr 1fr; } }
+.dim-card {
+  background:rgba(255,255,255,0.7); border-radius:12px;
+  padding:18px 16px; text-align:center;
+  border:0.5px solid rgba(0,0,0,0.08);
+}
+.dim-icon { font-size:28px; display:block; margin-bottom:8px; }
+.dim-name {
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:13px;
+  display:block; margin-bottom:6px;
+}
+.dim-desc {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px;
+  color:var(--brown-mid); line-height:1.5;
+}
+
+/* ══ INSTRUCCIONES ══ */
+.instrucciones {
+  max-width:800px; margin:0 auto; padding:32px 16px 0;
+}
+.inst-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal); margin-bottom:6px;
+}
+.inst-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); margin-bottom:18px;
+}
+.inst-steps {
+  display:grid; grid-template-columns:repeat(2,1fr); gap:12px;
+  margin-bottom:20px;
+}
+@media(max-width:500px){ .inst-steps{ grid-template-columns:1fr; } }
+.inst-step {
+  background:#fff; border-radius:10px; padding:16px 18px;
+  border:0.5px solid rgba(0,0,0,0.08); display:flex; gap:12px;
+}
+.inst-num {
+  width:28px; height:28px; border-radius:50%; flex-shrink:0;
+  background:var(--blue-pale); color:var(--blue-dark);
+  font-family:'Playfair Display',serif; font-weight:700; font-size:14px;
+  display:flex; align-items:center; justify-content:center;
+}
+.inst-text {
+  font-family:'Raleway',sans-serif; font-size:12px;
+  color:var(--brown-mid); line-height:1.55;
+}
+.inst-text strong { color:var(--teal); font-weight:600; }
+
+.escala-box {
+  background:#fff; border-radius:10px; padding:18px 20px;
+  border:0.5px solid rgba(45,107,101,0.2); margin-bottom:0;
+}
+.escala-title {
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:12px;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--teal);
+  margin-bottom:12px; display:block;
+}
+.escala-grid {
+  display:grid; grid-template-columns:repeat(5,1fr); gap:6px;
+}
+.escala-item {
+  text-align:center; padding:8px 4px;
+  border-radius:6px;
+}
+.escala-num {
+  font-family:'Playfair Display',serif; font-weight:700;
+  font-size:18px; display:block; margin-bottom:2px;
+}
+.escala-desc {
+  font-family:'Raleway',sans-serif; font-size:10px; line-height:1.3;
+}
+
+/* ══ HERRAMIENTA ══ */
+.tool-section {
+  max-width:800px; margin:28px auto 0; padding:0 16px;
+}
+.tool-header {
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:10px; margin-bottom:16px;
+}
+.tool-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal);
+}
+
+.mode-btns {
+  display:flex; gap:8px; flex-wrap:wrap;
+}
+.mbtn {
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:500;
+  padding:7px 18px; border-radius:20px; cursor:pointer; transition:all 0.15s;
+  border:1px solid var(--gray-lt); background:#fff; color:var(--gray);
+}
+.mbtn.active-blue { background:var(--blue); color:#fff; border-color:var(--blue); }
+.mbtn.active-teal { background:var(--teal-svg); color:#fff; border-color:var(--teal-svg); }
+
+.chart-wrap {
+  position:relative; width:100%; max-width:420px;
+  margin:0 auto 8px;
+}
+
+.legend-row {
+  display:flex; gap:18px; justify-content:center;
+  margin:6px 0 16px; flex-wrap:wrap;
+}
+.leg-i { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--brown-mid); }
+.leg-line { width:26px; height:2px; border-radius:2px; }
+
+.sliders-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:12px 28px; margin-bottom:16px;
+}
+@media(max-width:500px){ .sliders-grid{ grid-template-columns:1fr; } }
+.sl-row { display:flex; flex-direction:column; gap:4px; }
+.sl-top { display:flex; justify-content:space-between; align-items:center; }
+.sl-name { font-family:'Raleway',sans-serif; font-size:12px; font-weight:600; }
+.sl-val  { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; min-width:22px; text-align:right; }
+input[type=range] { width:100%; }
+
+.brecha-box {
+  background:var(--blue-pale); border-left:3px solid var(--blue);
+  border-radius:0 8px 8px 0; padding:12px 16px;
+  font-family:'Cormorant Garamond',serif; font-size:15px;
+  color:var(--blue-dark); line-height:1.8; margin-bottom:16px; text-align:center;
+}
+.brecha-box strong { font-weight:600; color:var(--blue); font-style:normal; }
+
+.bottom-bar {
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+  background:#fff; border-radius:10px; padding:14px 18px;
+  border:0.5px solid rgba(45,107,101,0.2); margin-bottom:20px;
+}
+.date-wrap {
+  display:flex; align-items:center; gap:8px; flex:1; min-width:180px;
+}
+.date-wrap label {
+  font-family:'Raleway',sans-serif; font-size:12px; color:var(--brown-mid); white-space:nowrap;
+}
+.date-wrap input {
+  font-family:'Raleway',sans-serif; font-size:12px; padding:6px 10px;
+  border:0.5px solid rgba(45,107,101,0.35); border-radius:6px;
+  background:var(--cream); color:var(--brown);
+}
+.abtn {
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:600;
+  padding:8px 18px; border-radius:6px; cursor:pointer;
+  border:none; transition:opacity 0.2s; white-space:nowrap;
+}
+.abtn.save { background:var(--blue); color:#fff; }
+.abtn.pdf  { background:var(--gold); color:var(--brown); }
+.abtn:hover { opacity:0.85; }
+
+/* History */
+.history-section {
+  background:#fff; border-radius:12px; padding:18px 20px;
+  border:0.5px solid rgba(45,107,101,0.2); margin-bottom:16px;
+}
+.history-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:16px;
+  color:var(--teal); margin-bottom:14px;
+}
+.hist-list { display:flex; flex-direction:column; gap:8px; }
+.hist-item {
+  background:var(--sand); border-radius:8px;
+  padding:10px 14px; display:flex; align-items:center; gap:10px;
+  flex-wrap:wrap;
+}
+.hist-date {
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:12px;
+  color:var(--brown); min-width:90px;
+}
+.hist-scores { display:flex; gap:6px; flex:1; flex-wrap:wrap; }
+.hist-score {
+  padding:3px 10px; border-radius:12px; font-size:11px; font-weight:600;
+}
+.hist-del {
+  color:var(--brown-mid); cursor:pointer; font-size:13px;
+  padding:2px 6px; border-radius:4px; border:0.5px solid var(--sand2);
+  background:transparent;
+}
+.hist-del:hover { background:#FBEAE7; color:#E24B4A; border-color:#E24B4A; }
+.empty-hist {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:14px; color:var(--brown-mid); text-align:center; padding:12px;
+}
+
+/* ══ REFLEXION ══ */
+.ref-section {
+  max-width:800px; margin:0 auto; padding:0 16px 40px;
+}
+.ref-card {
+  background:#fff; border-radius:12px; padding:26px 28px;
+  border:0.5px solid rgba(45,107,101,0.2);
+}
+.ref-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:19px;
+  color:var(--teal); margin-bottom:10px;
+}
+.ref-body {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); line-height:1.8; margin-bottom:16px;
+}
+.ref-q {
+  background:var(--teal-pale); border-left:3px solid var(--teal-svg);
+  border-radius:0 8px 8px 0; padding:14px 18px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; color:var(--teal-dark); line-height:1.75; margin-bottom:16px;
+}
+.ref-q strong {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:10px; font-weight:600; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--teal); margin-bottom:4px;
+}
+.afirm {
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; border-radius:8px; padding:18px 24px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; line-height:1.7; text-align:center;
+}
+.afirm span {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:9px; font-weight:600; letter-spacing:0.3em;
+  text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px;
+}
+
+/* ══ FOOTER ══ */
+.footer {
+  background:var(--teal); padding:28px 24px; text-align:center;
+}
+.footer p {
+  font-family:'Raleway',sans-serif; font-weight:200;
+  font-size:11px; letter-spacing:0.2em;
+  color:rgba(255,255,255,0.7); line-height:2;
+}
+.footer strong { color:#fff; font-weight:600; }
+
+/* Toast */
+.toast {
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  background:var(--blue); color:#fff; padding:10px 24px; border-radius:24px;
+  font-family:'Raleway',sans-serif; font-size:13px;
+  opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999;
+  box-shadow:0 4px 20px rgba(24,95,165,0.4);
+}
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta Semanal · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Radar de Energía</div>
+    <div class="hero-accent">
+      <div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div>
+    </div>
+    <div class="hero-sub">
+      Monitorea tus <strong>4 dimensiones de energía</strong> cada semana<br>
+      y descubre dónde enfocar tu atención para vivir más plena
+    </div>
+    <div class="hero-badge">✦ &nbsp; Registro Semanal Interactivo &nbsp; ✦</div>
+    <div style="margin-top:18px;">
+      <span class="hero-author-by">A u t o r a</span>
+      <div class="hero-author">Jenifer Mendoza</div>
+    </div>
+    <div class="scroll-cta" onclick="document.getElementById('instrucciones').scrollIntoView({behavior:'smooth'})">
+      <span>Comenzar mi radar</span>
+      <div class="scroll-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LAS 4 DIMENSIONES ══ -->
+<div class="dims-section">
+  <h2>Las 4 dimensiones de tu energía</h2>
+  <p>Tu bienestar no es solo físico — es un ecosistema de cuatro dimensiones interconectadas. Cuando una sufre, todas se ven afectadas.</p>
+  <div class="dims-grid">
+    <div class="dim-card">
+      <span class="dim-icon">💪</span>
+      <span class="dim-name" style="color:#185FA5;">Física</span>
+      <span class="dim-desc">Sueño, alimentación, movimiento, salud corporal y vitalidad</span>
+    </div>
+    <div class="dim-card">
+      <span class="dim-icon">💚</span>
+      <span class="dim-name" style="color:#1D9E75;">Emocional</span>
+      <span class="dim-desc">Bienestar emocional, vínculos, límites, amor propio y alegría</span>
+    </div>
+    <div class="dim-card">
+      <span class="dim-icon">🧠</span>
+      <span class="dim-name" style="color:#854F0B;">Mental</span>
+      <span class="dim-desc">Claridad, enfoque, creatividad, aprendizaje y gestión del estrés</span>
+    </div>
+    <div class="dim-card">
+      <span class="dim-icon">✨</span>
+      <span class="dim-name" style="color:#7A5545;">Espiritual</span>
+      <span class="dim-desc">Propósito, conexión con valores, paz interior y sentido de vida</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INSTRUCCIONES ══ -->
+<div class="instrucciones" id="instrucciones">
+  <div class="inst-title">Cómo completar tu Radar de Energía</div>
+  <div class="inst-sub">Dedica 5 minutos cada domingo para hacer tu diagnóstico semanal</div>
+  <div class="inst-steps">
+    <div class="inst-step">
+      <div class="inst-num">1</div>
+      <div class="inst-text">
+        <strong>Elige el modo "Estado actual"</strong> y mueve cada slider según cómo te sientes HOY en cada dimensión — sin juzgar, con honestidad.
+      </div>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">2</div>
+      <div class="inst-text">
+        <strong>Cambia a "Estado deseado"</strong> y ajusta dónde quisieras estar idealmente esta semana en cada dimensión.
+      </div>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">3</div>
+      <div class="inst-text">
+        <strong>Observa la brecha</strong> entre las dos líneas del radar. El área sombreada muestra dónde enfocar tu energía esta semana.
+      </div>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">4</div>
+      <div class="inst-text">
+        <strong>Guarda tu registro</strong> con la fecha. Vuelve cada semana y compara tu evolución — verás patrones poderosos con el tiempo.
+      </div>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">5</div>
+      <div class="inst-text">
+        <strong>Elige UNA acción</strong> esta semana para nutrir la dimensión con mayor brecha. Solo una — consistente y amorosa.
+      </div>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">6</div>
+      <div class="inst-text">
+        <strong>Descarga tu PDF</strong> si quieres imprimir tu diagnóstico o guardarlo como referencia fuera de la herramienta.
+      </div>
+    </div>
+  </div>
+
+  <div class="escala-box">
+    <span class="escala-title">Escala de valoración — ¿qué significa cada número?</span>
+    <div class="escala-grid">
+      <div class="escala-item" style="background:#FCEBEB;">
+        <span class="escala-num" style="color:#A32D2D;">1-2</span>
+        <span class="escala-desc" style="color:#A32D2D;">Agotada · necesito atención urgente</span>
+      </div>
+      <div class="escala-item" style="background:#FAEEDA;">
+        <span class="escala-num" style="color:#854F0B;">3-4</span>
+        <span class="escala-desc" style="color:#854F0B;">Baja · me cuesta sostenerme aquí</span>
+      </div>
+      <div class="escala-item" style="background:#F1EFE8;">
+        <span class="escala-num" style="color:#5F5E5A;">5-6</span>
+        <span class="escala-desc" style="color:#5F5E5A;">Media · funciono pero no florezco</span>
+      </div>
+      <div class="escala-item" style="background:#E6F1FB;">
+        <span class="escala-num" style="color:#0C447C;">7-8</span>
+        <span class="escala-desc" style="color:#0C447C;">Buena · me siento bien y con energía</span>
+      </div>
+      <div class="escala-item" style="background:#E1F5EE;">
+        <span class="escala-num" style="color:#085041;">9-10</span>
+        <span class="escala-desc" style="color:#085041;">Plena · florezco y me desborda la vida</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HERRAMIENTA ══ -->
+<div class="tool-section" id="herramienta">
+  <div class="tool-header">
+    <div class="tool-title">Mi Radar de Energía</div>
+    <div class="mode-btns">
+      <button class="mbtn active-blue" id="btnActual"  onclick="setMode('actual')">Estado actual</button>
+      <button class="mbtn" id="btnDeseado" onclick="setMode('deseado')">Estado deseado</button>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <canvas id="radarCanvas"></canvas>
+  </div>
+
+  <div class="legend-row">
+    <div class="leg-i">
+      <div class="leg-line" style="background:var(--blue);height:3px;"></div>
+      Estado actual
+    </div>
+    <div class="leg-i">
+      <div class="leg-line" style="background:var(--teal-svg);height:0;border-top:2px dashed var(--teal-svg);"></div>
+      Estado deseado
+    </div>
+    <div class="leg-i">
+      <div class="leg-line" style="background:rgba(24,95,165,0.2);height:10px;border-radius:2px;"></div>
+      Brecha de energía
+    </div>
+  </div>
+
+  <div class="sliders-grid" id="slidersGrid"></div>
+  <div class="brecha-box" id="brechaBox"></div>
+
+  <div class="bottom-bar">
+    <div class="date-wrap">
+      <label>Semana del:</label>
+      <input type="date" id="weekDate">
+    </div>
+    <button class="abtn save" onclick="saveSnap()">💾 Guardar semana</button>
+    <button class="abtn pdf"  onclick="downloadPDF()">📄 Descargar PDF</button>
+  </div>
+
+  <div class="history-section">
+    <div class="history-title">Mi registro semanal de energía</div>
+    <div class="hist-list" id="histList"></div>
+  </div>
+</div>
+
+<!-- ══ REFLEXION ══ -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">Tu reflexión semanal</div>
+    <div class="ref-body">
+      El radar no es para juzgarte — es para verte con claridad. Una semana con energía baja en alguna dimensión no significa que fallaste. Significa que esa parte de ti necesita atención amorosa. Y ahora lo sabes.
+    </div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "¿Cuál dimensión ha tenido la brecha más grande en las últimas semanas? ¿Qué UNA cosa podría hacer diferente esta semana para nutrirla? No lo perfecto — lo posible."
+    </div>
+    <div class="afirm">
+      <span>Afirmación de la semana</span>
+      "La energía no se gestiona — se cultiva. Cada dimensión que nutro esta semana es una inversión en la mujer que estoy eligiendo ser."
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <p>
+    <strong>Método Camino</strong> · Radar de Energía Semanal<br>
+    Monitoreo de las 4 dimensiones de bienestar para mujeres de 40+<br>
+    © 2026 Jenifer Mendoza · Todos los derechos reservados
+  </p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DIMS = [
+  { key:'fisica',     label:'Física',     color:'#185FA5', icon:'💪' },
+  { key:'emocional',  label:'Emocional',  color:'#1D9E75', icon:'💚' },
+  { key:'mental',     label:'Mental',     color:'#854F0B', icon:'🧠' },
+  { key:'espiritual', label:'Espiritual', color:'#7A5545', icon:'✨' }
+];
+
+const KEY = 'metodoCamino_radarEnergia';
+
+function loadState() {
+  try { const r=localStorage.getItem(KEY); return r?JSON.parse(r):null; } catch(e){return null;}
+}
+function saveState() {
+  try { localStorage.setItem(KEY,JSON.stringify({actual,deseado,history})); } catch(e){}
+}
+
+let saved   = loadState();
+let actual  = saved?.actual  || {fisica:5,emocional:5,mental:5,espiritual:5};
+let deseado = saved?.deseado || {fisica:8,emocional:8,mental:8,espiritual:8};
+let history = saved?.history || [];
+let mode    = 'actual';
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('btnActual').className  = 'mbtn'+(m==='actual'?' active-blue':'');
+  document.getElementById('btnDeseado').className = 'mbtn'+(m==='deseado'?' active-teal':'');
+  buildSliders();
+}
+
+function buildSliders() {
+  const grid = document.getElementById('slidersGrid');
+  grid.innerHTML = '';
+  const data = mode==='actual' ? actual : deseado;
+  const col  = mode==='actual' ? '#185FA5' : '#1D9E75';
+  DIMS.forEach(d => {
+    const row = document.createElement('div');
+    row.className = 'sl-row';
+    row.innerHTML = `
+      <div class="sl-top">
+        <span class="sl-name" style="color:${d.color}">${d.icon} ${d.label}</span>
+        <span class="sl-val" id="sv-${d.key}" style="color:${col}">${data[d.key]}</span>
+      </div>
+      <input type="range" min="1" max="10" step="1" value="${data[d.key]}"
+             id="sl-${d.key}" style="accent-color:${col}">
+    `;
+    grid.appendChild(row);
+    document.getElementById('sl-'+d.key).addEventListener('input', e=>{
+      const v = parseInt(e.target.value);
+      if(mode==='actual') actual[d.key]=v; else deseado[d.key]=v;
+      document.getElementById('sv-'+d.key).textContent = v;
+      updateChart(); updateBrecha(); saveState();
+    });
+  });
+}
+
+let chart;
+function buildChart() {
+  const ctx = document.getElementById('radarCanvas').getContext('2d');
+  chart = new Chart(ctx, {
+    type:'radar',
+    data:{
+      labels: DIMS.map(d=>d.label),
+      datasets:[
+        {
+          label:'Estado actual',
+          data: DIMS.map(d=>actual[d.key]),
+          backgroundColor:'rgba(24,95,165,0.15)',
+          borderColor:'#185FA5', borderWidth:2.5,
+          pointBackgroundColor:'#185FA5', pointRadius:5, pointHoverRadius:7
+        },
+        {
+          label:'Estado deseado',
+          data: DIMS.map(d=>deseado[d.key]),
+          backgroundColor:'rgba(29,158,117,0.08)',
+          borderColor:'#1D9E75', borderWidth:2,
+          borderDash:[7,4],
+          pointBackgroundColor:'#1D9E75', pointRadius:4
+        }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:true,
+      plugins:{ legend:{display:false} },
+      scales:{ r:{
+        min:0, max:10,
+        ticks:{ stepSize:2, font:{size:10}, color:'#888780', backdropColor:'transparent' },
+        pointLabels:{ font:{size:13,weight:'500'}, color:'#4A2E22' },
+        grid:{ color:'rgba(24,95,165,0.12)' },
+        angleLines:{ color:'rgba(24,95,165,0.12)' }
+      }}
+    }
+  });
+}
+
+function updateChart() {
+  if(!chart) return;
+  chart.data.datasets[0].data = DIMS.map(d=>actual[d.key]);
+  chart.data.datasets[1].data = DIMS.map(d=>deseado[d.key]);
+  chart.update();
+}
+
+function updateBrecha() {
+  const scores = DIMS.map(d=>actual[d.key]);
+  const avg    = (scores.reduce((s,v)=>s+v,0)/scores.length).toFixed(1);
+  const gaps   = DIMS.map(d=>deseado[d.key]-actual[d.key]);
+  const maxGap = DIMS[gaps.indexOf(Math.max(...gaps))];
+  const minD   = DIMS[scores.indexOf(Math.min(...scores))];
+  const maxD   = DIMS[scores.indexOf(Math.max(...scores))];
+  document.getElementById('brechaBox').innerHTML =
+    `Energía promedio: <strong>${avg}/10</strong> &nbsp;·&nbsp;
+     Mayor fortaleza: <strong>${maxD.icon} ${maxD.label}</strong> &nbsp;·&nbsp;
+     Dimensión a nutrir: <strong>${minD.icon} ${minD.label}</strong><br>
+     Mayor brecha: <strong>${maxGap.icon} ${maxGap.label}</strong>
+     — enfoca tu atención aquí esta semana`;
+}
+
+function saveSnap() {
+  const date = document.getElementById('weekDate').value || new Date().toISOString().split('T')[0];
+  const snap = { date, actual:{...actual}, deseado:{...deseado} };
+  history = history.filter(h=>h.date!==date);
+  history.unshift(snap);
+  if(history.length>12) history=history.slice(0,12);
+  saveState(); renderHistory();
+  showToast('✓ Semana guardada correctamente');
+}
+
+function deleteSnap(date) {
+  history = history.filter(h=>h.date!==date);
+  saveState(); renderHistory();
+}
+
+function renderHistory() {
+  const list = document.getElementById('histList');
+  if(!history.length){
+    list.innerHTML='<div class="empty-hist">Aún no tienes registros. ¡Completa tu primera semana y guárdala!</div>';
+    return;
+  }
+  list.innerHTML = history.map(h => {
+    const fd = h.date.split('-').reverse().join('/');
+    const scores = DIMS.map(d=>
+      `<span class="hist-score" style="background:${d.color}22;color:${d.color};">${d.icon} ${h.actual[d.key]}</span>`
+    ).join('');
+    const avg = (DIMS.reduce((s,d)=>s+h.actual[d.key],0)/DIMS.length).toFixed(1);
+    return `<div class="hist-item">
+      <span class="hist-date">Sem. ${fd}</span>
+      <div class="hist-scores">${scores}</div>
+      <span style="font-family:'Playfair Display',serif;font-weight:700;font-size:14px;color:var(--blue);">${avg}</span>
+      <button class="hist-del" onclick="deleteSnap('${h.date}')">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function downloadPDF() {
+  const date = document.getElementById('weekDate').value || new Date().toISOString().split('T')[0];
+  const fd   = date.split('-').reverse().join('/');
+  const rows = DIMS.map(d=>{
+    const a=actual[d.key], des=deseado[d.key], gap=des-a;
+    const bar='█'.repeat(a)+'░'.repeat(10-a);
+    const gapColor = gap>3?'#E24B4A':gap>0?'#EF9F27':'#1D9E75';
+    return `<tr>
+      <td style="padding:10px 14px;font-size:14px;font-weight:600;color:${d.color};">${d.icon} ${d.label}</td>
+      <td style="padding:10px 14px;text-align:center;font-size:16px;font-weight:700;color:#185FA5;">${a}/10</td>
+      <td style="padding:10px 14px;text-align:center;font-size:16px;font-weight:700;color:#1D9E75;">${des}/10</td>
+      <td style="padding:10px 14px;font-size:12px;color:${d.color};letter-spacing:2px;">${bar}</td>
+      <td style="padding:10px 14px;text-align:center;font-size:14px;font-weight:600;color:${gapColor};">${gap>0?'+'+gap:gap}</td>
+    </tr>`;
+  }).join('');
+
+  const scores = DIMS.map(d=>actual[d.key]);
+  const avg    = (scores.reduce((s,v)=>s+v,0)/scores.length).toFixed(1);
+  const gaps   = DIMS.map(d=>deseado[d.key]-actual[d.key]);
+  const maxGap = DIMS[gaps.indexOf(Math.max(...gaps))];
+  const minD   = DIMS[scores.indexOf(Math.min(...scores))];
+  const maxD   = DIMS[scores.indexOf(Math.max(...scores))];
+
+  const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<title>Radar de Energía — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Playfair+Display:wght@700;900&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Raleway',sans-serif;margin:0;padding:0;background:#FAF6F0;color:#4A2E22;}
+.hdr{background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 40%,#5B9E98 70%,transparent 100%);padding:36px 48px 44px;clip-path:polygon(0 0,100% 0,100% 82%,55% 96%,0 86%);}
+.ey{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:6px;}
+h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#fff;margin:0 0 4px;}
+.hs{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);}
+.db{display:inline-block;background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);padding:5px 18px;border-radius:20px;font-size:11px;margin-top:12px;}
+.body{padding:32px 48px;}
+.st{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#2D6B65;margin:0 0 14px;}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;border:1.5px solid #1D9E75;margin-bottom:24px;}
+th{padding:10px 14px;font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-align:left;}
+th:nth-child(1){background:#E1F5EE;color:#085041;border-right:1px solid #9FE1CB;width:24%;}
+th:nth-child(2){background:#E6F1FB;color:#0C447C;border-right:1px solid #B5D4F4;width:14%;text-align:center;}
+th:nth-child(3){background:#E1F5EE;color:#085041;border-right:1px solid #9FE1CB;width:14%;text-align:center;}
+th:nth-child(4){background:#F1EFE8;color:#5F5E5A;border-right:1px solid #D3D1C7;width:34%;}
+th:nth-child(5){background:#FAEEDA;color:#633806;width:14%;text-align:center;}
+tr:nth-child(even){background:#FAFAF8;}td{border-bottom:1px solid #EDE4D8;}
+.insight{background:#E6F1FB;border-left:4px solid #185FA5;border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:20px;}
+.ins-row{display:flex;gap:8px;margin:5px 0;font-size:13px;}
+.ins-l{color:#888780;font-style:italic;min-width:200px;}
+.ins-v{color:#185FA5;font-weight:600;}
+.qt{background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:0 8px 8px 0;padding:16px 20px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:#085041;line-height:1.8;margin-bottom:20px;}
+.ft{background:#2D6B65;padding:18px 48px;text-align:center;}
+.ft p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}
+.ft strong{color:#fff;}
+@media print{body{background:#fff;}.hdr,.ft{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="hdr"><div class="ey">✦ Método Camino · Radar de Energía · Para Mujeres de 40+</div>
+<h1>Mi Radar de Energía Semanal</h1>
+<div class="hs">Las 4 dimensiones de mi bienestar integral</div>
+<div class="db">Semana del: ${fd}</div></div>
+<div class="body">
+<div class="st">Mis 4 dimensiones esta semana</div>
+<table>
+<tr><th>Dimensión</th><th>Actual</th><th>Deseada</th><th>Visualización</th><th>Brecha</th></tr>
+${rows}
+</table>
+<div class="st">Mi diagnóstico de energía</div>
+<div class="insight">
+<div class="ins-row"><span class="ins-l">Energía promedio esta semana:</span><span class="ins-v">${avg} / 10</span></div>
+<div class="ins-row"><span class="ins-l">Mi mayor fortaleza:</span><span class="ins-v">${maxD.icon} ${maxD.label}</span></div>
+<div class="ins-row"><span class="ins-l">Dimensión a nutrir primero:</span><span class="ins-v">${minD.icon} ${minD.label}</span></div>
+<div class="ins-row"><span class="ins-l">Mayor brecha — enfocar aquí:</span><span class="ins-v">${maxGap.icon} ${maxGap.label} (${gaps[DIMS.indexOf(maxGap)]} puntos)</span></div>
+</div>
+<div class="qt">"La energía no se gestiona — se cultiva. Cada dimensión que nutro esta semana es una inversión en la mujer que estoy eligiendo ser."<br><br>Mi acción de esta semana para nutrir ${maxGap.icon} ${maxGap.label}: ___________________________________</div>
+</div>
+<div class="ft"><p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026<br>Para imprimir: Archivo → Imprimir → Guardar como PDF</p></div>
+</body></html>`;
+
+  const blob = new Blob([html],{type:'text/html'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href=url; a.download=`RadarEnergia_MetodoCamino_${date}.html`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast('✓ Descargando tu radar...');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+document.getElementById('weekDate').value = new Date().toISOString().split('T')[0];
+buildChart(); buildSliders(); updateBrecha(); renderHistory();
+</script>
+</body>
+</html>

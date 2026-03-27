@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Red de Apoyo · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-mid2: #9FE1CB;
+  --teal-dark: #085041;
+  --teal-deep: #0F6E56;
+  --blue:      #185FA5;
+  --blue-pale: #E6F1FB;
+  --blue-dark: #0C447C;
+  --amber:     #EF9F27;
+  --amber-pale:#FAEEDA;
+  --amber-dark:#633806;
+  --gold:      #C8A96E;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --gray-pale: #F1EFE8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Raleway',sans-serif; background:var(--cream); color:var(--brown); min-height:100vh; }
+
+/* ══ HERO ══ */
+.hero { position:relative; overflow:hidden; background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%); }
+.hero-swoosh { position:absolute; top:0; left:0; right:0; height:100%; background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%); clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%); }
+.hero-bottom { position:absolute; bottom:0; left:0; right:0; height:35%; background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%); clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%); }
+.hero-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; padding:44px 24px 52px; text-align:center; }
+.hero-eyebrow { font-weight:300; font-size:10px; letter-spacing:0.65em; color:rgba(255,255,255,0.88); text-transform:uppercase; margin-bottom:8px; }
+.hero-metodo { font-weight:200; font-size:12px; letter-spacing:0.7em; color:rgba(255,255,255,0.65); text-transform:uppercase; margin-bottom:2px; }
+.hero-title { font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em; color:#fff; line-height:1.2; max-width:580px; text-shadow:0 3px 30px rgba(45,107,101,0.5); }
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:clamp(14px,2.2vw,17px); color:var(--brown); line-height:1.75; max-width:520px; }
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge { margin-top:16px; background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; padding:8px 24px; font-weight:600; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35); }
+.hero-author { margin-top:18px; font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:var(--teal); letter-spacing:0.05em; }
+.hero-author-by { font-weight:200; font-size:9px; letter-spacing:0.45em; color:var(--brown-mid); text-transform:uppercase; display:block; margin-bottom:3px; }
+.scroll-cta { margin-top:24px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; }
+.scroll-cta span { font-weight:300; font-size:10px; letter-spacing:0.35em; color:var(--teal); text-transform:uppercase; }
+.scroll-arrow { width:28px; height:28px; border:1px solid rgba(45,107,101,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; animation:bounceDown 2s ease-in-out infinite; }
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section { background:var(--sand); padding:36px 24px; text-align:center; }
+.intro-section h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:22px; color:var(--teal); margin-bottom:10px; }
+.intro-section p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75; }
+.quote-banner { background:rgba(255,255,255,0.6); border-left:3px solid var(--teal); border-radius:0 8px 8px 0; padding:14px 20px; max-width:540px; margin:0 auto; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown); line-height:1.8; }
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ LOS 5 ROLES ══ */
+.roles-section { max-width:800px; margin:0 auto; padding:28px 16px 0; }
+.roles-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--teal); margin-bottom:6px; }
+.roles-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:16px; }
+.roles-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:20px; }
+@media(max-width:600px){ .roles-grid{ grid-template-columns:1fr 1fr; } }
+.role-pill { background:var(--teal-pale); border-radius:10px; padding:12px 14px; border:0.5px solid var(--teal-mid2); text-align:center; cursor:pointer; transition:all 0.15s; }
+.role-pill:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+.role-icon { font-size:22px; display:block; margin-bottom:5px; }
+.role-name { font-family:'Raleway',sans-serif; font-weight:600; font-size:12px; color:var(--teal-dark); display:block; }
+
+/* ══ RED SECTION ══ */
+.red-section { max-width:800px; margin:0 auto; padding:0 16px; }
+.red-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--teal); margin-bottom:6px; }
+.red-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:16px; }
+
+/* Legend */
+.legend-bar { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:12px; }
+.leg-i { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--brown-mid); }
+.leg-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.leg-line { width:24px; height:2px; border-top:2px dashed; }
+
+/* SVG */
+.svg-wrap { width:100%; max-width:520px; margin:0 auto 16px; display:block; }
+
+/* Node cards */
+.node-cards { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+@media(max-width:460px){ .node-cards{ grid-template-columns:1fr; } }
+
+.node-card { background:#fff; border-radius:12px; border:0.5px solid var(--teal-mid2); padding:16px 18px; transition:all 0.2s; }
+.node-card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.08); }
+.node-card.active { border-color:var(--teal-svg); box-shadow:0 0 0 2px var(--teal-svg); }
+.nc-top { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.nc-dot { width:10px; height:10px; border-radius:50%; background:var(--teal-svg); flex-shrink:0; }
+.nc-title { font-family:'Playfair Display',serif; font-weight:700; font-size:15px; color:var(--teal-dark); }
+.nc-desc { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--brown-mid); line-height:1.65; margin-bottom:10px; }
+.nc-input-label { font-family:'Raleway',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal-deep); display:block; margin-bottom:4px; }
+.nc-input { width:100%; border:0.5px solid var(--teal-mid2); border-radius:7px; padding:8px 11px; font-family:'Raleway',sans-serif; font-size:12px; color:var(--brown); background:var(--cream); margin-bottom:10px; transition:border-color 0.2s; }
+.nc-input:focus { outline:none; border-color:var(--teal-svg); box-shadow:0 0 0 2px rgba(29,158,117,0.1); }
+.nc-input::placeholder { color:var(--gray); font-style:italic; }
+.nc-q { background:var(--teal-pale); border-radius:6px; padding:8px 10px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--teal-dark); line-height:1.55; }
+
+/* Buttons */
+.btns-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:8px; }
+.btn { font-family:'Raleway',sans-serif; font-size:12px; font-weight:600; padding:9px 20px; border-radius:6px; cursor:pointer; border:none; transition:opacity 0.2s; white-space:nowrap; }
+.btn:hover { opacity:0.85; }
+.btn-save  { background:var(--teal-svg); color:#fff; }
+.btn-print { background:var(--gold); color:var(--brown); }
+.btn-clear { background:transparent; color:var(--gray); border:0.5px solid var(--gray-lt) !important; }
+
+/* ══ REFLEXION ══ */
+.ref-section { max-width:800px; margin:24px auto 0; padding:0 16px 40px; }
+.ref-card { background:#fff; border-radius:12px; padding:26px 28px; border:0.5px solid rgba(45,107,101,0.2); }
+.ref-title { font-family:'Playfair Display',serif; font-weight:700; font-size:19px; color:var(--teal); margin-bottom:10px; }
+.ref-body { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); line-height:1.8; margin-bottom:16px; }
+.ref-q { background:var(--teal-pale); border-left:3px solid var(--teal-svg); border-radius:0 8px 8px 0; padding:14px 18px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--teal-dark); line-height:1.75; margin-bottom:16px; }
+.ref-q strong { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal); margin-bottom:4px; }
+.afirm { background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; border-radius:8px; padding:18px 24px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; line-height:1.7; text-align:center; }
+.afirm span { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px; }
+
+/* ══ FOOTER ══ */
+.footer { background:var(--teal); padding:28px 24px; text-align:center; }
+.footer p { font-weight:200; font-size:11px; letter-spacing:0.2em; color:rgba(255,255,255,0.7); line-height:2; }
+.footer strong { color:#fff; font-weight:600; }
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--teal-svg); color:#fff; padding:10px 24px; border-radius:24px; font-size:13px; opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999; box-shadow:0 4px 20px rgba(29,158,117,0.4); }
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta de Comunidad · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Mi Red de Apoyo</div>
+    <div class="hero-accent"><div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div></div>
+    <div class="hero-sub">Nadie se transforma sola —<br>tu red de apoyo es la <strong>infraestructura invisible</strong> de tu cambio</div>
+    <div class="hero-badge">✦ &nbsp; Diagrama de Red Interactivo &nbsp; ✦</div>
+    <div style="margin-top:18px;"><span class="hero-author-by">A u t o r a</span><div class="hero-author">Jenifer Mendoza</div></div>
+    <div class="scroll-cta" onclick="document.getElementById('red').scrollIntoView({behavior:'smooth'})">
+      <span>Construir mi red</span>
+      <div class="scroll-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-section">
+  <h2>Tu transformación necesita tribu</h2>
+  <p>Las investigaciones sobre cambio de comportamiento son claras: las personas que tienen una red de apoyo activa tienen tres veces más probabilidades de mantener sus nuevos hábitos. No es debilidad pedir apoyo — es estrategia.</p>
+  <div class="quote-banner">
+    "Si quieres ir rápido, ve solo.<br>Si quieres llegar <strong>lejos, ve acompañada</strong>." — Proverbio africano
+  </div>
+</div>
+
+<!-- LOS 5 ROLES -->
+<div class="roles-section">
+  <div class="roles-title">Los 5 roles de tu red</div>
+  <div class="roles-sub">Cada tipo de apoyo cumple una función diferente — necesitas los cinco</div>
+  <div class="roles-grid">
+    <div class="role-pill" onclick="document.getElementById('card-0').scrollIntoView({behavior:'smooth'})">
+      <span class="role-icon">🧭</span>
+      <span class="role-name">Mentora</span>
+    </div>
+    <div class="role-pill" onclick="document.getElementById('card-1').scrollIntoView({behavior:'smooth'})">
+      <span class="role-icon">🤝</span>
+      <span class="role-name">Compañera</span>
+    </div>
+    <div class="role-pill" onclick="document.getElementById('card-2').scrollIntoView({behavior:'smooth'})">
+      <span class="role-icon">🌐</span>
+      <span class="role-name">Comunidad</span>
+    </div>
+    <div class="role-pill" onclick="document.getElementById('card-3').scrollIntoView({behavior:'smooth'})">
+      <span class="role-icon">🩺</span>
+      <span class="role-name">Especialista</span>
+    </div>
+    <div class="role-pill" onclick="document.getElementById('card-4').scrollIntoView({behavior:'smooth'})">
+      <span class="role-icon">💚</span>
+      <span class="role-name">Familia</span>
+    </div>
+  </div>
+</div>
+
+<!-- RED SECTION -->
+<div class="red-section" id="red">
+  <div class="red-title">Mi diagrama de red</div>
+  <div class="red-sub">Haz clic en cada satélite para escribir quién cumple ese rol en tu vida</div>
+
+  <div class="legend-bar">
+    <div class="leg-i"><div class="leg-dot" style="background:var(--blue);"></div>Tú · el centro</div>
+    <div class="leg-i"><div class="leg-dot" style="background:var(--teal-svg);"></div>Tu red de apoyo</div>
+    <div class="leg-i"><div class="leg-line" style="border-color:var(--amber);"></div>Conexiones</div>
+  </div>
+
+  <div class="svg-wrap">
+    <svg width="100%" viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+      <!-- Conexiones naranja -->
+      <line x1="260" y1="220" x2="260" y2="122" stroke="#EF9F27" stroke-width="2.5" stroke-dasharray="5 3" opacity="0.8"/>
+      <line x1="298" y1="232" x2="388" y2="192" stroke="#EF9F27" stroke-width="2.5" stroke-dasharray="5 3" opacity="0.8"/>
+      <line x1="292" y1="278" x2="368" y2="330" stroke="#EF9F27" stroke-width="2.5" stroke-dasharray="5 3" opacity="0.8"/>
+      <line x1="228" y1="278" x2="152" y2="330" stroke="#EF9F27" stroke-width="2.5" stroke-dasharray="5 3" opacity="0.8"/>
+      <line x1="222" y1="232" x2="132" y2="192" stroke="#EF9F27" stroke-width="2.5" stroke-dasharray="5 3" opacity="0.8"/>
+
+      <!-- Satélite 1: Mentora (arriba) -->
+      <g style="cursor:pointer;" onclick="highlightCard(0)">
+        <circle cx="260" cy="78" r="54" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"/>
+        <text font-family="Raleway,sans-serif" font-size="12" font-weight="600" fill="#085041" text-anchor="middle" x="260" y="70">🧭 Mentora</text>
+        <text font-family="Raleway,sans-serif" font-size="10" fill="#0F6E56" text-anchor="middle" x="260" y="86">guía tu camino</text>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="#1D9E75" text-anchor="middle" x="260" y="104" id="sv0">+ toca para agregar</text>
+      </g>
+
+      <!-- Satélite 2: Compañera (derecha arriba) -->
+      <g style="cursor:pointer;" onclick="highlightCard(1)">
+        <circle cx="422" cy="158" r="54" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"/>
+        <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#085041" text-anchor="middle" x="422" y="148">🤝 Compañera</text>
+        <text font-family="Raleway,sans-serif" font-size="10" fill="#0F6E56" text-anchor="middle" x="422" y="163">de proceso</text>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="#1D9E75" text-anchor="middle" x="422" y="180" id="sv1">+ agregar</text>
+      </g>
+
+      <!-- Satélite 3: Comunidad (derecha abajo) -->
+      <g style="cursor:pointer;" onclick="highlightCard(2)">
+        <circle cx="402" cy="362" r="54" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"/>
+        <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#085041" text-anchor="middle" x="402" y="352">🌐 Comunidad</text>
+        <text font-family="Raleway,sans-serif" font-size="10" fill="#0F6E56" text-anchor="middle" x="402" y="367">online</text>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="#1D9E75" text-anchor="middle" x="402" y="384" id="sv2">+ agregar</text>
+      </g>
+
+      <!-- Satélite 4: Especialista (izq abajo) -->
+      <g style="cursor:pointer;" onclick="highlightCard(3)">
+        <circle cx="118" cy="362" r="54" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"/>
+        <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#085041" text-anchor="middle" x="118" y="352">🩺 Especialista</text>
+        <text font-family="Raleway,sans-serif" font-size="10" fill="#0F6E56" text-anchor="middle" x="118" y="367">de apoyo</text>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="#1D9E75" text-anchor="middle" x="118" y="384" id="sv3">+ agregar</text>
+      </g>
+
+      <!-- Satélite 5: Familia (izq arriba) -->
+      <g style="cursor:pointer;" onclick="highlightCard(4)">
+        <circle cx="98" cy="158" r="54" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"/>
+        <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#085041" text-anchor="middle" x="98" y="148">💚 Pareja /</text>
+        <text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#085041" text-anchor="middle" x="98" y="163">Familia</text>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="#1D9E75" text-anchor="middle" x="98" y="180" id="sv4">+ agregar</text>
+      </g>
+
+      <!-- TÚ centro azul -->
+      <circle cx="260" cy="260" r="60" fill="#185FA5" stroke="#0C447C" stroke-width="2.5"/>
+      <text font-family="Playfair Display,serif" font-size="20" font-weight="700" fill="#fff" text-anchor="middle" x="260" y="255" dominant-baseline="central">Tú</text>
+      <text font-family="Raleway,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="middle" x="260" y="275">en el centro</text>
+      <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(255,255,255,0.6)" text-anchor="middle" x="260" y="291">de tu red</text>
+
+      <text font-family="Raleway,sans-serif" font-size="10" fill="#888780" text-anchor="middle" x="260" y="500">Toca cada círculo para explorar y agregar nombres</text>
+    </svg>
+  </div>
+
+  <!-- Node cards -->
+  <div class="node-cards" id="nodeCards"></div>
+
+  <div class="btns-row">
+    <button class="btn btn-save"  onclick="saveNet()">💾 Guardar mi red</button>
+    <button class="btn btn-print" onclick="printNet()">📄 Imprimir / PDF</button>
+    <button class="btn btn-clear" onclick="clearNet()">Limpiar</button>
+  </div>
+</div>
+
+<!-- REFLEXION -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">La verdad sobre el apoyo</div>
+    <div class="ref-body">Muchas mujeres de 40+ creen que pedir apoyo es una señal de debilidad o que "no deberían necesitarlo a esta edad". Lo opuesto es verdad: saber pedir y recibir apoyo es uno de los actos más maduros e inteligentes de la transformación personal. Las mujeres más fuertes que conocerás tienen redes de apoyo sólidas — no lo lograron solas.</div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "¿Cuál de los 5 roles de apoyo está vacío en mi red actualmente? ¿Qué me ha impedido llenarlo — es falta de oportunidad o es una creencia sobre no merecer apoyo?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación del día</span>
+      "Pedir apoyo no me hace débil — me hace sabia. Me permito ser sostenida mientras me transformo."
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p><strong>Método Camino</strong> · Mi Red de Apoyo · Diagrama de Comunidad<br>Herramienta de conexión para mujeres de 40+<br>© 2026 Jenifer Mendoza · Todos los derechos reservados</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'metodoCamino_redApoyo';
+
+const NODES = [
+  { id:0, icon:'🧭', title:'Mentora',
+    desc:'Alguien que ya recorrió el camino que tú quieres recorrer. No tiene que ser formal — puede ser una autora, creadora de contenido o alguien de tu entorno que admiras profundamente.',
+    ph:'Ej: Jenifer Mendoza, una coach que sigo, mi tía mayor...',
+    q:'¿Quién en tu vida o en el mundo online ya está donde tú quieres estar y te inspira?' },
+  { id:1, icon:'🤝', title:'Compañera de proceso',
+    desc:'Una mujer en un proceso similar al tuyo — no necesariamente más avanzada. Es tu aliada: se rinden cuentas mutuamente, se celebran y se sostienen en los momentos difíciles.',
+    ph:'Ej: Mi amiga Laura, una compañera del grupo...',
+    q:'¿Hay alguien en tu vida que también esté en transformación con quien puedas hacer alianza consciente?' },
+  { id:2, icon:'🌐', title:'Comunidad online',
+    desc:'Un espacio digital donde encuentras mujeres que comparten tus valores y tu proceso. No es para consumir contenido pasivamente — es para pertenecer, participar y sentirte vista.',
+    ph:'Ej: Grupo del Método Camino, comunidad de bienestar...',
+    q:'¿A qué comunidad online perteneces donde te sientas genuinamente comprendida y apoyada?' },
+  { id:3, icon:'🩺', title:'Especialista de apoyo',
+    desc:'Un profesional que apoya tu transformación desde su expertise específico: terapeuta, médico, nutricionista, fisioterapeuta. Tu crecimiento personal también necesita apoyo profesional.',
+    ph:'Ej: Mi terapeuta Ana, mi médica de cabecera, mi coach...',
+    q:'¿Qué profesional de apoyo tienes o necesitas para sostener tu proceso de transformación integral?' },
+  { id:4, icon:'💚', title:'Pareja / Familia',
+    desc:'Las personas más cercanas que conviven con tu proceso de transformación. No tienen que entenderlo todo — necesitan respetarlo. Su apoyo, aunque sea silencioso, cambia todo.',
+    ph:'Ej: Mi pareja Carlos, mi hija mayor, mi madre...',
+    q:'¿Quiénes de tu familia o pareja te apoyan en tu proceso aunque sea sin entenderlo completamente?' }
+];
+
+let data = {};
+
+function load() {
+  try { const d=JSON.parse(localStorage.getItem(KEY)||'null'); if(d) data=d; } catch(e){}
+}
+function save() { try { localStorage.setItem(KEY,JSON.stringify(data)); } catch(e){} }
+
+function updateSVG() {
+  NODES.forEach(n=>{
+    const el=document.getElementById('sv'+n.id);
+    if(!el) return;
+    const val=data['n'+n.id];
+    el.textContent = val&&val.trim() ? val.substring(0,20) : '+ toca para agregar';
+    el.setAttribute('fill', val&&val.trim() ? '#085041' : '#1D9E75');
+    el.setAttribute('font-weight', val&&val.trim() ? '600' : '400');
+  });
+}
+
+function buildCards() {
+  const c=document.getElementById('nodeCards');
+  c.innerHTML='';
+  NODES.forEach(n=>{
+    const card=document.createElement('div');
+    card.className='node-card';
+    card.id='card-'+n.id;
+    card.innerHTML=`
+      <div class="nc-top">
+        <span style="font-size:18px;">${n.icon}</span>
+        <span class="nc-title">${n.title}</span>
+      </div>
+      <div class="nc-desc">${n.desc}</div>
+      <span class="nc-input-label">Personas en este rol:</span>
+      <input type="text" class="nc-input" id="inp-${n.id}" value="${data['n'+n.id]||''}"
+             placeholder="${n.ph}" maxlength="70"
+             oninput="autoSave(${n.id},this.value)">
+      <div class="nc-q">${n.q}</div>
+    `;
+    c.appendChild(card);
+  });
+}
+
+function autoSave(id,val) {
+  data['n'+id]=val;
+  save(); updateSVG();
+}
+
+function highlightCard(id) {
+  document.querySelectorAll('.node-card').forEach(c=>c.classList.remove('active'));
+  const card=document.getElementById('card-'+id);
+  if(card){
+    card.classList.add('active');
+    card.scrollIntoView({behavior:'smooth',block:'nearest'});
+    document.getElementById('inp-'+id)?.focus();
+    setTimeout(()=>card.classList.remove('active'),1500);
+  }
+}
+
+function saveNet() { save(); updateSVG(); showToast('✓ Red de apoyo guardada'); }
+
+function clearNet() {
+  if(!confirm('¿Limpiar todos los nombres?')) return;
+  NODES.forEach(n=>{ data['n'+n.id]=''; const el=document.getElementById('inp-'+n.id); if(el)el.value=''; });
+  save(); updateSVG(); showToast('Red limpiada');
+}
+
+function printNet() {
+  const rows=NODES.map(n=>{
+    const name=data['n'+n.id]||'—';
+    return `<div style="background:#E1F5EE;border:1.5px solid #9FE1CB;border-radius:10px;padding:14px 18px;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-size:20px;">${n.icon}</span>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#085041;">${n.title}</div>
+        </div>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:#0F6E56;line-height:1.5;margin-bottom:8px;">${n.desc}</div>
+      <div style="font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#085041;margin-bottom:3px;">Mis personas en este rol:</div>
+      <div style="font-family:'Raleway',sans-serif;font-size:14px;font-weight:600;color:#085041;">${name}</div>
+    </div>`;
+  }).join('');
+
+  const html=`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Mi Red de Apoyo — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Playfair+Display:wght@700;900&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>body{font-family:'Raleway',sans-serif;margin:0;background:#FAF6F0;color:#4A2E22;}
+.hdr{background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 40%,#5B9E98 70%,transparent 100%);padding:36px 48px 44px;clip-path:polygon(0 0,100% 0,100% 82%,55% 96%,0 86%);}
+h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#fff;margin:0 0 4px;}
+.ey{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:6px;}
+.body{padding:24px 48px;}
+.st{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#2D6B65;margin:0 0 14px;}
+.qt{background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:0 8px 8px 0;padding:14px 20px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:#085041;line-height:1.8;margin-top:16px;}
+.ft{background:#2D6B65;padding:18px 48px;text-align:center;margin-top:16px;}
+.ft p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}.ft strong{color:#fff;}
+@media print{body{background:#fff;}.hdr,.ft{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="hdr"><div class="ey">✦ Método Camino · Mi Red de Apoyo</div>
+<h1>Mi Red de Apoyo</h1></div>
+<div class="body"><div class="st">Las 5 personas que sostienen mi transformación</div>
+${rows}
+<div class="qt">"Nadie se transforma sola. Tu red de apoyo no es un lujo — es la infraestructura invisible de tu transformación. Cuídala, aliméntala y agrádecela."</div>
+</div>
+<div class="ft"><p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026<br>Para imprimir: Archivo → Imprimir → Guardar como PDF</p></div>
+</body></html>`;
+
+  const w=window.open('','_blank');
+  if(w){w.document.write(html);w.document.close();setTimeout(()=>w.print(),700);}
+  else showToast('Permite ventanas emergentes para imprimir');
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+load(); buildCards(); updateSVG();
+</script>
+</body>
+</html>

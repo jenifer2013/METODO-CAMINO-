@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dos Caminos · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-lt:   #5B9E98;
+  --gold:      #C8A96E;
+  --blush:     #E4A98A;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --sand2:     #D6C4A8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-dark: #085041;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Raleway',sans-serif;
+  background:var(--cream);
+  color:var(--brown);
+  min-height:100vh;
+}
+
+/* ══ HERO ══ */
+.hero {
+  position:relative; overflow:hidden;
+  background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%);
+}
+.hero-swoosh {
+  position:absolute; top:0; left:0; right:0; height:100%;
+  background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%);
+  clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%);
+}
+.hero-bottom {
+  position:absolute; bottom:0; left:0; right:0; height:35%;
+  background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%);
+  clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center;
+  padding:44px 24px 52px; text-align:center;
+}
+.hero-eyebrow {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.65em; color:rgba(255,255,255,0.88);
+  text-transform:uppercase; margin-bottom:8px;
+}
+.hero-metodo {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:12px;
+  letter-spacing:0.7em; color:rgba(255,255,255,0.65);
+  text-transform:uppercase; margin-bottom:2px;
+}
+.hero-title {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em;
+  color:#fff; line-height:1.2; max-width:560px;
+  text-shadow:0 3px 30px rgba(45,107,101,0.5);
+}
+.hero-accent {
+  display:flex; align-items:center; gap:10px; margin:14px 0 16px;
+}
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+  font-size:clamp(14px,2.2vw,17px); color:var(--brown);
+  line-height:1.75; max-width:520px;
+}
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge {
+  margin-top:16px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; padding:8px 24px;
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:10px;
+  letter-spacing:0.3em; text-transform:uppercase;
+  border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35);
+}
+.hero-author {
+  margin-top:18px;
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:20px; color:var(--teal); letter-spacing:0.05em;
+}
+.hero-author-by {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:9px;
+  letter-spacing:0.45em; color:var(--brown-mid);
+  text-transform:uppercase; display:block; margin-bottom:3px;
+}
+.scroll-cta {
+  margin-top:24px;
+  display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+}
+.scroll-cta span {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.35em; color:var(--teal); text-transform:uppercase;
+}
+.scroll-arrow {
+  width:28px; height:28px;
+  border:1px solid rgba(45,107,101,0.4); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  animation:bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section {
+  background:var(--sand); padding:36px 24px; text-align:center;
+}
+.intro-section h2 {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:22px;
+  color:var(--teal); margin-bottom:10px;
+}
+.intro-section p {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px;
+  color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75;
+}
+.quote-banner {
+  background:rgba(255,255,255,0.6);
+  border-left:3px solid var(--teal); border-radius:0 8px 8px 0;
+  padding:14px 20px; max-width:520px; margin:0 auto;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; color:var(--brown); line-height:1.8;
+}
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ LEYENDA ══ */
+.legend-bar {
+  display:flex; gap:16px; justify-content:center;
+  flex-wrap:wrap; padding:24px 24px 0; align-items:center;
+}
+.leg-i {
+  display:flex; align-items:center; gap:8px;
+  font-family:'Raleway',sans-serif; font-size:13px; font-weight:600;
+  padding:6px 16px; border-radius:20px;
+}
+.leg-dot { width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+
+/* ══ DIAGRAMA ══ */
+.diagram-section {
+  max-width:800px; margin:0 auto; padding:16px 16px 0;
+}
+.diagram-section svg { width:100%; display:block; }
+
+/* ══ DETAIL CARDS ══ */
+.cards-section {
+  max-width:800px; margin:16px auto 0; padding:0 16px;
+}
+.cards-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal); text-align:center; margin-bottom:16px;
+}
+.paths-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:16px;
+}
+@media(max-width:540px){ .paths-grid{ grid-template-columns:1fr; } }
+
+.path-col {
+  border-radius:12px; padding:20px 22px;
+  border:0.5px solid;
+}
+.path-col.gray-path {
+  background:#F5F4F1; border-color:#B4B2A9;
+}
+.path-col.teal-path {
+  background:var(--teal-pale); border-color:#5DCAA5;
+}
+.pc-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:17px;
+  margin-bottom:16px; text-align:center; padding-bottom:10px;
+  border-bottom:1px solid;
+}
+.gray-path .pc-title { color:#444441; border-color:#D3D1C7; }
+.teal-path .pc-title { color:var(--teal-dark); border-color:#9FE1CB; }
+
+.step-item {
+  display:flex; gap:12px; align-items:flex-start;
+  margin-bottom:14px; padding-bottom:14px;
+  border-bottom:0.5px solid;
+}
+.step-item:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.gray-path .step-item { border-color:#E8E6E0; }
+.teal-path .step-item { border-color:#9FE1CB; }
+
+.step-num {
+  font-family:'Playfair Display',serif; font-weight:900; font-size:22px;
+  line-height:1; flex-shrink:0; margin-top:2px;
+}
+.gray-path .step-num { color:#D3D1C7; }
+.teal-path .step-num { color:#9FE1CB; }
+
+.step-info {}
+.step-name {
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:14px;
+  display:block; margin-bottom:3px;
+}
+.gray-path .step-name { color:#444441; }
+.teal-path .step-name { color:var(--teal-dark); }
+
+.step-quote {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px;
+  display:block; margin-bottom:4px;
+}
+.gray-path .step-quote { color:#5F5E5A; }
+.teal-path .step-quote { color:#0F6E56; }
+
+.step-desc {
+  font-family:'Raleway',sans-serif; font-size:12px; line-height:1.55;
+}
+.gray-path .step-desc { color:#888780; }
+.teal-path .step-desc { color:#0F6E56; }
+
+.path-result {
+  text-align:center; margin-top:14px; padding:10px 14px;
+  border-radius:20px; font-family:'Raleway',sans-serif;
+  font-weight:600; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+}
+.gray-path .path-result { background:#D3D1C7; color:#444441; }
+.teal-path .path-result { background:#9FE1CB; color:var(--teal-dark); }
+
+/* ══ REFLEXION ══ */
+.reflexion-section {
+  max-width:800px; margin:24px auto 0; padding:0 16px 40px;
+}
+.ref-card {
+  background:#fff; border-radius:12px; padding:28px 32px;
+  border:0.5px solid rgba(45,107,101,0.2); text-align:center;
+}
+.ref-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal); margin-bottom:12px;
+}
+.ref-body {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px;
+  color:var(--brown-mid); line-height:1.8; margin-bottom:20px;
+}
+.ref-q {
+  background:var(--teal-pale); border-left:3px solid var(--teal-svg);
+  border-radius:0 8px 8px 0; padding:16px 20px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; color:var(--teal-dark); line-height:1.75;
+  text-align:left; margin-bottom:16px;
+}
+.ref-q strong {
+  display:block; font-style:normal; font-size:10px;
+  font-family:'Raleway',sans-serif; font-weight:600;
+  letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--teal); margin-bottom:5px;
+}
+.afirm {
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; border-radius:8px; padding:18px 24px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:17px; line-height:1.7;
+}
+.afirm span {
+  display:block; font-style:normal; font-size:9px;
+  font-family:'Raleway',sans-serif; font-weight:600;
+  letter-spacing:0.3em; text-transform:uppercase;
+  color:rgba(255,255,255,0.7); margin-bottom:6px;
+}
+
+/* ══ FOOTER ══ */
+.footer {
+  background:var(--teal); padding:28px 24px; text-align:center;
+}
+.footer p {
+  font-family:'Raleway',sans-serif; font-weight:200;
+  font-size:11px; letter-spacing:0.2em;
+  color:rgba(255,255,255,0.7); line-height:2;
+}
+.footer strong { color:#fff; font-weight:600; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta de Transformación · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Los Dos Caminos</div>
+    <div class="hero-accent">
+      <div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div>
+    </div>
+    <div class="hero-sub">
+      Ante cada evento doloroso tienes una elección:<br>
+      el camino del <strong>sufrimiento</strong> o el camino del <strong>crecimiento</strong>
+    </div>
+    <div class="hero-badge">✦ &nbsp; Diagrama de Flujo Interactivo &nbsp; ✦</div>
+    <div style="margin-top:18px;">
+      <span class="hero-author-by">A u t o r a</span>
+      <div class="hero-author">Jenifer Mendoza</div>
+    </div>
+    <div class="scroll-cta" onclick="document.getElementById('diagrama').scrollIntoView({behavior:'smooth'})">
+      <span>Ver los dos caminos</span>
+      <div class="scroll-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTRO ══ -->
+<div class="intro-section">
+  <h2>Ante el dolor, siempre hay una decisión</h2>
+  <p>El dolor es inevitable. El sufrimiento es una elección. Esta herramienta te muestra los dos caminos posibles desde cualquier evento difícil — para que puedas elegir conscientemente cuál tomar.</p>
+  <div class="quote-banner">
+    "El dolor es inevitable, el sufrimiento es opcional."<br>
+    — <strong>Buda</strong>
+  </div>
+</div>
+
+<!-- ══ LEYENDA ══ -->
+<div class="legend-bar" id="diagrama">
+  <div class="leg-i" style="background:#F1EFE8;border:0.5px solid #B4B2A9;">
+    <div class="leg-dot" style="background:#B4B2A9;"></div>
+    <span style="color:#5F5E5A;">Camino del sufrimiento</span>
+  </div>
+  <div class="leg-i" style="background:var(--teal-pale);border:0.5px solid #5DCAA5;">
+    <div class="leg-dot" style="background:#5DCAA5;"></div>
+    <span style="color:var(--teal-dark);">Camino del crecimiento</span>
+  </div>
+</div>
+
+<!-- ══ SVG DIAGRAMA ══ -->
+<div class="diagram-section">
+<svg viewBox="0 0 680 740" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arr-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arr-t" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- EVENTO CENTRAL -->
+<g style="cursor:pointer;" onclick="document.getElementById('sec-cards').scrollIntoView({behavior:'smooth'})">
+  <rect x="215" y="30" width="250" height="58" rx="29" fill="#EDE4D8" stroke="#7A5545" stroke-width="1.5"/>
+  <text font-family="Playfair Display,serif" font-size="15" font-weight="700" fill="#4A2E22" text-anchor="middle" x="340" y="53" dominant-baseline="central">Evento doloroso</text>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#7A5545" text-anchor="middle" x="340" y="72" dominant-baseline="central">El punto de partida</text>
+</g>
+
+<!-- Flechas desde evento -->
+<path d="M278 88 L182 142" fill="none" stroke="#888780" stroke-width="1.8" marker-end="url(#arr-g)"/>
+<path d="M402 88 L498 142" fill="none" stroke="#1D9E75" stroke-width="1.8" marker-end="url(#arr-t)"/>
+
+<!-- Etiquetas de caminos -->
+<text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#5F5E5A" text-anchor="middle" x="196" y="128">Camino del</text>
+<text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#5F5E5A" text-anchor="middle" x="196" y="142">sufrimiento</text>
+<text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#0F6E56" text-anchor="middle" x="484" y="128">Camino del</text>
+<text font-family="Raleway,sans-serif" font-size="11" font-weight="600" fill="#0F6E56" text-anchor="middle" x="484" y="142">crecimiento</text>
+
+<!-- CAMINO GRIS -->
+<!-- 1 Negación -->
+<g style="cursor:pointer;" onclick="document.getElementById('step-negacion').scrollIntoView({behavior:'smooth'})">
+  <rect x="78" y="154" width="166" height="50" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#444441" text-anchor="middle" x="161" y="173" dominant-baseline="central">Negación</text>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" text-anchor="middle" x="161" y="191" dominant-baseline="central">"Esto no me afecta"</text>
+</g>
+<line x1="161" y1="204" x2="161" y2="244" stroke="#888780" stroke-width="1.5" marker-end="url(#arr-g)"/>
+
+<!-- 2 Resistencia -->
+<g style="cursor:pointer;" onclick="document.getElementById('step-resistencia').scrollIntoView({behavior:'smooth'})">
+  <rect x="78" y="254" width="166" height="50" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#444441" text-anchor="middle" x="161" y="273" dominant-baseline="central">Resistencia</text>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" text-anchor="middle" x="161" y="291" dominant-baseline="central">"No debería pasar"</text>
+</g>
+<line x1="161" y1="304" x2="161" y2="344" stroke="#888780" stroke-width="1.5" marker-end="url(#arr-g)"/>
+
+<!-- 3 Estancamiento -->
+<g style="cursor:pointer;" onclick="document.getElementById('step-estancamiento').scrollIntoView({behavior:'smooth'})">
+  <rect x="78" y="354" width="166" height="50" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#444441" text-anchor="middle" x="161" y="373" dominant-baseline="central">Estancamiento</text>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#5F5E5A" text-anchor="middle" x="161" y="391" dominant-baseline="central">Sin movimiento</text>
+</g>
+<line x1="161" y1="404" x2="161" y2="444" stroke="#888780" stroke-width="1.5" marker-end="url(#arr-g)"/>
+
+<!-- 4 Más sufrimiento -->
+<g style="cursor:pointer;" onclick="document.getElementById('step-sufrimiento').scrollIntoView({behavior:'smooth'})">
+  <rect x="66" y="454" width="190" height="58" rx="8" fill="#D3D1C7" stroke="#5F5E5A" stroke-width="1.5"/>
+  <text font-family="Playfair Display,serif" font-size="14" font-weight="700" fill="#2C2C2A" text-anchor="middle" x="161" y="476" dominant-baseline="central">Más sufrimiento</text>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#444441" text-anchor="middle" x="161" y="494" dominant-baseline="central">El ciclo se repite</text>
+</g>
+<rect x="102" y="530" width="118" height="22" rx="11" fill="#D3D1C7" stroke="#888780" stroke-width="0.5"/>
+<text font-family="Raleway,sans-serif" font-size="10" font-weight="600" fill="#444441" text-anchor="middle" x="161" y="541" dominant-baseline="central">Sin transformación</text>
+
+<!-- CAMINO TURQUESA -->
+<!-- 1 Reconocimiento -->
+<g style="cursor:pointer;" onclick="document.getElementById('step-reconocimiento').scrollIntoView({behavior:'smooth'})">
+  <rect x="436" y="154" width="166" height="50" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#085041" text-anchor="middle" x="519" y="173" dominant-baseline="central">Reconocimiento</text>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" x="519" y="191" dominant-baseline="central">"Esto me duele"</text>
+</g>
+<line x1="519" y1="204" x2="519" y2="244" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arr-t)"/>
+
+<!-- 2 Aceptación -->
+<g style="cursor:pointer;" onclick="document.getElementById('step-aceptacion').scrollIntoView({behavior:'smooth'})">
+  <rect x="436" y="254" width="166" height="50" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#085041" text-anchor="middle" x="519" y="273" dominant-baseline="central">Aceptación</text>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" x="519" y="291" dominant-baseline="central">"Es real, lo acojo"</text>
+</g>
+<line x1="519" y1="304" x2="519" y2="344" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arr-t)"/>
+
+<!-- 3 Aprendizaje -->
+<g style="cursor:pointer;" onclick="document.getElementById('step-aprendizaje').scrollIntoView({behavior:'smooth'})">
+  <rect x="436" y="354" width="166" height="50" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#085041" text-anchor="middle" x="519" y="373" dominant-baseline="central">Aprendizaje</text>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" x="519" y="391" dominant-baseline="central">"¿Qué me enseña?"</text>
+</g>
+<line x1="519" y1="404" x2="519" y2="444" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arr-t)"/>
+
+<!-- 4 Crecimiento -->
+<g style="cursor:pointer;" onclick="document.getElementById('step-crecimiento').scrollIntoView({behavior:'smooth'})">
+  <rect x="436" y="454" width="166" height="50" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="13" font-weight="600" fill="#085041" text-anchor="middle" x="519" y="473" dominant-baseline="central">Crecimiento</text>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" x="519" y="491" dominant-baseline="central">"Me expando"</text>
+</g>
+<line x1="519" y1="504" x2="519" y2="544" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arr-t)"/>
+
+<!-- 5 Nueva versión -->
+<g style="cursor:pointer;" onclick="document.getElementById('step-nueva').scrollIntoView({behavior:'smooth'})">
+  <rect x="424" y="554" width="190" height="58" rx="29" fill="#5DCAA5" stroke="#0F6E56" stroke-width="2"/>
+  <text font-family="Playfair Display,serif" font-size="14" font-weight="700" fill="#04342C" text-anchor="middle" x="519" y="576" dominant-baseline="central">Nueva versión</text>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#085041" text-anchor="middle" x="519" y="594" dominant-baseline="central">Transformada y libre</text>
+</g>
+<rect x="460" y="630" width="118" height="22" rx="11" fill="#9FE1CB" stroke="#1D9E75" stroke-width="0.5"/>
+<text font-family="Raleway,sans-serif" font-size="10" font-weight="600" fill="#085041" text-anchor="middle" x="519" y="641" dominant-baseline="central">Transformación real</text>
+
+<!-- Línea divisoria -->
+<line x1="340" y1="100" x2="340" y2="660" stroke="#D3D1C7" stroke-width="0.8" stroke-dasharray="5 4"/>
+
+<!-- Nota inferior -->
+<text font-family="Raleway,sans-serif" font-size="11" fill="#888780" text-anchor="middle" x="340" y="715">Haz clic en cada etapa para ver más detalles abajo</text>
+</svg>
+</div>
+
+<!-- ══ CARDS DETALLE ══ -->
+<div class="cards-section" id="sec-cards">
+  <div class="cards-title">Explora cada etapa en profundidad</div>
+  <div class="paths-grid">
+
+    <!-- GRIS -->
+    <div class="path-col gray-path">
+      <div class="pc-title">Camino del sufrimiento</div>
+
+      <div class="step-item" id="step-negacion">
+        <div class="step-num">1</div>
+        <div class="step-info">
+          <span class="step-name">Negación</span>
+          <span class="step-quote">"Esto no me afecta"</span>
+          <span class="step-desc">Evitar el dolor no lo elimina — lo pospone y lo amplifica. La negación es la primera reacción automática ante lo que duele.</span>
+        </div>
+      </div>
+
+      <div class="step-item" id="step-resistencia">
+        <div class="step-num">2</div>
+        <div class="step-info">
+          <span class="step-name">Resistencia</span>
+          <span class="step-quote">"Esto no debería pasar"</span>
+          <span class="step-desc">Luchar contra la realidad consume una energía enorme. La resistencia mantiene el sufrimiento activo — lo que resistes, persiste.</span>
+        </div>
+      </div>
+
+      <div class="step-item" id="step-estancamiento">
+        <div class="step-num">3</div>
+        <div class="step-info">
+          <span class="step-name">Estancamiento</span>
+          <span class="step-quote">"No puedo avanzar"</span>
+          <span class="step-desc">Sin procesar el dolor, la vida se paraliza. Las mismas situaciones se repiten porque el patrón no ha sido integrado.</span>
+        </div>
+      </div>
+
+      <div class="step-item" id="step-sufrimiento">
+        <div class="step-num">4</div>
+        <div class="step-info">
+          <span class="step-name">Más sufrimiento</span>
+          <span class="step-quote">"El ciclo se repite"</span>
+          <span class="step-desc">El dolor no procesado vuelve disfrazado de nuevas situaciones, relaciones o crisis. El ciclo continúa hasta que elegimos salir de él.</span>
+        </div>
+      </div>
+
+      <div class="path-result">Sin transformación · El ciclo continúa</div>
+    </div>
+
+    <!-- TURQUESA -->
+    <div class="path-col teal-path">
+      <div class="pc-title">Camino del crecimiento</div>
+
+      <div class="step-item" id="step-reconocimiento">
+        <div class="step-num">1</div>
+        <div class="step-info">
+          <span class="step-name">Reconocimiento</span>
+          <span class="step-quote">"Esto me duele y está bien"</span>
+          <span class="step-desc">El primer acto de valentía es nombrar el dolor sin juzgarlo. Reconocer no es rendirse — es ser honesta contigo misma.</span>
+        </div>
+      </div>
+
+      <div class="step-item" id="step-aceptacion">
+        <div class="step-num">2</div>
+        <div class="step-info">
+          <span class="step-name">Aceptación</span>
+          <span class="step-quote">"Es real y lo acojo"</span>
+          <span class="step-desc">Aceptar no es aprobar lo que pasó — es dejar de gastar energía en resistir lo que ya ocurrió. La aceptación libera la energía para avanzar.</span>
+        </div>
+      </div>
+
+      <div class="step-item" id="step-aprendizaje">
+        <div class="step-num">3</div>
+        <div class="step-info">
+          <span class="step-name">Aprendizaje</span>
+          <span class="step-quote">"¿Qué me enseña esto?"</span>
+          <span class="step-desc">Cada evento doloroso trae una lección. Cuando dejamos de resistir, la sabiduría emerge naturalmente de la experiencia vivida.</span>
+        </div>
+      </div>
+
+      <div class="step-item" id="step-crecimiento">
+        <div class="step-num">4</div>
+        <div class="step-info">
+          <span class="step-name">Crecimiento</span>
+          <span class="step-quote">"Me expando más allá del dolor"</span>
+          <span class="step-desc">El dolor integrado se convierte en fortaleza, sabiduría y compasión. Creces en las dimensiones que solo el sufrimiento consciente puede abrir.</span>
+        </div>
+      </div>
+
+      <div class="step-item" id="step-nueva">
+        <div class="step-num">5</div>
+        <div class="step-info">
+          <span class="step-name">Nueva versión</span>
+          <span class="step-quote">"Soy más de lo que era"</span>
+          <span class="step-desc">No vuelves a ser quien eras antes — te conviertes en algo más. La nueva versión de ti lleva la cicatriz como evidencia de su fuerza, no de su debilidad.</span>
+        </div>
+      </div>
+
+      <div class="path-result">Transformación real · Libertad y expansión</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ REFLEXION ══ -->
+<div class="reflexion-section">
+  <div class="ref-card">
+    <div class="ref-title">Tu reflexión de hoy</div>
+    <div class="ref-body">
+      Piensa en un evento doloroso reciente o pasado. ¿En cuál de los dos caminos estás ahora mismo? ¿Hay algo que has estado resistiendo que quizás es tiempo de acoger?
+    </div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "¿Qué evento doloroso de mi vida me ha dado el mayor aprendizaje? ¿Qué me enseñó sobre mí misma que no hubiera aprendido de otra manera? ¿Estoy dispuesta a ver el dolor actual con esos mismos ojos?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación del día</span>
+      "El dolor que atravieso hoy contiene la semilla de quien seré mañana. Me permito sentir, aprender y crecer."
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <p>
+    <strong>Método Camino</strong> · Los Dos Caminos · Diagrama de Transformación<br>
+    Herramienta de desarrollo personal para mujeres de 40+<br>
+    © 2026 Jenifer Mendoza · Todos los derechos reservados
+  </p>
+</div>
+
+</body>
+</html>

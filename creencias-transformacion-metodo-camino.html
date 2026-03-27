@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transformación de Creencias · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:       #2D6B65;
+  --teal-mid:   #3D7D78;
+  --teal-lt:    #5B9E98;
+  --teal-svg:   #1D9E75;
+  --teal-pale:  #E1F5EE;
+  --teal-mid2:  #9FE1CB;
+  --teal-dark:  #085041;
+  --teal-deep:  #0F6E56;
+  --blue:       #185FA5;
+  --blue-lt:    #378ADD;
+  --blue-pale:  #E6F1FB;
+  --blue-mid:   #85B7EB;
+  --blue-dark:  #0C447C;
+  --gold:       #C8A96E;
+  --brown:      #4A2E22;
+  --brown-mid:  #7A5545;
+  --cream:      #FAF6F0;
+  --sand:       #EDE4D8;
+  --gray:       #888780;
+  --gray-lt:    #D3D1C7;
+  --gray-pale:  #F1EFE8;
+  --red:        #E24B4A;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Raleway',sans-serif;
+  background:var(--cream);
+  color:var(--brown);
+  min-height:100vh;
+}
+
+/* ══ HERO ══ */
+.hero {
+  position:relative; overflow:hidden;
+  background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%);
+}
+.hero-swoosh {
+  position:absolute; top:0; left:0; right:0; height:100%;
+  background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%);
+  clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%);
+}
+.hero-bottom {
+  position:absolute; bottom:0; left:0; right:0; height:35%;
+  background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%);
+  clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center;
+  padding:44px 24px 52px; text-align:center;
+}
+.hero-eyebrow {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.65em; color:rgba(255,255,255,0.88);
+  text-transform:uppercase; margin-bottom:8px;
+}
+.hero-metodo {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:12px;
+  letter-spacing:0.7em; color:rgba(255,255,255,0.65);
+  text-transform:uppercase; margin-bottom:2px;
+}
+.hero-title {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(24px,5vw,46px); letter-spacing:0.05em;
+  color:#fff; line-height:1.2; max-width:580px;
+  text-shadow:0 3px 30px rgba(45,107,101,0.5);
+}
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+  font-size:clamp(14px,2.2vw,17px); color:var(--brown);
+  line-height:1.75; max-width:520px;
+}
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge {
+  margin-top:16px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; padding:8px 24px;
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:10px;
+  letter-spacing:0.3em; text-transform:uppercase;
+  border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35);
+}
+.hero-author {
+  margin-top:18px;
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:20px; color:var(--teal); letter-spacing:0.05em;
+}
+.hero-author-by {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:9px;
+  letter-spacing:0.45em; color:var(--brown-mid);
+  text-transform:uppercase; display:block; margin-bottom:3px;
+}
+.scroll-cta {
+  margin-top:24px;
+  display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+}
+.scroll-cta span {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.35em; color:var(--teal); text-transform:uppercase;
+}
+.scroll-arrow {
+  width:28px; height:28px;
+  border:1px solid rgba(45,107,101,0.4); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  animation:bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section {
+  background:var(--sand); padding:36px 24px; text-align:center;
+}
+.intro-section h2 {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:22px;
+  color:var(--teal); margin-bottom:10px;
+}
+.intro-section p {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px;
+  color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75;
+}
+.quote-banner {
+  background:rgba(255,255,255,0.6);
+  border-left:3px solid var(--teal); border-radius:0 8px 8px 0;
+  padding:14px 20px; max-width:520px; margin:0 auto;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; color:var(--brown); line-height:1.8;
+}
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ CÓMO USAR ══ */
+.howto {
+  max-width:800px; margin:0 auto; padding:24px 16px 0;
+}
+.howto-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px;
+}
+@media(max-width:500px){ .howto-grid{ grid-template-columns:1fr; } }
+.howto-step {
+  background:#fff; border-radius:10px; padding:16px 18px;
+  border:0.5px solid rgba(0,0,0,0.08); text-align:center;
+}
+.howto-icon {
+  width:36px; height:36px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 8px;
+}
+.howto-step p {
+  font-family:'Raleway',sans-serif; font-size:12px;
+  color:var(--brown-mid); line-height:1.5;
+}
+
+/* ══ COLUMNAS HEADER ══ */
+.cols-header {
+  max-width:800px; margin:20px auto 0; padding:0 16px;
+  display:grid; grid-template-columns:1fr 56px 1fr; gap:0;
+}
+.ch-left, .ch-right {
+  display:flex; align-items:center; gap:7px;
+  font-family:'Raleway',sans-serif; font-size:11px; font-weight:600;
+  padding:0 4px;
+}
+.ch-left  { color:var(--gray); }
+.ch-right { color:var(--blue-dark); }
+.ch-dot {
+  width:10px; height:10px; border-radius:2px; flex-shrink:0;
+}
+.ch-center {
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* ══ BELIEFS SECTION ══ */
+.beliefs-section {
+  max-width:800px; margin:8px auto 0; padding:0 16px;
+}
+
+/* Belief row */
+.belief-wrapper {
+  margin-bottom:12px; border-radius:10px;
+  overflow:hidden; border:0.5px solid rgba(0,0,0,0.1);
+  transition:box-shadow 0.2s;
+}
+.belief-wrapper:hover { box-shadow:0 4px 16px rgba(0,0,0,0.08); }
+
+.belief-row {
+  display:grid; grid-template-columns:1fr 56px 1fr;
+  align-items:stretch;
+}
+
+/* Left */
+.col-limit {
+  background:var(--gray-pale); padding:16px 18px;
+  border-right:0.5px solid var(--gray-lt);
+}
+.col-lbl {
+  font-family:'Raleway',sans-serif; font-size:9px; font-weight:600;
+  letter-spacing:0.2em; text-transform:uppercase;
+  display:block; margin-bottom:6px;
+}
+.col-limit .col-lbl { color:var(--gray); }
+.limit-text {
+  font-family:'Cormorant Garamond',serif; font-size:15px;
+  color:var(--gray); line-height:1.6;
+  text-decoration:line-through;
+  text-decoration-color:var(--red);
+  text-decoration-thickness:1.5px;
+}
+
+/* Center */
+.col-center {
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:5px; padding:12px 4px;
+  background:var(--teal-pale);
+  border-left:0.5px solid var(--teal-mid2);
+  border-right:0.5px solid var(--teal-mid2);
+  cursor:pointer; transition:background 0.2s;
+  user-select:none;
+}
+.col-center:hover { background:var(--teal-mid2); }
+.col-center:hover .center-label { color:var(--teal-dark); }
+.center-label {
+  font-family:'Raleway',sans-serif; font-size:9px; font-weight:600;
+  color:var(--teal-deep); text-align:center; line-height:1.3;
+  letter-spacing:0.05em;
+}
+
+/* Right */
+.col-power {
+  background:var(--blue-pale); padding:16px 18px;
+  border-left:0.5px solid var(--blue-mid);
+}
+.col-power .col-lbl { color:var(--blue); }
+.power-text {
+  font-family:'Cormorant Garamond',serif; font-size:15px;
+  font-weight:600; color:var(--blue-dark); line-height:1.6;
+}
+
+/* Q Box */
+.q-box {
+  display:none; padding:14px 20px;
+  background:var(--teal-pale);
+  border-top:0.5px solid var(--teal-mid2);
+  animation:fadeIn 0.25s ease;
+}
+.q-box.open { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:translateY(0)} }
+.q-box-inner {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; color:var(--teal-dark); line-height:1.75; text-align:center;
+}
+.q-box-inner strong {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:9px; font-weight:600; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--teal-deep); margin-bottom:5px;
+}
+
+/* ══ ADD CUSTOM ══ */
+.add-section {
+  max-width:800px; margin:20px auto 0; padding:0 16px;
+}
+.add-card {
+  background:#fff; border-radius:12px; padding:22px 24px;
+  border:0.5px solid rgba(45,107,101,0.2);
+}
+.add-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:18px;
+  color:var(--teal); margin-bottom:6px;
+}
+.add-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px;
+  color:var(--brown-mid); margin-bottom:16px;
+}
+.add-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;
+}
+@media(max-width:500px){ .add-grid{ grid-template-columns:1fr; } }
+.add-field label {
+  display:block; font-family:'Raleway',sans-serif; font-size:10px;
+  font-weight:600; letter-spacing:0.15em; text-transform:uppercase;
+  margin-bottom:5px;
+}
+.add-field.limit label { color:var(--gray); }
+.add-field.power label { color:var(--blue); }
+.add-field.q-field    { grid-column:1/-1; }
+.add-field.q-field label { color:var(--teal-deep); }
+.add-field textarea, .add-field input {
+  width:100%; border-radius:8px; padding:9px 12px;
+  font-family:'Raleway',sans-serif; font-size:13px;
+  color:var(--brown); resize:none; line-height:1.5;
+  transition:border-color 0.2s;
+}
+.add-field.limit textarea { background:var(--gray-pale); border:0.5px solid var(--gray-lt); min-height:72px; }
+.add-field.power textarea { background:var(--blue-pale); border:0.5px solid var(--blue-mid); min-height:72px; }
+.add-field.q-field input  { background:var(--teal-pale); border:0.5px solid var(--teal-mid2); }
+.add-field textarea:focus, .add-field input:focus {
+  outline:none; border-color:var(--teal-svg);
+  box-shadow:0 0 0 3px rgba(29,158,117,0.1);
+}
+.add-field textarea::placeholder, .add-field input::placeholder {
+  color:var(--gray); font-style:italic; font-size:12px;
+}
+.add-btns { display:flex; gap:10px; flex-wrap:wrap; }
+.btn-add  { font-family:'Raleway',sans-serif; font-size:12px; font-weight:600; padding:9px 20px; border-radius:6px; cursor:pointer; background:var(--teal-svg); color:#fff; border:none; transition:opacity 0.2s; }
+.btn-pdf  { font-family:'Raleway',sans-serif; font-size:12px; font-weight:600; padding:9px 20px; border-radius:6px; cursor:pointer; background:var(--gold); color:var(--brown); border:none; transition:opacity 0.2s; }
+.btn-rst  { font-family:'Raleway',sans-serif; font-size:12px; padding:9px 20px; border-radius:6px; cursor:pointer; background:transparent; color:var(--gray); border:0.5px solid var(--gray-lt); transition:opacity 0.2s; }
+.btn-add:hover,.btn-pdf:hover,.btn-rst:hover { opacity:0.82; }
+
+/* ══ REFLEXION ══ */
+.ref-section {
+  max-width:800px; margin:24px auto 0; padding:0 16px 40px;
+}
+.ref-card {
+  background:#fff; border-radius:12px; padding:26px 28px;
+  border:0.5px solid rgba(45,107,101,0.2);
+}
+.ref-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:19px;
+  color:var(--teal); margin-bottom:10px;
+}
+.ref-body {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); line-height:1.8; margin-bottom:16px;
+}
+.ref-q {
+  background:var(--teal-pale); border-left:3px solid var(--teal-svg);
+  border-radius:0 8px 8px 0; padding:14px 18px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; color:var(--teal-dark); line-height:1.75; margin-bottom:16px;
+}
+.ref-q strong {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:10px; font-weight:600; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--teal); margin-bottom:4px;
+}
+.afirm {
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; border-radius:8px; padding:18px 24px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; line-height:1.7; text-align:center;
+}
+.afirm span {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:9px; font-weight:600; letter-spacing:0.3em;
+  text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px;
+}
+
+/* ══ FOOTER ══ */
+.footer {
+  background:var(--teal); padding:28px 24px; text-align:center;
+}
+.footer p {
+  font-family:'Raleway',sans-serif; font-weight:200;
+  font-size:11px; letter-spacing:0.2em;
+  color:rgba(255,255,255,0.7); line-height:2;
+}
+.footer strong { color:#fff; font-weight:600; }
+
+/* Toast */
+.toast {
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  background:var(--teal); color:#fff; padding:10px 24px; border-radius:24px;
+  font-family:'Raleway',sans-serif; font-size:13px;
+  opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999;
+  box-shadow:0 4px 20px rgba(45,107,101,0.4);
+}
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta de Transformación · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Transforma tus<br>Creencias Limitantes</div>
+    <div class="hero-accent">
+      <div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div>
+    </div>
+    <div class="hero-sub">
+      De las creencias que te <strong>detienen</strong><br>
+      a las creencias que te <strong>empoderan</strong>
+    </div>
+    <div class="hero-badge">✦ &nbsp; Infografía Interactiva de Transformación &nbsp; ✦</div>
+    <div style="margin-top:18px;">
+      <span class="hero-author-by">A u t o r a</span>
+      <div class="hero-author">Jenifer Mendoza</div>
+    </div>
+    <div class="scroll-cta" onclick="document.getElementById('herramienta').scrollIntoView({behavior:'smooth'})">
+      <span>Transformar mis creencias</span>
+      <div class="scroll-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTRO ══ -->
+<div class="intro-section">
+  <h2>¿Qué historia te estás contando sobre ti misma?</h2>
+  <p>Las creencias limitantes son pensamientos tan repetidos que se convirtieron en verdades automáticas. La buena noticia: puedes cuestionarlas y reemplazarlas por creencias que te eleven.</p>
+  <div class="quote-banner">
+    "Tus creencias se convierten en tus pensamientos, tus pensamientos en tus palabras,<br>
+    tus palabras en tus acciones, tus acciones en tu <strong>destino</strong>." — Gandhi
+  </div>
+</div>
+
+<!-- ══ CÓMO USAR ══ -->
+<div class="howto" id="herramienta">
+  <div class="howto-grid">
+    <div class="howto-step">
+      <div class="howto-icon" style="background:var(--gray-pale);">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="2" y="2" width="14" height="14" rx="3" fill="none" stroke="#888780" stroke-width="1.3"/>
+          <line x1="5" y1="6" x2="13" y2="6" stroke="#888780" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="5" y1="9" x2="11" y2="9" stroke="#888780" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="5" y1="12" x2="9"  y2="12" stroke="#888780" stroke-width="1.1" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p><strong style="color:var(--gray);">1. Lee</strong> la creencia limitante (izquierda, tachada)</p>
+    </div>
+    <div class="howto-step">
+      <div class="howto-icon" style="background:var(--teal-pale);">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <circle cx="8" cy="8" r="5" stroke="#0F6E56" stroke-width="1.3"/>
+          <line x1="12" y1="12" x2="15.5" y2="15.5" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p><strong style="color:var(--teal-deep);">2. Haz clic</strong> en el centro turquesa para ver la pregunta que la cuestiona</p>
+    </div>
+    <div class="howto-step">
+      <div class="howto-icon" style="background:var(--blue-pale);">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M3 9 L7 13 L15 5" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p><strong style="color:var(--blue-dark);">3. Adopta</strong> la nueva creencia empoderada (derecha, en negrita)</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HEADERS DE COLUMNAS ══ -->
+<div class="cols-header" style="margin-top:20px;">
+  <div class="ch-left">
+    <div class="ch-dot" style="background:var(--gray-pale);border:0.5px solid var(--gray-lt);"></div>
+    Creencia limitante
+  </div>
+  <div class="ch-center">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <circle cx="8" cy="8" r="5.5" stroke="#1D9E75" stroke-width="1.3"/>
+      <line x1="12.5" y1="12.5" x2="16" y2="16" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="ch-right">
+    <div class="ch-dot" style="background:var(--blue-pale);border:0.5px solid var(--blue-mid);"></div>
+    Nueva creencia empoderada
+  </div>
+</div>
+
+<!-- ══ BELIEFS ══ -->
+<div class="beliefs-section" id="beliefsContainer"></div>
+
+<!-- ══ ADD CUSTOM ══ -->
+<div class="add-section">
+  <div class="add-card">
+    <div class="add-title">Agrega tu propia creencia</div>
+    <div class="add-sub">Escribe la creencia limitante que quieres transformar y la nueva creencia que eliges</div>
+    <div class="add-grid">
+      <div class="add-field limit">
+        <label>Creencia limitante</label>
+        <textarea id="inputLimit" placeholder="Ej: No soy lo suficientemente inteligente para..."></textarea>
+      </div>
+      <div class="add-field power">
+        <label>Nueva creencia empoderada</label>
+        <textarea id="inputPower" placeholder="Ej: Tengo la capacidad de aprender todo lo que necesito..."></textarea>
+      </div>
+      <div class="add-field q-field">
+        <label>Pregunta que cuestiona la creencia limitante</label>
+        <input type="text" id="inputQ" placeholder="Ej: ¿Qué evidencia tengo de que esto es absolutamente verdad?">
+      </div>
+    </div>
+    <div class="add-btns">
+      <button class="btn-add" onclick="addCustomBelief()">+ Agregar mi creencia</button>
+      <button class="btn-pdf" onclick="downloadPDF()">📄 Descargar PDF</button>
+      <button class="btn-rst" onclick="resetBeliefs()">Restaurar ejemplos</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REFLEXION ══ -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">Reflexión para tu diario</div>
+    <div class="ref-body">
+      Las creencias limitantes no nacen de la nada — las aprendiste en algún momento como una forma de protegerte. Hoy tienes la madurez y la consciencia para elegir algo diferente. No se trata de negar lo que viviste, sino de decidir que ya no te define.
+    </div>
+    <div class="ref-q">
+      <strong>Pregunta profunda:</strong>
+      "¿Cuál es la creencia limitante que más te ha costado en tu vida? ¿De dónde crees que viene? ¿Qué habría sido diferente si hubieras creído lo contrario desde pequeña?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación del día</span>
+      "Mis creencias son pensamientos que aprendí — y lo que aprendí, puedo transformarlo. Hoy elijo creer en mi valor, mi capacidad y mi derecho a una vida plena."
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <p>
+    <strong>Método Camino</strong> · Transformación de Creencias Limitantes<br>
+    Herramienta de desarrollo personal para mujeres de 40+<br>
+    © 2026 Jenifer Mendoza · Todos los derechos reservados
+  </p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'metodoCamino_creencias';
+
+const DEFAULT_BELIEFS = [
+  {
+    limit: "Ya soy muy mayor para empezar algo nuevo",
+    power: "A los 40+ tengo la experiencia, la claridad y la madurez para crear lo mejor de mi vida",
+    q: "¿Puedes nombrar a alguien que empezó algo significativo después de los 40? ¿Qué te hace diferente a ella?"
+  },
+  {
+    limit: "Soy demasiado sensible, debería ser más fuerte",
+    power: "Mi sensibilidad es un superpoder — me permite conectar profundamente y percibir lo que otros no ven",
+    q: "¿Quién decidió que la sensibilidad es debilidad? ¿Qué has creado en tu vida gracias a esa sensibilidad?"
+  },
+  {
+    limit: "No puedo cambiar, así soy yo",
+    power: "Soy una obra en construcción permanente. Cada día puedo elegir quién quiero ser",
+    q: "¿Eres exactamente la misma persona que eras hace 10 años? ¿Qué cambió? ¿Cómo lo lograste?"
+  },
+  {
+    limit: "Si me cuido a mí misma soy egoísta",
+    power: "Cuidarme es la base desde la cual puedo dar mejor a todos los que amo",
+    q: "¿Le dirías a tu mejor amiga que es egoísta por cuidarse? ¿Por qué a ti sí te lo dices?"
+  },
+  {
+    limit: "No merezco ocupar espacio ni pedir lo que necesito",
+    power: "Mis necesidades son tan válidas como las de cualquier persona. Pedir es un acto de honestidad",
+    q: "¿Qué pasaría si pidieras lo que necesitas? ¿El peor escenario es realmente tan terrible como lo pintas?"
+  },
+  {
+    limit: "Ya perdí mi mejor etapa, lo mejor ya pasó",
+    power: "Los 40+ son el inicio de mi etapa más auténtica — cuando por fin sé quién soy y lo que quiero",
+    q: "¿Qué sabes hoy que no sabías a los 25? ¿Esa sabiduría tiene valor? ¿A quién se la darías si pudieras?"
+  }
+];
+
+function loadBeliefs() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    return saved && saved.length ? saved : DEFAULT_BELIEFS;
+  } catch(e) { return DEFAULT_BELIEFS; }
+}
+
+function saveBeliefs(data) {
+  try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function renderBeliefs(data) {
+  const container = document.getElementById('beliefsContainer');
+  container.innerHTML = '';
+  data.forEach((b, i) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'belief-wrapper';
+
+    const row = document.createElement('div');
+    row.className = 'belief-row';
+
+    const left = document.createElement('div');
+    left.className = 'col-limit';
+    left.innerHTML = `<span class="col-lbl">Creencia limitante</span><span class="limit-text">${b.limit}</span>`;
+
+    const center = document.createElement('div');
+    center.className = 'col-center';
+    center.innerHTML = `
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <circle cx="9" cy="9" r="6" stroke="#0F6E56" stroke-width="1.4"/>
+        <line x1="14" y1="14" x2="17.5" y2="17.5" stroke="#0F6E56" stroke-width="1.4" stroke-linecap="round"/>
+        <line x1="9" y1="6" x2="9" y2="12" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round"/>
+        <line x1="6" y1="9" x2="12" y2="9" stroke="#0F6E56" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <span class="center-label">Ver<br>pregunta</span>
+    `;
+
+    const right = document.createElement('div');
+    right.className = 'col-power';
+    right.innerHTML = `<span class="col-lbl">Nueva creencia</span><span class="power-text">${b.power}</span>`;
+
+    const qBox = document.createElement('div');
+    qBox.className = 'q-box';
+    qBox.innerHTML = `<div class="q-box-inner"><strong>Pregunta que transforma:</strong>${b.q}</div>`;
+
+    center.onclick = () => {
+      const isOpen = qBox.classList.contains('open');
+      document.querySelectorAll('.q-box').forEach(q => q.classList.remove('open'));
+      if(!isOpen) qBox.classList.add('open');
+    };
+
+    row.appendChild(left);
+    row.appendChild(center);
+    row.appendChild(right);
+    wrapper.appendChild(row);
+    wrapper.appendChild(qBox);
+    container.appendChild(wrapper);
+  });
+}
+
+function addCustomBelief() {
+  const limit = document.getElementById('inputLimit').value.trim();
+  const power = document.getElementById('inputPower').value.trim();
+  const q     = document.getElementById('inputQ').value.trim();
+  if(!limit || !power) {
+    showToast('Escribe la creencia limitante y la nueva creencia');
+    return;
+  }
+  const data = loadBeliefs();
+  data.push({
+    limit, power,
+    q: q || '¿Esto que creo es realmente verdad, o es solo un pensamiento que aprendí en algún momento?'
+  });
+  saveBeliefs(data);
+  renderBeliefs(data);
+  document.getElementById('inputLimit').value = '';
+  document.getElementById('inputPower').value = '';
+  document.getElementById('inputQ').value = '';
+  showToast('✓ Creencia agregada y guardada');
+  document.getElementById('beliefsContainer').scrollIntoView({behavior:'smooth'});
+}
+
+function resetBeliefs() {
+  if(!confirm('¿Restaurar los 6 ejemplos originales? Se eliminarán tus creencias personalizadas.')) return;
+  saveBeliefs(DEFAULT_BELIEFS);
+  renderBeliefs(DEFAULT_BELIEFS);
+  showToast('Ejemplos restaurados');
+}
+
+function downloadPDF() {
+  const data = loadBeliefs();
+  const rows = data.map(b => `
+    <tr>
+      <td style="padding:12px 14px;background:#F1EFE8;border-right:1px solid #D3D1C7;border-bottom:1px solid #EDE8E0;font-family:Georgia,serif;font-size:13px;color:#5F5E5A;text-decoration:line-through;text-decoration-color:#E24B4A;vertical-align:top;">${b.limit}</td>
+      <td style="padding:12px 14px;background:#E1F5EE;border-right:1px solid #9FE1CB;border-bottom:1px solid #EDE8E0;font-family:Georgia,serif;font-style:italic;font-size:13px;color:#085041;vertical-align:top;">${b.q}</td>
+      <td style="padding:12px 14px;background:#E6F1FB;border-bottom:1px solid #EDE8E0;font-family:Georgia,serif;font-size:13px;font-weight:bold;color:#0C447C;vertical-align:top;">${b.power}</td>
+    </tr>
+  `).join('');
+
+  const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<title>Mis Creencias Transformadas — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Playfair+Display:wght@700;900&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#FAF6F0;font-family:'Raleway',sans-serif;color:#4A2E22;}
+.hdr{background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 40%,#5B9E98 70%,transparent 100%);padding:36px 48px 44px;clip-path:polygon(0 0,100% 0,100% 82%,55% 96%,0 86%);}
+.ey{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:6px;}
+h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#fff;margin:0 0 4px;}
+.hs{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);}
+.db{display:inline-block;background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);padding:5px 18px;border-radius:20px;font-size:11px;margin-top:12px;}
+.body{padding:32px 48px;}
+.st{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#2D6B65;margin:0 0 14px;}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;border:1.5px solid #1D9E75;margin-bottom:28px;}
+th{padding:10px 14px;font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-align:left;}
+th:first-child{background:#F1EFE8;color:#5F5E5A;border-right:1px solid #D3D1C7;width:33%;}
+th:nth-child(2){background:#E1F5EE;color:#085041;border-right:1px solid #9FE1CB;width:33%;}
+th:last-child{background:#E6F1FB;color:#0C447C;width:34%;}
+.qt{background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:24px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:#085041;line-height:1.8;}
+.ft{background:#2D6B65;padding:18px 48px;text-align:center;}
+.ft p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}
+.ft strong{color:#fff;}
+@media print{body{background:#fff;}.hdr,.ft{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="hdr"><div class="ey">✦ Método Camino · Transformación de Creencias · Para Mujeres de 40+</div><h1>Mis Creencias Transformadas</h1><div class="hs">De las creencias que me detienen a las que me empoderan</div><div class="db">Fecha: ${new Date().toLocaleDateString('es-ES')}</div></div>
+<div class="body">
+<div class="st">Mi registro personal de transformación</div>
+<table>
+  <tr>
+    <th>Creencia limitante</th>
+    <th>Pregunta transformadora</th>
+    <th>Nueva creencia empoderada</th>
+  </tr>
+  ${rows}
+</table>
+<div class="qt">"Mis creencias son pensamientos que aprendí — y lo que aprendí, puedo transformarlo. Hoy elijo creer en mi valor, mi capacidad y mi derecho a una vida plena."</div>
+</div>
+<div class="ft"><p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026<br>Para imprimir: Archivo → Imprimir → Guardar como PDF</p></div>
+</body></html>`;
+
+  const blob = new Blob([html],{type:'text/html'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href=url; a.download=`CreenciasTransformadas_MetodoCamino_${new Date().toISOString().split('T')[0]}.html`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast('✓ Descargando tu registro...');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+renderBeliefs(loadBeliefs());
+</script>
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ritual Matutino SAVERS · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-dark: #085041;
+  --blue:      #185FA5;
+  --blue-pale: #E6F1FB;
+  --gold:      #C8A96E;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --gray-pale: #F1EFE8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Raleway',sans-serif; background:var(--cream); color:var(--brown); min-height:100vh; }
+
+/* ══ HERO ══ */
+.hero { position:relative; overflow:hidden; background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%); }
+.hero-swoosh { position:absolute; top:0; left:0; right:0; height:100%; background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%); clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%); }
+.hero-bottom { position:absolute; bottom:0; left:0; right:0; height:35%; background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%); clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%); }
+.hero-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; padding:44px 24px 52px; text-align:center; }
+.hero-eyebrow { font-weight:300; font-size:10px; letter-spacing:0.65em; color:rgba(255,255,255,0.88); text-transform:uppercase; margin-bottom:8px; }
+.hero-metodo { font-weight:200; font-size:12px; letter-spacing:0.7em; color:rgba(255,255,255,0.65); text-transform:uppercase; margin-bottom:2px; }
+.hero-title { font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em; color:#fff; line-height:1.2; max-width:580px; text-shadow:0 3px 30px rgba(45,107,101,0.5); }
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:clamp(14px,2.2vw,17px); color:var(--brown); line-height:1.75; max-width:520px; }
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge { margin-top:16px; background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; padding:8px 24px; font-weight:600; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35); }
+.hero-author { margin-top:18px; font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:var(--teal); letter-spacing:0.05em; }
+.hero-author-by { font-weight:200; font-size:9px; letter-spacing:0.45em; color:var(--brown-mid); text-transform:uppercase; display:block; margin-bottom:3px; }
+.scroll-cta { margin-top:24px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; }
+.scroll-cta span { font-weight:300; font-size:10px; letter-spacing:0.35em; color:var(--teal); text-transform:uppercase; }
+.scroll-arrow { width:28px; height:28px; border:1px solid rgba(45,107,101,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; animation:bounceDown 2s ease-in-out infinite; }
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section { background:var(--sand); padding:36px 24px; text-align:center; }
+.intro-section h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:22px; color:var(--teal); margin-bottom:10px; }
+.intro-section p { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75; }
+.quote-banner { background:rgba(255,255,255,0.6); border-left:3px solid var(--teal); border-radius:0 8px 8px 0; padding:14px 20px; max-width:540px; margin:0 auto; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:var(--brown); line-height:1.8; }
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ CRONOGRAMA ══ */
+.crono-section { max-width:800px; margin:0 auto; padding:28px 16px 0; }
+.crono-title { font-family:'Playfair Display',serif; font-weight:700; font-size:20px; color:var(--teal); margin-bottom:6px; }
+.crono-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); margin-bottom:20px; }
+
+/* Dawn card */
+.dawn-card { border-radius:16px; overflow:hidden; margin-bottom:20px; }
+.dawn-sky { background:linear-gradient(160deg,#0D1B2A 0%,#1A2F4A 25%,#2D4A6B 45%,#8B5E3C 68%,#C4784A 82%,#E8A86B 92%,#F5C87A 100%); padding:18px 18px 14px; }
+.dawn-header { text-align:center; margin-bottom:14px; }
+.dawn-meta { font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:3px; }
+.dawn-time { font-size:20px; font-weight:700; color:#fff; letter-spacing:0.04em; }
+.dawn-time-sub { font-size:11px; color:rgba(255,255,255,0.5); margin-top:2px; font-style:italic; }
+
+.bloque { border-radius:12px; padding:12px 14px 10px; margin-bottom:10px; border:1px solid rgba(255,255,255,0.1); }
+.bloque-cama  { background:rgba(13,27,42,0.65); }
+.bloque-fuera { background:rgba(30,18,8,0.55); }
+.bloque-header { display:flex; align-items:center; gap:8px; margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.1); }
+.bloque-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.bloque-title { font-size:12px; font-weight:700; color:#fff; letter-spacing:0.06em; text-transform:uppercase; }
+.bloque-time-label { font-size:11px; color:rgba(255,255,255,0.5); margin-left:auto; }
+
+.savers-row { display:flex; gap:6px; }
+@media(max-width:500px){ .savers-row{ flex-direction:column; } }
+
+.saver-card { flex:1; border-radius:9px; padding:10px 10px 8px; border:1px solid rgba(255,255,255,0.12); cursor:pointer; transition:transform 0.15s; }
+.saver-card:hover { transform:translateY(-2px); }
+.sc-top { display:flex; align-items:center; gap:7px; margin-bottom:5px; }
+.sc-icon { width:26px; height:26px; border-radius:7px; background:rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.sc-icon svg { width:13px; height:13px; }
+.sc-name { font-size:12px; font-weight:700; color:#fff; line-height:1.2; }
+.sc-time-small { font-size:9px; color:rgba(255,255,255,0.5); }
+.sc-mins { font-size:9px; font-weight:700; color:#fff; padding:1px 6px; border-radius:8px; display:inline-block; margin-bottom:4px; }
+.sc-benefit { font-size:10px; color:rgba(255,255,255,0.75); line-height:1.4; }
+
+.transition-pill { display:flex; align-items:center; gap:8px; margin:4px 0 10px; padding:7px 12px; background:rgba(245,200,122,0.12); border-radius:20px; border:1px dashed rgba(245,200,122,0.35); }
+.tp-text { font-size:11px; color:#F5C87A; font-weight:500; flex:1; }
+.tp-mins { font-size:10px; color:rgba(245,200,122,0.6); }
+
+.detail-panel { background:rgba(8,16,26,0.97); padding:14px 16px; display:none; border-top:1px solid rgba(255,255,255,0.08); animation:fdUp 0.22s ease; }
+.detail-panel.open { display:block; }
+@keyframes fdUp { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+.dp-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
+.dp-name { font-size:15px; font-weight:700; color:#fff; }
+.dp-sub  { font-size:11px; color:rgba(255,255,255,0.5); margin-top:1px; }
+.dp-close-btn { font-size:11px; color:rgba(255,255,255,0.4); cursor:pointer; padding:2px 7px; border-radius:4px; border:1px solid rgba(255,255,255,0.15); background:transparent; }
+.dp-close-btn:hover { background:rgba(255,255,255,0.08); color:#fff; }
+.dp-body { font-size:12px; color:rgba(255,255,255,0.78); line-height:1.7; margin-bottom:8px; }
+.dp-practice { border-radius:7px; padding:9px 11px; font-size:11px; color:rgba(255,255,255,0.88); line-height:1.6; border-left:3px solid; background:rgba(255,255,255,0.05); }
+.dp-practice strong { display:block; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:3px; opacity:0.6; }
+
+.dawn-footer { background:#070F1A; padding:10px 18px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.df-quote { font-size:11px; color:rgba(255,255,255,0.55); font-style:italic; flex:1; line-height:1.5; min-width:180px; font-family:'Cormorant Garamond',serif; }
+.df-total { font-size:11px; font-weight:600; color:#F5C87A; white-space:nowrap; }
+
+/* ══ PERSONALIZAR ══ */
+.edit-section { max-width:800px; margin:0 auto; padding:0 16px; }
+.edit-card { background:#fff; border-radius:12px; padding:20px 22px; border:0.5px solid rgba(45,107,101,0.2); margin-bottom:14px; }
+.edit-title { font-family:'Playfair Display',serif; font-weight:700; font-size:18px; color:var(--teal); margin-bottom:4px; }
+.edit-sub { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--brown-mid); margin-bottom:16px; }
+
+.edit-bloques { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media(max-width:540px){ .edit-bloques{ grid-template-columns:1fr; } }
+
+.edit-bloque { border-radius:10px; padding:14px 16px; border:0.5px solid; }
+.eb-cama  { background:var(--blue-pale); border-color:#85B7EB; }
+.eb-fuera { background:var(--teal-pale); border-color:var(--teal-svg); }
+.eb-label { font-family:'Raleway',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; display:block; margin-bottom:10px; }
+.eb-cama .eb-label  { color:var(--blue); }
+.eb-fuera .eb-label { color:var(--teal-dark); }
+
+.edit-item { margin-bottom:10px; }
+.edit-item:last-child { margin-bottom:0; }
+.ei-row { display:flex; gap:6px; align-items:flex-end; }
+.ei-field { flex:1; }
+.ei-field label { display:block; font-family:'Raleway',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray); margin-bottom:3px; }
+.ei-field input { width:100%; border:0.5px solid var(--gray-lt); border-radius:6px; padding:6px 9px; font-family:'Raleway',sans-serif; font-size:12px; color:var(--brown); background:#fff; }
+.ei-field input:focus { outline:none; border-color:var(--teal-svg); box-shadow:0 0 0 2px rgba(29,158,117,0.1); }
+.ei-mins { width:64px; flex-shrink:0; }
+
+.edit-transition { margin:12px 0; }
+.et-row { display:flex; gap:8px; align-items:flex-end; }
+.et-field { flex:1; }
+.et-field label { display:block; font-family:'Raleway',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray); margin-bottom:3px; }
+.et-field input { width:100%; border:0.5px solid var(--gray-lt); border-radius:6px; padding:6px 9px; font-family:'Raleway',sans-serif; font-size:12px; color:var(--brown); background:#fff; }
+.et-field input:focus { outline:none; border-color:var(--gold); }
+.et-mins { width:64px; flex-shrink:0; }
+
+.edit-btns { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.ebtn { font-family:'Raleway',sans-serif; font-size:12px; font-weight:600; padding:8px 18px; border-radius:6px; cursor:pointer; border:none; transition:opacity 0.2s; }
+.ebtn:hover { opacity:0.85; }
+.ebtn-apply { background:var(--teal-svg); color:#fff; }
+.ebtn-save  { background:var(--blue); color:#fff; }
+.ebtn-pdf   { background:var(--gold); color:var(--brown); }
+.ebtn-reset { background:transparent; color:var(--gray); border:0.5px solid var(--gray-lt) !important; }
+
+/* ══ REFLEXION ══ */
+.ref-section { max-width:800px; margin:24px auto 0; padding:0 16px 40px; }
+.ref-card { background:#fff; border-radius:12px; padding:26px 28px; border:0.5px solid rgba(45,107,101,0.2); }
+.ref-title { font-family:'Playfair Display',serif; font-weight:700; font-size:19px; color:var(--teal); margin-bottom:10px; }
+.ref-body { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--brown-mid); line-height:1.8; margin-bottom:16px; }
+.ref-q { background:var(--teal-pale); border-left:3px solid var(--teal-svg); border-radius:0 8px 8px 0; padding:14px 18px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; color:var(--teal-dark); line-height:1.75; margin-bottom:16px; }
+.ref-q strong { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal); margin-bottom:4px; }
+.afirm { background:linear-gradient(135deg,var(--teal),var(--teal-mid)); color:#fff; border-radius:8px; padding:18px 24px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; line-height:1.7; text-align:center; }
+.afirm span { display:block; font-style:normal; font-family:'Raleway',sans-serif; font-size:9px; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px; }
+
+/* ══ FOOTER ══ */
+.footer { background:var(--teal); padding:28px 24px; text-align:center; }
+.footer p { font-weight:200; font-size:11px; letter-spacing:0.2em; color:rgba(255,255,255,0.7); line-height:2; }
+.footer strong { color:#fff; font-weight:600; }
+
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--teal-svg); color:#fff; padding:10px 24px; border-radius:24px; font-size:13px; opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999; box-shadow:0 4px 20px rgba(29,158,117,0.4); }
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Ritual Matutino · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Mi Hora de la Mañana</div>
+    <div class="hero-accent"><div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div></div>
+    <div class="hero-sub">El ritual que transforma tu día<br>antes de que el mundo entre en tu vida — <strong>adaptado a ti</strong></div>
+    <div class="hero-badge">✦ &nbsp; Cronograma S.A.V.E.R.S. Personalizable &nbsp; ✦</div>
+    <div style="margin-top:18px;">
+      <span class="hero-author-by">A u t o r a</span>
+      <div class="hero-author">Jenifer Mendoza</div>
+    </div>
+    <div class="scroll-cta" onclick="document.getElementById('crono').scrollIntoView({behavior:'smooth'})">
+      <span>Ver mi ritual</span>
+      <div class="scroll-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-section">
+  <h2>La hora que solo existe para ti</h2>
+  <p>El método S.A.V.E.R.S. de Hal Elrod adaptado a la realidad de una mujer de 40+: primeras 3 prácticas desde la cama, transición natural, y las últimas 3 ya de pie y en movimiento.</p>
+  <div class="quote-banner">
+    "Esa hora de la mañana me salvó. No el esfuerzo sobrehumano —<br>
+    esa hora donde solo <strong>existo yo</strong>."
+  </div>
+</div>
+
+<!-- CRONOGRAMA -->
+<div class="crono-section" id="crono">
+  <div class="crono-title">Tu cronograma matutino</div>
+  <div class="crono-sub">Haz clic en cada práctica para ver cómo aplicarla · Personalízalo abajo según tu vida</div>
+
+  <div class="dawn-card">
+    <div class="dawn-sky">
+      <div class="dawn-header">
+        <div class="dawn-meta">Método Camino · Ritual S.A.V.E.R.S.</div>
+        <div class="dawn-time" id="headerTime">5:45 AM — 7:15 AM</div>
+        <div class="dawn-time-sub" id="headerSub">90 minutos · 6 prácticas · 2 bloques</div>
+      </div>
+
+      <div class="bloque bloque-cama">
+        <div class="bloque-header">
+          <div class="bloque-dot" style="background:#4A90D9;"></div>
+          <span class="bloque-title">En cama · antes de levantarte</span>
+          <span class="bloque-time-label" id="labelCama">5:45 – 6:30 AM</span>
+        </div>
+        <div class="savers-row" id="rowSAV"></div>
+      </div>
+
+      <div class="transition-pill" id="transitionPill">
+        <span style="font-size:14px;">🛏</span>
+        <span class="tp-text" id="transText">Te levantas · vas al baño · te cambias · bebes agua</span>
+        <span class="tp-mins" id="transMins">~10 min</span>
+      </div>
+
+      <div class="bloque bloque-fuera">
+        <div class="bloque-header">
+          <div class="bloque-dot" style="background:#E67E22;"></div>
+          <span class="bloque-title">Fuera de cama · en movimiento</span>
+          <span class="bloque-time-label" id="labelFuera">6:40 – 7:15 AM</span>
+        </div>
+        <div class="savers-row" id="rowERS"></div>
+      </div>
+    </div>
+    <div class="detail-panel" id="detailPanel"></div>
+    <div class="dawn-footer">
+      <div class="df-quote">"Esa hora de la mañana me salvó. No el esfuerzo sobrehumano — esa hora donde solo existo yo."</div>
+      <div class="df-total" id="footerTotal">90 min · S.A.V.E.R.S.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PERSONALIZAR -->
+<div class="edit-section" id="personalizar">
+  <div class="edit-card">
+    <div class="edit-title">Personaliza tu ritual</div>
+    <div class="edit-sub">Cambia los nombres, tiempos y minutos de cada práctica según tu ritmo de vida real</div>
+
+    <div class="edit-bloques">
+      <div class="edit-bloque eb-cama">
+        <span class="eb-label">En cama (S.A.V.)</span>
+        <div id="editSAV"></div>
+      </div>
+      <div class="edit-bloque eb-fuera">
+        <span class="eb-label">Fuera de cama (E.R.S.)</span>
+        <div id="editERS"></div>
+      </div>
+    </div>
+
+    <div class="edit-transition">
+      <div style="font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;">Transición entre bloques</div>
+      <div class="et-row">
+        <div class="et-field">
+          <label>Descripción</label>
+          <input type="text" id="etDesc" value="Te levantas · vas al baño · te cambias · bebes agua" maxlength="60">
+        </div>
+        <div class="et-field et-mins">
+          <label>Minutos</label>
+          <input type="number" id="etMins" value="10" min="1" max="30" style="text-align:center;">
+        </div>
+      </div>
+    </div>
+
+    <div style="font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;margin-top:12px;">Hora de inicio</div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input type="time" id="startTime" value="05:45" style="font-family:'Raleway',sans-serif;font-size:13px;padding:6px 10px;border:0.5px solid var(--gray-lt);border-radius:6px;background:var(--cream);color:var(--brown);">
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--brown-mid);">Hora en que comienza tu ritual</span>
+    </div>
+
+    <div class="edit-btns">
+      <button class="ebtn ebtn-apply" onclick="applyChanges()">Actualizar cronograma</button>
+      <button class="ebtn ebtn-save"  onclick="saveCustom()">💾 Guardar mi versión</button>
+      <button class="ebtn ebtn-pdf"   onclick="downloadPDF()">📄 Descargar PDF</button>
+      <button class="ebtn ebtn-reset" onclick="resetToDefault()">Restaurar original</button>
+    </div>
+  </div>
+</div>
+
+<!-- REFLEXION -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">Por qué la mañana lo cambia todo</div>
+    <div class="ref-body">No se trata de madrugar por madrugar — se trata de tener un espacio en el día que sea completamente tuyo. Antes de los mensajes, antes de los hijos, antes del trabajo, antes de los problemas de otros. Ese espacio te recuerda quién eres.</div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "Si tuviera 60 minutos completamente míos cada mañana, ¿qué haría con ellos? ¿Qué versión de mí emergería si empezara cada día eligiéndome a mí misma primero?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación de la mañana</span>
+      "Esta hora es mía. La protejo con amor. No con culpa, no con disculpas — con la certeza de que cuando me cuido a mí, tengo más para dar a todos."
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p><strong>Método Camino</strong> · Ritual Matutino S.A.V.E.R.S. Personalizable<br>Tu hora de la mañana · Diseñada para mujeres de 40+<br>© 2026 Jenifer Mendoza · Todos los derechos reservados</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'metodoCamino_savers';
+
+const DEFAULT_SAV = [
+  { letter:'S', name:'Silencio',       mins:10, accent:'#4A90D9', bg:'rgba(26,58,92,0.8)',
+    icon:'<circle cx="8" cy="6" r="3.5" stroke="#fff" stroke-width="1.2" fill="none"/><path d="M5 11c0-1.7 1.3-3 3-3s3 1.3 3 3" stroke="#fff" stroke-width="1.2" fill="none" stroke-linecap="round"/>',
+    body:'El silencio consciente al despertar evita que el cortisol active el modo de alerta. Tu cerebro está en ondas alfa — el estado más receptivo del día.',
+    practice:'Quédate en cama con los ojos cerrados. Sin teléfono. Solo respira profundo y siente el cuerpo despertar. 10 minutos resetean el sistema nervioso completo.' },
+  { letter:'A', name:'Afirmaciones',   mins:15, accent:'#6BCF8A', bg:'rgba(20,50,30,0.8)',
+    icon:'<path d="M3 8l3 3 6-6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
+    body:'Las afirmaciones en voz baja refuerzan los circuitos neuronales de identidad. Son instrucciones al subconsciente, no solo "pensamiento positivo".',
+    practice:'Lee en voz baja tus afirmaciones personales. Luego escribe o piensa 3 cosas que agradeces hoy. Puedes tener una libreta en la mesa de noche.' },
+  { letter:'V', name:'Visualización',  mins:15, accent:'#C4784A', bg:'rgba(60,30,10,0.8)',
+    icon:'<ellipse cx="8" cy="8" rx="5.5" ry="3.5" stroke="#fff" stroke-width="1.2" fill="none"/><circle cx="8" cy="8" r="1.8" fill="#fff" opacity=".8"/>',
+    body:'La visualización activa las mismas neuronas que la experiencia real. En estado de semi-sueño es incluso más potente porque el subconsciente está más activo.',
+    practice:'Con los ojos cerrados, visualiza tu día ideal con detalle sensorial. Cómo te sientes, cómo reaccionas, quién eres hoy. Termina visualizando tu meta más importante.' }
+];
+
+const DEFAULT_ERS = [
+  { letter:'E', name:'Ejercicio',  mins:20, accent:'#9B59B6', bg:'rgba(40,15,55,0.85)',
+    icon:'<circle cx="8" cy="3.5" r="1.5" fill="#fff"/><path d="M5.5 6.5l2.5 1.5 2.5-1.5M8 8v3.5M6 10l-1 2.5M10 10l1 2.5" stroke="#fff" stroke-width="1.2" stroke-linecap="round" fill="none"/>',
+    body:'Ya estás de pie y lista. 20 minutos de movimiento eleva el BDNF, reduce el cortisol y activa las endorfinas. No necesitas mucho — necesitas movimiento intencional.',
+    practice:'Caminar, yoga, bailar, pesas ligeras — lo que más disfrutas. El criterio: que eleve tu energía. Termina con 2 minutos de respiración profunda.' },
+  { letter:'R', name:'Lectura',    mins:10, accent:'#E67E22', bg:'rgba(55,30,5,0.85)',
+    icon:'<rect x="2.5" y="2.5" width="9" height="11" rx="1.5" stroke="#fff" stroke-width="1.2" fill="none"/><line x1="4.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="1" opacity=".8"/><line x1="4.5" y1="8" x2="9.5" y2="8" stroke="#fff" stroke-width="1" opacity=".8"/>',
+    body:'10 páginas diarias de desarrollo personal mientras desayunas o tomas tu café. En un año habrás leído entre 10 y 15 libros que transforman tu perspectiva.',
+    practice:'Ten siempre un libro listo en la cocina. Lee mientras tomas tu café. Anota en un post-it la idea más importante de esas páginas.' },
+  { letter:'S', name:'Escritura',  mins:5,  accent:'#F5C87A', bg:'rgba(55,40,5,0.85)',
+    icon:'<path d="M3 13l2-2 5.5-5.5 2 2-5.5 5.5-2 2-2-2z" stroke="#fff" stroke-width="1.1" fill="none"/><path d="M10.5 2.5l3 3" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>',
+    body:'5 minutos de escritura libre cierra el ritual. Integra lo que sentiste y declara tu intención del día.',
+    practice:'Escribe libremente: tu intención del día, cómo te sientes, una idea que surgió en la visualización. Sin correcciones. Solo flujo.' }
+];
+
+const DEFAULT_TRANS = { desc:'Te levantas · vas al baño · te cambias · bebes agua', mins:10 };
+const DEFAULT_START = '05:45';
+
+function loadData() {
+  try { const d=JSON.parse(localStorage.getItem(KEY)||'null'); return d||null; } catch(e){return null;}
+}
+function saveData(d) { try { localStorage.setItem(KEY,JSON.stringify(d)); } catch(e){} }
+
+let sav   = JSON.parse(JSON.stringify(DEFAULT_SAV));
+let ers   = JSON.parse(JSON.stringify(DEFAULT_ERS));
+let trans = {...DEFAULT_TRANS};
+let startTime = DEFAULT_START;
+let activeKey = null;
+
+function init() {
+  const saved = loadData();
+  if(saved) {
+    sav = saved.sav || sav;
+    ers = saved.ers || ers;
+    trans = saved.trans || trans;
+    startTime = saved.startTime || startTime;
+  }
+  buildEditForms();
+  renderCrono();
+}
+
+function parseTime(t) {
+  const [h,m]=t.split(':').map(Number); return h*60+m;
+}
+function addMins(base, add) {
+  const total=base+add; const h=Math.floor(total/60)%24; const m=total%60;
+  return (h<10?'0':'')+h+':'+(m<10?'0':'')+m;
+}
+function formatTime(t) {
+  const [h,m]=t.split(':').map(Number);
+  const period=h<12?'AM':'PM'; const hh=h%12||12;
+  return hh+':'+(m<10?'0':'')+m+' '+period;
+}
+
+function calcTimes() {
+  let cur = parseTime(startTime);
+  const times = { sav:[], ers:[], transStart:'', transEnd:'' };
+  sav.forEach(s=>{ const end=addMins(cur,s.mins); times.sav.push({start:formatTime(addMins(cur,0).replace(/(..):(..)/,'$1:$2')),end:formatTime(end.replace(/(..):(..)/,'$1:$2'))}); cur+=s.mins; });
+  times.transStart = cur;
+  cur += trans.mins;
+  times.transEnd = cur;
+  ers.forEach(s=>{ const end=addMins(cur,s.mins); times.ers.push({start:formatTime(addMins(cur,0).replace(/(..):(..)/,'$1:$2')),end:formatTime(end.replace(/(..):(..)/,'$1:$2'))}); cur+=s.mins; });
+  times.endTime = cur;
+  return times;
+}
+
+function renderCrono() {
+  const ct = calcTimes();
+  const totalMins = parseTime(startTime) + sav.reduce((s,x)=>s+x.mins,0) + trans.mins + ers.reduce((s,x)=>s+x.mins,0) - parseTime(startTime);
+
+  document.getElementById('headerTime').textContent = formatTime(startTime) + ' — ' + formatTime(addMins(parseTime(startTime), totalMins).replace(/(..):(..)/,'$1:$2').replace(/^(..):(..)/,'$1:$2'));
+  document.getElementById('headerSub').textContent = totalMins + ' minutos · 6 prácticas · 2 bloques';
+  document.getElementById('footerTotal').textContent = totalMins + ' min · S.A.V.E.R.S.';
+  document.getElementById('transText').textContent = trans.desc;
+  document.getElementById('transMins').textContent = '~' + trans.mins + ' min';
+
+  const savStart = formatTime(startTime);
+  const savEnd   = formatTime(addMins(parseTime(startTime), sav.reduce((s,x)=>s+x.mins,0)).replace(/(..):(..)/,'$1:$2').replace(/^(..):(..)/,'$1:$2'));
+  document.getElementById('labelCama').textContent = savStart + ' – ' + savEnd;
+
+  const ersStart = formatTime(addMins(parseTime(startTime), sav.reduce((s,x)=>s+x.mins,0)+trans.mins).replace(/(..):(..)/,'$1:$2').replace(/^(..):(..)/,'$1:$2'));
+  const ersEnd   = formatTime(addMins(parseTime(startTime), totalMins).replace(/(..):(..)/,'$1:$2').replace(/^(..):(..)/,'$1:$2'));
+  document.getElementById('labelFuera').textContent = ersStart + ' – ' + ersEnd;
+
+  buildRow(sav, 'rowSAV', 'sav');
+  buildRow(ers, 'rowERS', 'ers');
+}
+
+function buildRow(data, containerId, prefix) {
+  const row = document.getElementById(containerId);
+  row.innerHTML = '';
+  const ct = calcTimes();
+  const times = prefix==='sav' ? ct.sav : ct.ers;
+  data.forEach((s,i) => {
+    const t = times[i] || {start:'',end:''};
+    const card = document.createElement('div');
+    card.className = 'saver-card';
+    card.style.background = s.bg;
+    card.style.borderColor = s.accent+'44';
+    card.innerHTML = `
+      <div class="sc-top">
+        <div class="sc-icon"><svg viewBox="0 0 16 16" fill="none">${s.icon}</svg></div>
+        <div>
+          <div class="sc-name">${s.name}</div>
+          <div class="sc-time-small">${t.start}–${t.end}</div>
+        </div>
+      </div>
+      <span class="sc-mins" style="background:${s.accent};">${s.mins} min</span>
+      <div class="sc-benefit">${s.body.substring(0,55)}...</div>
+    `;
+    const key = prefix+i;
+    card.onclick = () => showDetail(s, key);
+    row.appendChild(card);
+  });
+}
+
+function showDetail(s, key) {
+  const panel = document.getElementById('detailPanel');
+  if(activeKey===key){ panel.classList.remove('open'); activeKey=null; return; }
+  activeKey=key;
+  panel.innerHTML=`
+    <div class="dp-head">
+      <div>
+        <div class="dp-name" style="color:${s.accent};">${s.letter} · ${s.name}</div>
+        <div class="dp-sub">${s.mins} minutos</div>
+      </div>
+      <button class="dp-close-btn" onclick="closeDP()">✕</button>
+    </div>
+    <div class="dp-body">${s.body}</div>
+    <div class="dp-practice" style="border-left-color:${s.accent};">
+      <strong>Cómo practicarlo:</strong>${s.practice}
+    </div>`;
+  panel.classList.add('open');
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function closeDP() { document.getElementById('detailPanel').classList.remove('open'); activeKey=null; }
+
+function buildEditForms() {
+  buildEditBlock(sav,'editSAV','sav');
+  buildEditBlock(ers,'editERS','ers');
+  document.getElementById('etDesc').value = trans.desc;
+  document.getElementById('etMins').value = trans.mins;
+  document.getElementById('startTime').value = startTime;
+}
+
+function buildEditBlock(data, containerId, prefix) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = '';
+  data.forEach((s,i) => {
+    const div = document.createElement('div');
+    div.className = 'edit-item';
+    div.innerHTML = `
+      <div class="ei-row">
+        <div class="ei-field">
+          <label>${s.letter} · Nombre</label>
+          <input type="text" id="en-${prefix}-${i}" value="${s.name}" maxlength="25">
+        </div>
+        <div class="ei-field ei-mins">
+          <label>Minutos</label>
+          <input type="number" id="em-${prefix}-${i}" value="${s.mins}" min="1" max="60" style="text-align:center;">
+        </div>
+      </div>`;
+    c.appendChild(div);
+  });
+}
+
+function applyChanges() {
+  sav.forEach((s,i) => {
+    const n=document.getElementById('en-sav-'+i); const m=document.getElementById('em-sav-'+i);
+    if(n) s.name=n.value||s.name;
+    if(m) s.mins=parseInt(m.value)||s.mins;
+  });
+  ers.forEach((s,i) => {
+    const n=document.getElementById('en-ers-'+i); const m=document.getElementById('em-ers-'+i);
+    if(n) s.name=n.value||s.name;
+    if(m) s.mins=parseInt(m.value)||s.mins;
+  });
+  trans.desc = document.getElementById('etDesc').value||trans.desc;
+  trans.mins = parseInt(document.getElementById('etMins').value)||trans.mins;
+  startTime  = document.getElementById('startTime').value||startTime;
+  renderCrono();
+  showToast('✓ Cronograma actualizado');
+  document.getElementById('crono').scrollIntoView({behavior:'smooth'});
+}
+
+function saveCustom() {
+  applyChanges();
+  saveData({sav,ers,trans,startTime});
+  showToast('✓ Tu versión guardada en Netlify');
+}
+
+function resetToDefault() {
+  if(!confirm('¿Restaurar el cronograma original?')) return;
+  sav=[...JSON.parse(JSON.stringify(DEFAULT_SAV))];
+  ers=[...JSON.parse(JSON.stringify(DEFAULT_ERS))];
+  trans={...DEFAULT_TRANS}; startTime=DEFAULT_START;
+  saveData(null); buildEditForms(); renderCrono();
+  showToast('Restaurado al original');
+}
+
+function downloadPDF() {
+  const ct=calcTimes();
+  const totalMins=sav.reduce((s,x)=>s+x.mins,0)+trans.mins+ers.reduce((s,x)=>s+x.mins,0);
+  const allBlocks=[
+    ...sav.map((s,i)=>({...s,t:ct.sav[i],bloque:'En cama'})),
+    {letter:'↕',name:'Transición',mins:trans.mins,accent:'#F5C87A',body:trans.desc,bloque:'transicion'},
+    ...ers.map((s,i)=>({...s,t:ct.ers[i],bloque:'Fuera de cama'}))
+  ];
+  const rows=allBlocks.map(s=>{
+    if(s.bloque==='transicion') return `<tr style="background:#FAEEDA;"><td style="padding:8px 12px;font-size:12px;color:#633806;font-style:italic;" colspan="4">↕ ${s.body} · ${s.mins} min</td></tr>`;
+    return `<tr><td style="padding:8px 12px;font-size:13px;font-weight:600;color:${s.accent};">${s.letter} · ${s.name}</td><td style="padding:8px 12px;font-size:12px;color:#2D6B65;">${s.bloque}</td><td style="padding:8px 12px;font-size:13px;font-weight:700;text-align:center;color:#185FA5;">${s.mins} min</td><td style="padding:8px 12px;font-size:12px;color:#4A2E22;">${(s.t&&s.t.start?s.t.start+' – '+s.t.end:'')}</td></tr>`;
+  }).join('');
+  const html=`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Mi Ritual Matutino — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Raleway:wght@200;300;400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>body{font-family:'Raleway',sans-serif;margin:0;background:#FAF6F0;color:#4A2E22;}
+.hdr{background:linear-gradient(160deg,#0D1B2A 0%,#1A2F4A 30%,#2D4A6B 50%,#8B5E3C 70%,#C4784A 85%,#F5C87A 100%);padding:36px 48px 44px;clip-path:polygon(0 0,100% 0,100% 82%,55% 96%,0 86%);}
+h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#fff;margin:0 0 4px;}
+.ey{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.7);text-transform:uppercase;margin-bottom:6px;}
+.hs{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.8);}
+.db{display:inline-block;background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);padding:5px 18px;border-radius:20px;font-size:11px;margin-top:12px;}
+.body{padding:32px 48px;}
+.st{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#2D6B65;margin:0 0 14px;}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;border:1.5px solid #1D9E75;margin-bottom:24px;}
+th{background:#E1F5EE;padding:10px 12px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#085041;text-align:left;}th:last-child{text-align:right;}
+td{border-bottom:1px solid #EDE4D8;}tr:last-child td{border-bottom:none;}
+.qt{background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:0 8px 8px 0;padding:14px 20px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:#085041;line-height:1.8;margin-bottom:8px;}
+.ft{background:#2D6B65;padding:18px 48px;text-align:center;}.ft p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}.ft strong{color:#fff;}
+@media print{body{background:#fff;}.hdr,.ft{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="hdr"><div class="ey">✦ Método Camino · Ritual Matutino S.A.V.E.R.S.</div><h1>Mi Hora de la Mañana</h1><div class="hs">Ritual personalizado · ${totalMins} minutos</div><div class="db">Inicio: ${formatTime(startTime)} · Total: ${totalMins} min</div></div>
+<div class="body"><div class="st">Mi cronograma personalizado</div>
+<table><tr><th>Práctica</th><th>Bloque</th><th style="text-align:center;">Minutos</th><th style="text-align:right;">Horario</th></tr>${rows}</table>
+<div class="qt">"Esa hora de la mañana me salvó. No el esfuerzo sobrehumano — esa hora donde solo existo yo."<br><br>Mi intención para este ritual: ___________________________________</div></div>
+<div class="ft"><p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026<br>Para imprimir: Archivo → Imprimir → Guardar como PDF</p></div>
+</body></html>`;
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`RitualMatutino_MetodoCamino_${new Date().toISOString().split('T')[0]}.html`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast('✓ Descargando tu ritual...');
+}
+
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+init();
+</script>
+</body>
+</html>

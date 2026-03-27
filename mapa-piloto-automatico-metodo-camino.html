@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Piloto Automático · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-lt:   #5B9E98;
+  --teal-pale: #C2DCDA;
+  --gold:      #C8A96E;
+  --gold-deep: #A8853E;
+  --blush:     #E4A98A;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --sand2:     #D6C4A8;
+  --blue:      #185FA5;
+  --blue-lt:   #378ADD;
+  --blue-pale: #E6F1FB;
+  --amber:     #854F0B;
+  --amber-lt:  #EF9F27;
+  --amber-pale:#FAEEDA;
+  --teal-svg:  #0F6E56;
+  --teal-svg-pale: #E1F5EE;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Raleway', sans-serif;
+  background: var(--cream);
+  color: var(--brown);
+  min-height: 100vh;
+}
+
+/* ══ HERO ══ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(170deg, #FAF7F1 0%, #F2E9DC 50%, #EDE2D2 100%);
+}
+.hero-swoosh {
+  position: absolute; top:0; left:0; right:0; height:100%;
+  background: linear-gradient(158deg, #2D6B65 0%, #3D7D78 30%, #5B9E98 58%, rgba(141,191,186,0.2) 80%, transparent 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 55%, 55% 72%, 0 62%);
+}
+.hero-bottom {
+  position: absolute; bottom:0; left:0; right:0; height:35%;
+  background: linear-gradient(0deg, rgba(200,169,110,0.3) 0%, transparent 100%);
+  clip-path: polygon(0 40%, 40% 20%, 100% 32%, 100% 100%, 0 100%);
+}
+.hero-content {
+  position: relative; z-index:2;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 44px 24px 48px; text-align: center;
+}
+.hero-eyebrow {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.65em; color:rgba(255,255,255,0.88);
+  text-transform:uppercase; margin-bottom:8px;
+}
+.hero-metodo {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:12px;
+  letter-spacing:0.7em; color:rgba(255,255,255,0.65);
+  text-transform:uppercase; margin-bottom:2px;
+}
+.hero-title {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(28px,6vw,52px); letter-spacing:0.06em;
+  color:#fff; text-shadow:0 3px 30px rgba(45,107,101,0.5);
+  line-height:1.15; max-width:560px;
+}
+.hero-accent {
+  display:flex; align-items:center; gap:10px; margin:14px 0 16px;
+}
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+  font-size:clamp(14px,2.2vw,17px); color:var(--brown);
+  line-height:1.75; max-width:500px;
+}
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge {
+  margin-top:16px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; padding:8px 24px;
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:10px;
+  letter-spacing:0.3em; text-transform:uppercase;
+  border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35);
+}
+.hero-author {
+  margin-top:18px;
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:20px; color:var(--teal); letter-spacing:0.05em;
+}
+.hero-author-by {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:9px;
+  letter-spacing:0.45em; color:var(--brown-mid);
+  text-transform:uppercase; display:block; margin-bottom:3px;
+}
+.scroll-cta {
+  margin-top:24px;
+  display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+}
+.scroll-cta span {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.35em; color:var(--teal); text-transform:uppercase;
+}
+.scroll-arrow {
+  width:28px; height:28px;
+  border:1px solid rgba(45,107,101,0.4); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  animation:bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section {
+  background:var(--sand);
+  padding:36px 24px; text-align:center;
+}
+.intro-section h2 {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:22px;
+  color:var(--teal); margin-bottom:10px;
+}
+.intro-section p {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px;
+  color:var(--brown-mid); max-width:560px; margin:0 auto 20px; line-height:1.75;
+}
+.quote-banner {
+  background:rgba(255,255,255,0.6);
+  border-left:3px solid var(--teal); border-radius:0 8px 8px 0;
+  padding:14px 20px; max-width:500px; margin:0 auto;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; color:var(--brown); line-height:1.8;
+}
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ LEGEND ══ */
+.legend-bar {
+  display:flex; gap:16px; justify-content:center;
+  flex-wrap:wrap; padding:20px 24px 0;
+}
+.leg-i {
+  display:flex; align-items:center; gap:8px;
+  font-family:'Raleway',sans-serif; font-size:12px; color:var(--brown-mid);
+}
+.leg-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+
+/* ══ MAP SECTION ══ */
+.map-section {
+  max-width:800px; margin:0 auto;
+  padding:24px 16px 0;
+}
+.map-section svg { width:100%; display:block; }
+
+/* ══ DETAIL PANEL ══ */
+.detail-panel {
+  max-width:760px; margin:0 auto;
+  padding:0 16px 20px;
+}
+.detail-card {
+  background:#fff;
+  border-radius:12px;
+  border:0.5px solid rgba(45,107,101,0.2);
+  padding:24px 28px;
+  margin-top:16px;
+  display:none;
+  animation:fadeInUp 0.35s ease;
+}
+.detail-card.visible { display:block; }
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(12px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.dc-label {
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:9px;
+  letter-spacing:0.4em; text-transform:uppercase; margin-bottom:6px; display:block;
+}
+.dc-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:22px;
+  margin-bottom:12px;
+}
+.dc-body {
+  font-family:'Cormorant Garamond',serif; font-size:16px;
+  color:var(--brown-mid); line-height:1.8;
+}
+.dc-body strong { font-weight:600; color:var(--teal); font-style:normal; }
+.dc-items {
+  margin:12px 0; padding:0; list-style:none;
+}
+.dc-items li {
+  display:flex; gap:10px; margin-bottom:8px;
+  font-family:'Raleway',sans-serif; font-size:13px; color:var(--brown-mid);
+  align-items:flex-start; line-height:1.5;
+}
+.dc-items li::before {
+  content:''; width:6px; height:6px; border-radius:50%;
+  flex-shrink:0; margin-top:5px;
+}
+.dc-items.blue li::before   { background:var(--blue); }
+.dc-items.amber li::before  { background:var(--amber-lt); }
+.dc-items.teal-c li::before { background:var(--teal); }
+.dc-action {
+  margin-top:16px; padding:14px 18px;
+  border-radius:8px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; line-height:1.7;
+}
+.dc-action.blue   { background:var(--blue-pale); border-left:3px solid var(--blue); color:var(--blue); }
+.dc-action.amber  { background:var(--amber-pale); border-left:3px solid var(--amber-lt); color:var(--amber); }
+.dc-action.teal-c { background:var(--teal-svg-pale); border-left:3px solid var(--teal); color:var(--teal); }
+.close-btn {
+  float:right; background:none; border:0.5px solid var(--sand2);
+  border-radius:6px; padding:4px 12px; font-size:12px;
+  color:var(--brown-mid); cursor:pointer; font-family:'Raleway',sans-serif;
+}
+.close-btn:hover { background:var(--sand); }
+
+/* ══ DIARIO ══ */
+.diario-section {
+  max-width:760px; margin:24px auto 0;
+  padding:0 16px 40px;
+}
+.diario-card {
+  background:#fff; border-radius:12px;
+  border:0.5px solid rgba(45,107,101,0.2);
+  padding:24px 28px;
+}
+.diario-title {
+  font-family:'Playfair Display',serif; font-weight:700;
+  font-size:20px; color:var(--teal); margin-bottom:6px;
+}
+.diario-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; color:var(--brown-mid); margin-bottom:20px;
+}
+.diario-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:14px; margin-bottom:16px;
+}
+@media(max-width:500px){ .diario-grid{ grid-template-columns:1fr; } }
+.diario-field label {
+  display:block; font-family:'Raleway',sans-serif;
+  font-size:11px; font-weight:600; color:var(--teal);
+  letter-spacing:0.1em; text-transform:uppercase; margin-bottom:5px;
+}
+.diario-field textarea {
+  width:100%; border:0.5px solid rgba(45,107,101,0.3);
+  border-radius:8px; padding:10px 12px;
+  font-family:'Cormorant Garamond',serif; font-size:14px;
+  color:var(--brown); background:var(--cream);
+  resize:vertical; min-height:80px; line-height:1.6;
+}
+.diario-field textarea:focus {
+  outline:none; border-color:var(--teal);
+  box-shadow:0 0 0 3px rgba(45,107,101,0.1);
+}
+.diario-full { grid-column:1/-1; }
+.diario-bottom {
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+}
+.diario-date {
+  display:flex; align-items:center; gap:8px; flex:1; min-width:200px;
+}
+.diario-date label {
+  font-family:'Raleway',sans-serif; font-size:12px; color:var(--brown-mid); white-space:nowrap;
+}
+.diario-date input {
+  font-family:'Raleway',sans-serif; font-size:12px; padding:6px 10px;
+  border:0.5px solid rgba(45,107,101,0.35); border-radius:6px;
+  background:var(--cream); color:var(--brown);
+}
+.btn-save {
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:600;
+  padding:8px 18px; border-radius:6px; cursor:pointer;
+  background:var(--teal); color:#fff; border:none; transition:opacity 0.2s;
+}
+.btn-save:hover { opacity:0.85; }
+.btn-pdf {
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:600;
+  padding:8px 18px; border-radius:6px; cursor:pointer;
+  background:var(--gold); color:var(--brown); border:none; transition:opacity 0.2s;
+}
+.btn-pdf:hover { opacity:0.85; }
+
+/* History */
+.history-section {
+  background:var(--sand); border-radius:10px;
+  padding:16px 18px; margin-top:16px;
+}
+.history-title {
+  font-family:'Playfair Display',serif; font-size:16px;
+  font-weight:700; color:var(--teal); margin-bottom:12px;
+}
+.hist-list { display:flex; flex-direction:column; gap:8px; }
+.hist-item {
+  background:#fff; border-radius:8px; padding:10px 14px;
+  display:flex; align-items:center; gap:10px;
+  font-family:'Raleway',sans-serif; font-size:12px;
+}
+.hist-date { font-weight:600; color:var(--brown); min-width:90px; }
+.hist-preview { flex:1; color:var(--brown-mid); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.hist-del {
+  color:var(--brown-mid); cursor:pointer; font-size:13px;
+  padding:2px 6px; border-radius:4px;
+  border:0.5px solid rgba(91,158,152,0.2); background:transparent;
+  font-family:'Raleway',sans-serif;
+}
+.hist-del:hover { background:#FBEAE7; color:#E24B4A; border-color:#E24B4A; }
+.empty-hist {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:14px; color:var(--brown-mid); text-align:center; padding:10px;
+}
+
+/* ══ FOOTER ══ */
+.footer {
+  background:var(--teal); padding:28px 24px; text-align:center;
+}
+.footer p {
+  font-family:'Raleway',sans-serif; font-weight:200;
+  font-size:11px; letter-spacing:0.2em;
+  color:rgba(255,255,255,0.7); line-height:2;
+}
+.footer strong { color:#fff; font-weight:600; }
+
+/* TOAST */
+.toast {
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  background:var(--teal); color:#fff; padding:10px 24px; border-radius:24px;
+  font-family:'Raleway',sans-serif; font-size:13px;
+  opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999;
+  box-shadow:0 4px 20px rgba(45,107,101,0.4);
+}
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta Interactiva · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Mi Piloto Automático</div>
+    <div class="hero-accent">
+      <div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div>
+    </div>
+    <div class="hero-sub">
+      Identifica tus <strong>patrones automáticos</strong>, descubre su origen<br>
+      y elige conscientemente una <strong>nueva respuesta</strong>
+    </div>
+    <div class="hero-badge">✦ &nbsp; Mapa Mental Interactivo &nbsp; ✦</div>
+    <div style="margin-top:18px;">
+      <span class="hero-author-by">A u t o r a</span>
+      <div class="hero-author">Jenifer Mendoza</div>
+    </div>
+    <div class="scroll-cta" onclick="document.getElementById('mapa').scrollIntoView({behavior:'smooth'})">
+      <span>Explorar mi mapa</span>
+      <div class="scroll-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTRO ══ -->
+<div class="intro-section">
+  <h2>¿Qué es el piloto automático?</h2>
+  <p>Son esas reacciones que ocurren sin que las elijas — heredadas de tu historia, grabadas en tu cuerpo. Reconocerlas es el primer paso para liberarte de ellas.</p>
+  <div class="quote-banner">
+    "Entre el estímulo y la respuesta existe un espacio.<br>
+    En ese espacio está tu poder y tu libertad." — <strong>Viktor Frankl</strong>
+  </div>
+</div>
+
+<!-- ══ LEYENDA ══ -->
+<div class="legend-bar">
+  <div class="leg-i"><div class="leg-dot" style="background:#185FA5;"></div>Patrones actuales</div>
+  <div class="leg-i"><div class="leg-dot" style="background:#EF9F27;"></div>Origen / raíz</div>
+  <div class="leg-i"><div class="leg-dot" style="background:#0F6E56;"></div>Nueva respuesta elegida</div>
+  <div style="font-family:'Raleway',sans-serif;font-size:11px;color:var(--brown-mid);width:100%;text-align:center;margin-top:4px;">Haz clic en cualquier nodo para explorar</div>
+</div>
+
+<!-- ══ MAPA SVG ══ -->
+<div class="map-section" id="mapa">
+<svg viewBox="0 0 680 780" xmlns="http://www.w3.org/2000/svg" style="cursor:default;">
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- Branch lines -->
+<path d="M340 308 C300 278,220 238,160 198" fill="none" stroke="#378ADD" stroke-width="2.2" marker-end="url(#arr)"/>
+<path d="M160 198 C128 178,96 158,70 146" fill="none" stroke="#378ADD" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M160 198 C128 198,96 198,70 198" fill="none" stroke="#378ADD" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M160 198 C128 218,96 236,70 246" fill="none" stroke="#378ADD" stroke-width="1.3" marker-end="url(#arr)"/>
+
+<path d="M340 308 C380 278,460 238,520 198" fill="none" stroke="#378ADD" stroke-width="2.2" marker-end="url(#arr)"/>
+<path d="M520 198 C550 178,582 158,610 148" fill="none" stroke="#378ADD" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M520 198 C550 198,582 198,610 198" fill="none" stroke="#378ADD" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M520 198 C550 218,582 236,610 248" fill="none" stroke="#378ADD" stroke-width="1.3" marker-end="url(#arr)"/>
+
+<path d="M340 360 C300 392,220 432,160 468" fill="none" stroke="#378ADD" stroke-width="2.2" marker-end="url(#arr)"/>
+<path d="M160 468 C128 450,96 436,70 426" fill="none" stroke="#378ADD" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M160 468 C128 468,96 468,70 468" fill="none" stroke="#378ADD" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M160 468 C128 488,96 504,70 514" fill="none" stroke="#378ADD" stroke-width="1.3" marker-end="url(#arr)"/>
+
+<path d="M340 360 C380 392,460 432,520 468" fill="none" stroke="#EF9F27" stroke-width="2.2" marker-end="url(#arr)"/>
+<path d="M520 468 C550 450,582 436,610 426" fill="none" stroke="#EF9F27" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M520 468 C550 468,582 468,610 468" fill="none" stroke="#EF9F27" stroke-width="1.3" marker-end="url(#arr)"/>
+
+<path d="M340 390 C340 432,340 492,340 558" fill="none" stroke="#0F6E56" stroke-width="2.8" marker-end="url(#arr)"/>
+<path d="M340 558 C308 578,258 598,218 616" fill="none" stroke="#0F6E56" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M340 558 C340 578,340 598,340 616" fill="none" stroke="#0F6E56" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M340 558 C372 578,422 598,462 616" fill="none" stroke="#0F6E56" stroke-width="1.3" marker-end="url(#arr)"/>
+
+<!-- CENTER NODE -->
+<ellipse cx="340" cy="334" rx="90" ry="54" fill="#EDE4D8" stroke="#7A5545" stroke-width="1.5"/>
+<text font-family="Playfair Display,serif" font-size="15" font-weight="700" fill="#4A2E22" text-anchor="middle" x="340" y="328" dominant-baseline="central">Mi piloto</text>
+<text font-family="Playfair Display,serif" font-size="15" font-weight="700" fill="#4A2E22" text-anchor="middle" x="340" y="348" dominant-baseline="central">automático</text>
+
+<!-- BRANCH 1: SITUACIONES -->
+<g style="cursor:pointer;" onclick="showDetail('situaciones')">
+  <rect x="68" y="172" width="184" height="40" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="1"/>
+  <text font-family="Raleway,sans-serif" font-size="12" font-weight="600" fill="#0C447C" text-anchor="middle" x="160" y="192" dominant-baseline="central">Situaciones disparadoras</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('trabajo')">
+  <rect x="18" y="131" width="52" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#185FA5" text-anchor="middle" x="44" y="145" dominant-baseline="central">Trabajo</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('familia')">
+  <rect x="18" y="184" width="52" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#185FA5" text-anchor="middle" x="44" y="198" dominant-baseline="central">Familia</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('pareja')">
+  <rect x="18" y="232" width="52" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#185FA5" text-anchor="middle" x="44" y="246" dominant-baseline="central">Pareja</text>
+</g>
+
+<!-- BRANCH 2: RESPUESTA AUTOMÁTICA -->
+<g style="cursor:pointer;" onclick="showDetail('respuesta')">
+  <rect x="428" y="172" width="184" height="40" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="1"/>
+  <text font-family="Raleway,sans-serif" font-size="12" font-weight="600" fill="#0C447C" text-anchor="middle" x="520" y="192" dominant-baseline="central">Respuesta automática</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('reacciono')">
+  <rect x="610" y="131" width="62" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#185FA5" text-anchor="middle" x="641" y="145" dominant-baseline="central">Reacciono</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('evito')">
+  <rect x="610" y="184" width="62" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#185FA5" text-anchor="middle" x="641" y="198" dominant-baseline="central">Evito</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('cedo')">
+  <rect x="610" y="234" width="62" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#185FA5" text-anchor="middle" x="641" y="248" dominant-baseline="central">Cedo</text>
+</g>
+
+<!-- BRANCH 3: EMOCIÓN -->
+<g style="cursor:pointer;" onclick="showDetail('emocion')">
+  <rect x="68" y="448" width="184" height="40" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="1"/>
+  <text font-family="Raleway,sans-serif" font-size="12" font-weight="600" fill="#0C447C" text-anchor="middle" x="160" y="468" dominant-baseline="central">Emoción asociada</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('miedo')">
+  <rect x="18" y="411" width="52" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#185FA5" text-anchor="middle" x="44" y="425" dominant-baseline="central">Miedo</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('culpa')">
+  <rect x="18" y="454" width="52" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#185FA5" text-anchor="middle" x="44" y="468" dominant-baseline="central">Culpa</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('tristeza')">
+  <rect x="18" y="499" width="52" height="28" rx="6" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#185FA5" text-anchor="middle" x="44" y="513" dominant-baseline="central">Tristeza</text>
+</g>
+
+<!-- BRANCH 4: ORIGEN -->
+<g style="cursor:pointer;" onclick="showDetail('origen')">
+  <rect x="428" y="448" width="184" height="40" rx="8" fill="#FAEEDA" stroke="#EF9F27" stroke-width="1"/>
+  <text font-family="Raleway,sans-serif" font-size="12" font-weight="600" fill="#633806" text-anchor="middle" x="520" y="462" dominant-baseline="central">Origen probable</text>
+  <text font-family="Raleway,sans-serif" font-size="10" fill="#854F0B" text-anchor="middle" x="520" y="478" dominant-baseline="central">infancia / adolescencia</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('infancia')">
+  <rect x="610" y="411" width="64" height="28" rx="6" fill="#FAEEDA" stroke="#EF9F27" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#854F0B" text-anchor="middle" x="642" y="425" dominant-baseline="central">Infancia</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('creencias')">
+  <rect x="610" y="454" width="64" height="28" rx="6" fill="#FAEEDA" stroke="#EF9F27" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#854F0B" text-anchor="middle" x="642" y="468" dominant-baseline="central">Creencias</text>
+</g>
+
+<!-- BRANCH 5: NUEVA RESPUESTA -->
+<g style="cursor:pointer;" onclick="showDetail('nueva')">
+  <rect x="252" y="558" width="176" height="44" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.8"/>
+  <text font-family="Playfair Display,serif" font-size="13" font-weight="700" fill="#085041" text-anchor="middle" x="340" y="574" dominant-baseline="central">Nueva respuesta</text>
+  <text font-family="Raleway,sans-serif" font-size="10" fill="#0F6E56" text-anchor="middle" x="340" y="591" dominant-baseline="central">elegida conscientemente</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('paro')">
+  <rect x="186" y="618" width="46" height="28" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" x="209" y="632" dominant-baseline="central">Paro</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('observo')">
+  <rect x="317" y="618" width="62" height="28" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" x="348" y="632" dominant-baseline="central">Observo</text>
+</g>
+<g style="cursor:pointer;" onclick="showDetail('elijo')">
+  <rect x="444" y="618" width="54" height="28" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+  <text font-family="Raleway,sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" x="471" y="632" dominant-baseline="central">Elijo</text>
+</g>
+
+<!-- AFIRMACION -->
+<rect x="130" y="700" width="420" height="58" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text font-family="Cormorant Garamond,serif" font-size="12" font-style="italic" fill="#085041" text-anchor="middle" x="340" y="722" dominant-baseline="central">"Entre el estímulo y la respuesta existe un espacio.</text>
+<text font-family="Cormorant Garamond,serif" font-size="12" font-style="italic" fill="#085041" text-anchor="middle" x="340" y="742" dominant-baseline="central">En ese espacio está mi poder." — Viktor Frankl</text>
+</svg>
+</div>
+
+<!-- ══ DETAIL PANEL ══ -->
+<div class="detail-panel">
+  <div id="detailCard" class="detail-card"></div>
+</div>
+
+<!-- ══ DIARIO ══ -->
+<div class="diario-section" id="diario">
+  <div class="diario-card">
+    <div class="diario-title">Mi diario de patrones</div>
+    <div class="diario-sub">Registra cada vez que notes tu piloto automático en acción. Con el tiempo verás tus patrones con claridad.</div>
+    <div class="diario-grid">
+      <div class="diario-field">
+        <label>¿Qué pasó?</label>
+        <textarea id="f1" placeholder="Describe la situación que ocurrió..."></textarea>
+      </div>
+      <div class="diario-field">
+        <label>¿Cómo reaccioné automáticamente?</label>
+        <textarea id="f2" placeholder="¿Qué hice o dijiste sin pensarlo?"></textarea>
+      </div>
+      <div class="diario-field">
+        <label>¿Qué emoción había debajo?</label>
+        <textarea id="f3" placeholder="Miedo, culpa, tristeza, enojo..."></textarea>
+      </div>
+      <div class="diario-field">
+        <label>¿Cómo hubiera querido responder?</label>
+        <textarea id="f4" placeholder="Mi respuesta elegida consciente..."></textarea>
+      </div>
+      <div class="diario-field diario-full">
+        <label>¿Qué aprendí de este momento?</label>
+        <textarea id="f5" placeholder="Reflexión o aprendizaje..."></textarea>
+      </div>
+    </div>
+    <div class="diario-bottom">
+      <div class="diario-date">
+        <label>Fecha:</label>
+        <input type="date" id="entryDate">
+      </div>
+      <button class="btn-save" onclick="saveEntry()">💾 Guardar registro</button>
+      <button class="btn-pdf" onclick="downloadPDF()">📄 Descargar PDF</button>
+    </div>
+  </div>
+
+  <div class="history-section" style="margin-top:16px;">
+    <div class="history-title">Mis registros guardados</div>
+    <div class="hist-list" id="histList"></div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <p>
+    <strong>Método Camino</strong> · Mapa Mental Interactivo<br>
+    Mi Piloto Automático — Herramienta de autoconocimiento para mujeres de 40+<br>
+    © 2026 Jenifer Mendoza · Todos los derechos reservados
+  </p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DETAILS = {
+  situaciones: {
+    color:'blue', label:'Rama principal',
+    title:'Situaciones disparadoras',
+    body:'Son los contextos que activan tu piloto automático sin que lo elijas. Reconocerlos es el primer paso para recuperar el control.',
+    items:['El trabajo — presión, conflictos, exigencias externas','La familia — dinámicas aprendidas desde la infancia','La pareja — patrones relacionales repetidos','Cualquier situación donde te sientes evaluada o en riesgo'],
+    action:'Pregúntate: ¿En qué momento del día reacciono sin elegir? ¿Qué personas o situaciones activan mis respuestas automáticas?'
+  },
+  trabajo: { color:'blue', label:'Disparador', title:'El trabajo como disparador',
+    body:'El entorno laboral puede activar patrones aprendidos de perfeccionismo, complacencia o miedo al fracaso.',
+    items:['Necesidad de aprobación de superiores','Miedo a equivocarte o ser criticada','Dificultad para poner límites con compañeros','Tendencia a decir sí cuando quieres decir no'],
+    action:'¿Qué situación en tu trabajo te saca de tu centro con más frecuencia? ¿Qué patrón se repite?'
+  },
+  familia: { color:'blue', label:'Disparador', title:'La familia como disparador',
+    body:'La familia es donde aprendimos nuestros primeros patrones. Las dinámicas familiares suelen ser los disparadores más profundos.',
+    items:['Rol de cuidadora que asumiste desde pequeña','Necesidad de mantener la paz a cualquier costo','Sentirte responsable de las emociones de otros','Patrones heredados de tu madre o figuras de autoridad'],
+    action:'¿Qué persona de tu familia activa más tu piloto automático? ¿Qué rol sueles asumir automáticamente con ellos?'
+  },
+  pareja: { color:'blue', label:'Disparador', title:'La pareja como disparador',
+    body:'Las relaciones de pareja son espejo de nuestros patrones más profundos. Lo que nos molesta del otro suele hablarnos de nosotras.',
+    items:['Reacciones desproporcionadas ante situaciones pequeñas','Patrones de comunicación que se repiten en conflictos','Dificultad para expresar necesidades sin culpa','Tendencia a minimizar tus deseos para no generar conflicto'],
+    action:'¿Qué situación con tu pareja (o ex pareja) se repite una y otra vez? ¿Qué sientes en el cuerpo justo antes de reaccionar?'
+  },
+  respuesta: { color:'blue', label:'Rama principal', title:'Respuesta automática actual',
+    body:'Es lo que haces de forma refleja, sin elegirlo conscientemente. Generalmente fue una estrategia de supervivencia que ya no te sirve.',
+    items:['Reaccionar con enojo, llanto o cierre emocional','Evitar, huir o postergar lo que incomoda','Ceder y callarte para no generar conflicto','Sobreexplicarte o justificarte constantemente'],
+    action:'Observa tu respuesta más frecuente. ¿La has visto antes en tu madre, abuela o figura importante de tu infancia?'
+  },
+  reacciono: { color:'blue', label:'Respuesta automática', title:'Reaccionar sin elegir',
+    body:'La reacción automática suele ser intensa, rápida y desproporcionada. Después viene el arrepentimiento.',
+    items:['Explotas ante algo pequeño que acumuló tensión','Dices cosas que no quieres decir cuando te sientes amenazada','Tu cuerpo reacciona antes que tu mente','Luego piensas "¿por qué reaccioné así?"'],
+    action:'La próxima vez que sientas que estás a punto de explotar, pon una mano en el pecho. Eso solo ya interrumpe el ciclo automático.'
+  },
+  evito: { color:'blue', label:'Respuesta automática', title:'Evitar como respuesta',
+    body:'Evitar es una forma de protección que a corto plazo funciona, pero a largo plazo aumenta la ansiedad y el malestar.',
+    items:['Postpones conversaciones difíciles indefinidamente','Dices que sí cuando quieres decir no','Desapareces emocionalmente cuando algo duele','Ocupas el tiempo para no tener que sentir'],
+    action:'Elige UNA conversación que llevas tiempo evitando. Escribe lo que quieres decir antes de tenerla. El papel te prepara.'
+  },
+  cedo: { color:'blue', label:'Respuesta automática', title:'Ceder siempre',
+    body:'Ceder constantemente no es amabilidad — es silenciarte. Con el tiempo genera resentimiento y pérdida de identidad.',
+    items:['Priorizar siempre las necesidades de otros','Sentir culpa cuando dices lo que realmente quieres','Creer que tus necesidades son menos importantes','Buscar aprobación antes de decidir algo para ti'],
+    action:'Esta semana practica una vez decir "necesito pensar antes de responder" en lugar de ceder automáticamente.'
+  },
+  emocion: { color:'blue', label:'Rama principal', title:'Emoción asociada',
+    body:'Detrás de cada patrón automático hay una emoción que nunca aprendiste a gestionar de otra manera. Nombrarla es el inicio del cambio.',
+    items:['El miedo suele estar debajo del enojo y la reactividad','La culpa impulsa el ceder y complacer','La tristeza no expresada alimenta el cierre emocional','La vergüenza sostiene la necesidad de aprobación'],
+    action:'Esta semana, cuando notes una reacción automática, pregúntate: ¿Qué emoción hay debajo de esto? Nómbrala en voz alta o escríbela.'
+  },
+  miedo: { color:'blue', label:'Emoción', title:'El miedo como motor',
+    body:'El miedo es la emoción más común detrás de los patrones automáticos. Puede ser miedo al rechazo, al abandono, al fracaso o a no ser suficiente.',
+    items:['Miedo a no ser amada si pones límites','Miedo a decepcionar a quienes dependen de ti','Miedo a estar sola si eres tú misma','Miedo al conflicto aprendido en la infancia'],
+    action:'Escribe: "El miedo que más me limita es..." y termina la frase con honestidad. La conciencia del miedo ya reduce su poder.'
+  },
+  culpa: { color:'blue', label:'Emoción', title:'La culpa como control',
+    body:'La culpa aprendida te hace responsable de las emociones de todos los demás. Es un peso que no te corresponde llevar.',
+    items:['Te sientes mal cuando alguien está mal, aunque no sea tu responsabilidad','Pides perdón por existir y tener necesidades','Sacrificas tu bienestar para no sentirte culpable','Interpretas el enojo de otros como tu culpa'],
+    action:'Pregúntate: ¿Esta culpa es mía realmente? ¿O estoy cargando el malestar de otra persona? La culpa genuina nos lleva a reparar. La culpa aprendida nos paraliza.'
+  },
+  tristeza: { color:'blue', label:'Emoción', title:'La tristeza no expresada',
+    body:'La tristeza guardada se convierte en peso, agotamiento y desconexión de una misma. Necesita ser expresada para liberarse.',
+    items:['Sientes un cansancio que no explica el sueño','Tienes momentos de vacío sin saber por qué','Guardas las ganas de llorar para cuando estés sola','Describes cómo te sientes como "bien" cuando no es verdad'],
+    action:'Date permiso de llorar cuando necesites. El llanto no es debilidad — es tu cuerpo procesando lo que no pudo expresarse. Escribe qué llevas cargando en silencio.'
+  },
+  origen: { color:'amber', label:'Rama principal', title:'Origen probable de tus patrones',
+    body:'Tus patrones automáticos no nacieron contigo — los aprendiste. Generalmente se forman antes de los 10 años como estrategias para sobrevivir en tu entorno familiar.',
+    items:['Lo que viste hacer a tu madre o cuidadora principal','Los mensajes que recibiste sobre ti misma y tus emociones','Las experiencias que aprendiste a evitar porque dolían','Las conductas que fueron premiadas o castigadas en tu hogar'],
+    action:'Pregúntate: ¿A quién le aprendí este patrón? ¿Quién en mi familia hacía esto mismo? La respuesta no busca culpar — busca comprender y liberar.'
+  },
+  infancia: { color:'amber', label:'Origen', title:'Lo que aprendiste en la infancia',
+    body:'La infancia es donde se graba el software de tus reacciones. No lo elegiste — simplemente sobreviviste con lo que tenías.',
+    items:['Si de niña el conflicto era peligroso, aprendiste a evitarlo','Si tus emociones no eran bienvenidas, aprendiste a suprimirlas','Si solo te amaban cuando eras "buena", aprendiste a complacer','Si tu hogar era impredecible, aprendiste a hipervigilar'],
+    action:'Escribe una carta a tu niña interior diciéndole: "Sobreviviste con lo que tenías. Hoy puedo elegir diferente." No tienes que enviársela a nadie — es solo para ti.'
+  },
+  creencias: { color:'amber', label:'Origen', title:'Las creencias que te limitan',
+    body:'Las creencias son pensamientos tan repetidos que se volvieron verdades automáticas. Muchas las adoptaste antes de poder cuestionarlas.',
+    items:['"No soy suficiente" — la madre de todos los patrones','"Si muestro mis necesidades, me abandonarán"','"Debo ser fuerte siempre — pedir ayuda es debilidad"','"Si no hago todo bien, algo malo pasará"'],
+    action:'Identifica UNA creencia limitante que reconoces en ti. Luego pregúntate: ¿Es esto realmente verdad? ¿O es un pensamiento que aprendí y nunca cuestioné?'
+  },
+  nueva: { color:'teal-c', label:'Rama principal — La más importante', title:'Mi nueva respuesta elegida',
+    body:'Esta es la rama que transforma tu vida. No se trata de suprimir la emoción — se trata de no dejar que ella decida por ti. El proceso es simple: para, observa y elige.',
+    items:['Paro — interrumpo el ciclo automático antes de reaccionar','Observo — me convierto en testigo de mi estado interno','Elijo — respondo desde quien quiero ser, no desde mi historia','Repito — cada vez que elijo, el nuevo patrón se fortalece'],
+    action:'"Entre el estímulo y la respuesta existe un espacio. En ese espacio está tu libertad." — Viktor Frankl. Tu trabajo es ampliar ese espacio, un momento a la vez.'
+  },
+  paro: { color:'teal-c', label:'Paso 1 — Nueva respuesta', title:'Paro: rompo el ciclo',
+    body:'El simple acto de parar antes de reaccionar ya cambia todo. No puedes elegir si estás en modo automático.',
+    items:['Un respiro profundo y lento antes de responder','Contar hasta 5 o hasta 10 mentalmente','Decir "necesito un momento" y darte ese espacio','Poner una mano en el pecho — eso activa el sistema nervioso parasimpático'],
+    action:'Practica esta semana: antes de responder a cualquier mensaje o situación que te active, toma 3 respiraciones. Solo 3. Eso es suficiente para interrumpir el piloto automático.'
+  },
+  observo: { color:'teal-c', label:'Paso 2 — Nueva respuesta', title:'Observo: me convierto en testigo',
+    body:'Observar no es juzgarte — es verte con curiosidad, como si fueras tu mejor amiga tratando de entenderte.',
+    items:['¿Qué estoy sintiendo en el cuerpo ahora mismo?','¿Qué historia me estoy contando sobre esta situación?','¿Esto que siento es del presente o es un patrón del pasado?','¿Desde qué lugar estoy a punto de responder — el miedo o la calma?'],
+    action:'La próxima vez que te actives, haz una pausa y escanea tu cuerpo de arriba abajo. ¿Dónde sientes la tensión? ¿En la garganta, el pecho, el estómago? Ese lugar es donde vive el patrón.'
+  },
+  elijo: { color:'teal-c', label:'Paso 3 — Nueva respuesta', title:'Elijo: respondo conscientemente',
+    body:'Elegir conscientemente es el acto más poderoso que existe. Significa responder desde tus valores, no desde tu historia.',
+    items:['¿Cómo respondería la versión más serena de mí?','¿Qué respuesta estaría alineada con quien quiero ser?','¿Qué elegiría si no tuviera miedo?','¿Esta respuesta me acerca o me aleja de la vida que quiero?'],
+    action:'Escribe en tu diario: "La versión de mí que quiero ser respondería a esta situación así..." Hacerlo por escrito primero te entrena para hacerlo en tiempo real.'
+  }
+};
+
+function showDetail(key) {
+  const d = DETAILS[key];
+  if(!d) return;
+  const colorMap = {
+    blue: { bg:'#E6F1FB', border:'#185FA5', label:'#0C447C', title:'#0C447C', li:'#185FA5' },
+    amber: { bg:'#FAEEDA', border:'#EF9F27', label:'#633806', title:'#633806', li:'#854F0B' },
+    'teal-c': { bg:'#E1F5EE', border:'#0F6E56', label:'#085041', title:'#085041', li:'#0F6E56' }
+  };
+  const c = colorMap[d.color];
+  const items = d.items.map(i=>`<li style="color:var(--brown-mid);"><span style="width:7px;height:7px;border-radius:50%;background:${c.li};flex-shrink:0;margin-top:4px;display:inline-block;"></span>&nbsp;&nbsp;${i}</li>`).join('');
+  document.getElementById('detailCard').innerHTML = `
+    <button class="close-btn" onclick="closeDetail()">✕ Cerrar</button>
+    <span class="dc-label" style="color:${c.label};">${d.label}</span>
+    <div class="dc-title" style="color:${c.title};">${d.title}</div>
+    <div class="dc-body">${d.body}</div>
+    <ul style="list-style:none;padding:0;margin:12px 0;">${items}</ul>
+    <div class="dc-action" style="background:${c.bg};border-left:3px solid ${c.border};color:${c.label};border-radius:0 8px 8px 0;padding:14px 18px;margin-top:12px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;line-height:1.7;">
+      <strong style="font-style:normal;display:block;margin-bottom:4px;font-family:'Raleway',sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;">Reflexión para tu diario:</strong>
+      ${d.action}
+    </div>
+  `;
+  document.getElementById('detailCard').classList.add('visible');
+  document.getElementById('detailCard').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function closeDetail() {
+  document.getElementById('detailCard').classList.remove('visible');
+}
+
+const STORAGE_KEY = 'metodoCamino_piloto';
+function loadHistory() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); } catch(e){return[];} }
+function saveHistory(h) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(h)); } catch(e){} }
+let history = loadHistory();
+
+function saveEntry() {
+  const date = document.getElementById('entryDate').value || new Date().toISOString().split('T')[0];
+  const entry = {
+    date,
+    f1: document.getElementById('f1').value,
+    f2: document.getElementById('f2').value,
+    f3: document.getElementById('f3').value,
+    f4: document.getElementById('f4').value,
+    f5: document.getElementById('f5').value
+  };
+  if(!entry.f1 && !entry.f2) { showToast('Escribe al menos qué pasó y cómo reaccionaste'); return; }
+  history = history.filter(h=>h.date!==date);
+  history.unshift(entry);
+  if(history.length>20) history=history.slice(0,20);
+  saveHistory(history);
+  renderHistory();
+  ['f1','f2','f3','f4','f5'].forEach(id=>document.getElementById(id).value='');
+  showToast('✓ Registro guardado correctamente');
+}
+
+function deleteEntry(date) {
+  history = history.filter(h=>h.date!==date);
+  saveHistory(history); renderHistory();
+}
+
+function renderHistory() {
+  const list = document.getElementById('histList');
+  if(!history.length) {
+    list.innerHTML='<div class="empty-hist">Aún no tienes registros. ¡Completa tu primer diario de patrones!</div>';
+    return;
+  }
+  list.innerHTML = history.map(h=>`
+    <div class="hist-item">
+      <span class="hist-date">${h.date.split('-').reverse().join('/')}</span>
+      <span class="hist-preview">${h.f1||'Sin descripción'}</span>
+      <button class="hist-del" style="background:var(--gold);color:var(--brown);border-color:var(--gold);margin-right:4px;" onclick="downloadPDFEntry('${h.date}')">PDF</button>
+      <button class="hist-del" onclick="deleteEntry('${h.date}')">✕</button>
+    </div>
+  `).join('');
+}
+
+function downloadPDFEntry(date) {
+  const entry = history.find(h=>h.date===date);
+  if(!entry) return;
+  const fd = date.split('-').reverse().join('/');
+  const v = key => entry[key] || '—';
+  generatePDFHTML(fd, date, v);
+}
+
+function downloadPDF() {
+  const date = document.getElementById('entryDate').value || new Date().toISOString().split('T')[0];
+  const fd = date.split('-').reverse().join('/');
+  const f1val = document.getElementById('f1').value;
+  const f2val = document.getElementById('f2').value;
+  let source;
+  if (f1val || f2val) {
+    source = { f1: f1val, f2: f2val,
+      f3: document.getElementById('f3').value,
+      f4: document.getElementById('f4').value,
+      f5: document.getElementById('f5').value };
+  } else if (history.length > 0) {
+    source = history[0];
+    showToast('Generando PDF del último registro guardado...');
+  } else {
+    showToast('Escribe y guarda un registro primero');
+    return;
+  }
+  const v = key => source[key] || '—';
+  generatePDFHTML(fd, source.date || date, v);
+}
+
+function generatePDFHTML(fd, date, v) {
+  const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<title>Mi Diario de Patrones — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:wght@400;700;900&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Raleway',sans-serif;margin:0;padding:0;background:#FAF6F0;color:#4A2E22;}
+.hdr{background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 40%,#5B9E98 70%,transparent 100%);padding:36px 48px 44px;clip-path:polygon(0 0,100% 0,100% 82%,55% 96%,0 86%);}
+.ey{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:6px;}
+h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;margin:0 0 4px;}
+.hs{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:rgba(255,255,255,0.85);}
+.db{display:inline-block;background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);padding:5px 18px;border-radius:20px;font-size:12px;margin-top:12px;}
+.body{padding:32px 48px;}
+.st{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#2D6B65;margin:0 0 16px;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.field{background:#fff;border-radius:8px;padding:16px 18px;box-shadow:0 2px 8px rgba(45,107,101,0.06);}
+.field-full{grid-column:1/-1;}
+.fl{font-family:'Raleway',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:#2D6B65;display:block;margin-bottom:6px;}
+.fv{font-family:'Cormorant Garamond',serif;font-size:15px;color:#4A2E22;line-height:1.7;}
+.qt{background:#E1F5EE;border-left:4px solid #0F6E56;border-radius:0 8px 8px 0;padding:16px 20px;margin:24px 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:#085041;line-height:1.8;}
+.ft{background:#2D6B65;padding:18px 48px;text-align:center;}
+.ft p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}
+.ft strong{color:#fff;}
+@media print{body{background:#fff;}.hdr,.ft{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="hdr"><div class="ey">✦ Método Camino · Mi Piloto Automático · Para Mujeres de 40+</div><h1>Mi Diario de Patrones</h1><div class="hs">Registro de autoconocimiento y transformación</div><div class="db">Fecha: ${fd}</div></div>
+<div class="body">
+<div class="st">Mi registro del día</div>
+<div class="grid">
+<div class="field"><span class="fl">¿Qué pasó?</span><div class="fv">${v('f1')}</div></div>
+<div class="field"><span class="fl">¿Cómo reaccioné automáticamente?</span><div class="fv">${v('f2')}</div></div>
+<div class="field"><span class="fl">¿Qué emoción había debajo?</span><div class="fv">${v('f3')}</div></div>
+<div class="field"><span class="fl">¿Cómo hubiera querido responder?</span><div class="fv">${v('f4')}</div></div>
+<div class="field field-full"><span class="fl">¿Qué aprendí de este momento?</span><div class="fv">${v('f5')}</div></div>
+</div>
+<div class="qt">"Entre el estímulo y la respuesta existe un espacio. En ese espacio está tu poder y tu libertad." — Viktor Frankl<br><br>Cada vez que eliges conscientemente, ese espacio se hace más grande.</div>
+</div>
+<div class="ft"><p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026<br>Para imprimir como PDF: Archivo → Imprimir → Guardar como PDF</p></div>
+</body></html>`;
+  const blob = new Blob([html],{type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download=`DiarioPatrones_MetodoCamino_${date}.html`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast('✓ Descargando tu diario...');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+document.getElementById('entryDate').value = new Date().toISOString().split('T')[0];
+renderHistory();
+</script>
+</body>
+</html>

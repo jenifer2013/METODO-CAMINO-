@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rueda de Vida · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-lt:   #5B9E98;
+  --teal-pale: #C2DCDA;
+  --gold:      #C8A96E;
+  --gold-deep: #A8853E;
+  --blush:     #E4A98A;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --sand2:     #D6C4A8;
+  --white:     #FFFFFF;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background: var(--cream);
+  color: var(--brown);
+  min-height: 100vh;
+}
+
+/* ══════════════════════════════
+   HERO PORTADA
+══════════════════════════════ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(170deg, #FAF7F1 0%, #F2E9DC 50%, #EDE2D2 100%);
+  padding: 0;
+}
+.hero-swoosh {
+  position: absolute; top:0; left:0; right:0; height:100%;
+  background: linear-gradient(158deg, #2D6B65 0%, #3D7D78 30%, #5B9E98 58%, rgba(141,191,186,0.2) 80%, transparent 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 55%, 55% 72%, 0 62%);
+}
+.hero-bottom {
+  position: absolute; bottom:0; left:0; right:0; height:35%;
+  background: linear-gradient(0deg, rgba(200,169,110,0.3) 0%, transparent 100%);
+  clip-path: polygon(0 40%, 40% 20%, 100% 32%, 100% 100%, 0 100%);
+}
+.hero-grain {
+  position: absolute; inset:0; opacity:0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 150px;
+}
+.hero-content {
+  position: relative; z-index:2;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 48px 24px 52px;
+  text-align: center;
+}
+.hero-eyebrow {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300; font-size: 10px;
+  letter-spacing: 0.65em; color: rgba(255,255,255,0.88);
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.hero-metodo {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200; font-size: 12px;
+  letter-spacing: 0.7em; color: rgba(255,255,255,0.65);
+  text-transform: uppercase; margin-bottom: 2px;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900; font-size: clamp(52px, 10vw, 88px);
+  letter-spacing: 0.16em; color: #fff;
+  text-shadow: 0 3px 30px rgba(45,107,101,0.5), 0 5px 12px rgba(0,0,0,0.18);
+  line-height: 0.95;
+}
+.hero-accent {
+  display: flex; align-items: center; gap: 10px;
+  margin: 14px 0 20px;
+}
+.ha-line { width: 50px; height: 1.5px; background: rgba(255,255,255,0.5); border-radius: 2px; }
+.ha-dot  { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+
+/* Mini compass in hero */
+.hero-compass { margin-bottom: 22px; }
+
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: clamp(15px, 2.5vw, 19px);
+  color: var(--brown); line-height: 1.75;
+  max-width: 520px;
+}
+.hero-subtitle strong {
+  font-style: normal; font-weight: 600; color: var(--teal);
+}
+.hero-badge {
+  margin-top: 16px;
+  background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+  color: #fff; padding: 8px 24px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600; font-size: 10px;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(45,107,101,0.35);
+}
+.hero-author {
+  margin-top: 20px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 20px;
+  color: var(--teal); letter-spacing: 0.05em;
+}
+.hero-author-by {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200; font-size: 9px;
+  letter-spacing: 0.45em; color: var(--brown-mid);
+  text-transform: uppercase; display: block;
+  margin-bottom: 3px;
+}
+
+/* Scroll CTA */
+.scroll-cta {
+  margin-top: 28px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  cursor: pointer;
+}
+.scroll-cta span {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300; font-size: 10px;
+  letter-spacing: 0.35em; color: var(--teal);
+  text-transform: uppercase;
+}
+.scroll-arrow {
+  width: 28px; height: 28px;
+  border: 1px solid rgba(45,107,101,0.4);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  animation: bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+
+/* ══════════════════════════════
+   INSTRUCCIONES
+══════════════════════════════ */
+.instrucciones {
+  background: var(--sand);
+  padding: 36px 24px;
+  text-align: center;
+}
+.instrucciones h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; font-size: 22px;
+  color: var(--teal); margin-bottom: 8px;
+}
+.instrucciones p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 16px;
+  color: var(--brown-mid); max-width: 560px;
+  margin: 0 auto 24px; line-height: 1.7;
+}
+.steps-row {
+  display: flex; gap: 12px; justify-content: center;
+  flex-wrap: wrap; max-width: 700px; margin: 0 auto;
+}
+.step-card {
+  background: var(--white);
+  border-radius: 10px; padding: 16px 18px;
+  flex: 1; min-width: 140px; max-width: 180px;
+  border: 0.5px solid rgba(91,158,152,0.25);
+}
+.step-num {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900; font-size: 28px;
+  color: var(--teal-pale); display: block;
+  margin-bottom: 4px;
+}
+.step-txt {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px; font-weight: 400;
+  color: var(--brown-mid); line-height: 1.5;
+}
+
+/* ══════════════════════════════
+   HERRAMIENTA PRINCIPAL
+══════════════════════════════ */
+.tool-section {
+  max-width: 760px; margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+.tool-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; font-size: 24px;
+  color: var(--teal); text-align: center;
+  margin-bottom: 6px;
+}
+.tool-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 15px;
+  color: var(--brown-mid); text-align: center;
+  margin-bottom: 20px;
+}
+
+/* MODE BUTTONS */
+.mode-btns {
+  display: flex; gap: 8px; justify-content: center;
+  margin-bottom: 16px; flex-wrap: wrap;
+}
+.mbtn {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px; font-weight: 400;
+  padding: 8px 22px; border-radius: 20px;
+  border: 1px solid rgba(45,107,101,0.3);
+  background: var(--white); color: var(--brown-mid);
+  cursor: pointer; transition: all 0.2s;
+}
+.mbtn.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+/* CHART */
+.chart-wrap {
+  position: relative; width: 100%;
+  max-width: 420px; margin: 0 auto 8px;
+}
+
+/* LEGEND */
+.legend-row {
+  display: flex; gap: 20px; justify-content: center;
+  margin: 4px 0 20px; flex-wrap: wrap;
+}
+.leg-i {
+  display: flex; align-items: center; gap: 7px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px; color: var(--brown-mid);
+}
+
+/* SLIDERS */
+.sliders-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px 28px; margin: 0 0 20px;
+}
+@media(max-width:500px){ .sliders-grid{ grid-template-columns:1fr; } }
+.sl-row { display: flex; flex-direction: column; gap: 4px; }
+.sl-top { display: flex; justify-content: space-between; align-items: center; }
+.sl-name { font-family:'Raleway',sans-serif; font-size:12px; font-weight:600; }
+.sl-val  { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; min-width:22px; text-align:right; }
+input[type=range] {
+  width:100%; height:4px; cursor:pointer;
+  accent-color: var(--teal);
+}
+
+/* INSIGHT */
+.insight-box {
+  background: var(--sand);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px; line-height: 1.8;
+  color: var(--brown-mid); margin-bottom: 20px;
+  text-align: center;
+}
+.insight-box strong { color: var(--teal); font-weight: 600; font-style: normal; }
+
+/* BOTTOM BAR */
+.bottom-bar {
+  display: flex; gap: 12px; align-items: center;
+  flex-wrap: wrap; margin-bottom: 24px;
+  background: var(--white);
+  border: 0.5px solid rgba(91,158,152,0.25);
+  border-radius: 10px; padding: 14px 18px;
+}
+.date-wrap {
+  display: flex; align-items: center; gap: 8px; flex:1; min-width: 200px;
+}
+.date-wrap label {
+  font-family:'Raleway',sans-serif; font-size:12px; color:var(--brown-mid); white-space:nowrap;
+}
+.date-wrap input {
+  font-family:'Raleway',sans-serif; font-size:12px;
+  padding: 6px 10px;
+  border: 0.5px solid rgba(91,158,152,0.35);
+  border-radius: 6px; background: var(--cream);
+  color: var(--brown);
+}
+.action-btns { display:flex; gap:8px; flex-wrap:wrap; }
+.abtn {
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:600;
+  padding: 8px 18px; border-radius: 6px; cursor:pointer;
+  transition: opacity 0.2s; white-space: nowrap;
+}
+.abtn.save { background: var(--teal); color:#fff; border: none; }
+.abtn.pdf  { background: var(--gold); color: var(--brown); border:none; }
+.abtn:hover { opacity: 0.85; }
+
+/* HISTORY */
+.history-section {
+  background: var(--white);
+  border: 0.5px solid rgba(91,158,152,0.25);
+  border-radius: 10px; padding: 18px 18px 14px;
+}
+.history-title {
+  font-family:'Playfair Display',serif; font-size:16px;
+  font-weight:700; color:var(--teal); margin-bottom:14px;
+}
+.history-list { display:flex; flex-direction:column; gap:8px; }
+.hist-item {
+  display:flex; align-items:center; gap:10px;
+  background:var(--sand); border-radius:8px;
+  padding:10px 14px;
+}
+.hist-date {
+  font-family:'Raleway',sans-serif; font-weight:600;
+  font-size:12px; color:var(--brown); min-width:92px;
+}
+.hist-avg {
+  font-family:'Playfair Display',serif; font-weight:700;
+  font-size:15px; color:var(--teal); min-width:48px;
+}
+.hist-bars {
+  display:flex; gap:3px; align-items:flex-end;
+  height:26px; flex:1;
+}
+.hist-bar { flex:1; border-radius:2px; opacity:0.75; }
+.hist-del {
+  color:var(--brown-mid); cursor:pointer; font-size:13px;
+  padding:2px 6px; border-radius:4px;
+  border: 0.5px solid rgba(91,158,152,0.2);
+  background:transparent; font-family:'Raleway',sans-serif;
+}
+.hist-del:hover { background:#FBEAE7; color:#E24B4A; border-color:#E24B4A; }
+.empty-hist {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:14px; color:var(--brown-mid); text-align:center; padding:14px;
+}
+
+/* FOOTER */
+.footer {
+  background: var(--teal);
+  padding: 28px 24px;
+  text-align: center;
+}
+.footer p {
+  font-family:'Raleway',sans-serif; font-weight:200;
+  font-size:11px; letter-spacing:0.2em;
+  color:rgba(255,255,255,0.7); line-height:2;
+}
+.footer strong { color:#fff; font-weight:600; }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom:24px; left:50%;
+  transform: translateX(-50%);
+  background: var(--teal); color:#fff;
+  padding:10px 24px; border-radius:24px;
+  font-family:'Raleway',sans-serif; font-size:13px;
+  font-weight:400; letter-spacing:0.05em;
+  opacity:0; transition:opacity 0.3s;
+  pointer-events:none; z-index:999;
+  box-shadow:0 4px 20px rgba(45,107,101,0.4);
+}
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Bono Exclusivo · Para Mujeres de 40+ ✦</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">CAMINO</div>
+    <div class="hero-accent">
+      <div class="ha-line"></div>
+      <div class="ha-dot"></div>
+      <div class="ha-line"></div>
+    </div>
+
+    <!-- Compass -->
+    <div class="hero-compass">
+      <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+        <circle cx="36" cy="36" r="33" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+        <circle cx="36" cy="36" r="27" stroke="rgba(200,169,110,0.35)" stroke-width="0.6"/>
+        <line x1="36" y1="3"  x2="36" y2="11" stroke="#fff" stroke-width="1.4"/>
+        <line x1="36" y1="61" x2="36" y2="69" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+        <line x1="3"  y1="36" x2="11" y2="36" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+        <line x1="61" y1="36" x2="69" y2="36" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+        <path d="M36 36 L33.5 17 L36 9 L38.5 17 Z" fill="#fff"/>
+        <path d="M36 36 L34.5 53 L36 61 L37.5 53 Z" fill="#C8A96E" opacity="0.9"/>
+        <circle cx="36" cy="36" r="4" fill="rgba(255,255,255,0.2)" stroke="#fff" stroke-width="0.8"/>
+        <circle cx="36" cy="36" r="1.8" fill="#fff"/>
+        <text x="36" y="7" text-anchor="middle" font-family="Raleway,sans-serif" font-size="5" fill="rgba(255,255,255,0.85)" letter-spacing="1">N</text>
+      </svg>
+    </div>
+
+    <div class="hero-subtitle">
+      Tu <strong>Brújula Interior</strong> para conocer dónde estás hoy<br>
+      y diseñar con claridad la vida que mereces
+    </div>
+    <div class="hero-badge">✦ &nbsp; Rueda de Vida Interactiva &nbsp; ✦</div>
+    <div style="margin-top:18px;">
+      <span class="hero-author-by">A u t o r a</span>
+      <div class="hero-author">Jenifer Mendoza</div>
+    </div>
+
+    <div class="scroll-cta" onclick="document.getElementById('herramienta').scrollIntoView({behavior:'smooth'})">
+      <span>Comenzar mi diagnóstico</span>
+      <div class="scroll-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INSTRUCCIONES ══ -->
+<div class="instrucciones">
+  <h2>¿Cómo usar tu Rueda de Vida?</h2>
+  <p>Esta herramienta es tu espejo de vida. Úsala hoy y cada mes para ver tu transformación.</p>
+  <div class="steps-row">
+    <div class="step-card">
+      <span class="step-num">01</span>
+      <span class="step-txt">Mueve los sliders para marcar tu estado actual en cada área</span>
+    </div>
+    <div class="step-card">
+      <span class="step-num">02</span>
+      <span class="step-txt">Cambia a "Estado deseado" y marca dónde quieres llegar</span>
+    </div>
+    <div class="step-card">
+      <span class="step-num">03</span>
+      <span class="step-txt">Guarda tu progreso con fecha para ver tu evolución</span>
+    </div>
+    <div class="step-card">
+      <span class="step-num">04</span>
+      <span class="step-txt">Descarga tu diagnóstico en PDF para guardar o imprimir</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HERRAMIENTA ══ -->
+<div id="herramienta" class="tool-section">
+  <div class="tool-title">Mi Rueda de Vida</div>
+  <div class="tool-sub">Diagnóstico personal · Los datos se guardan automáticamente en tu dispositivo</div>
+
+  <div class="mode-btns">
+    <button class="mbtn active" onclick="setMode('actual')">Estado actual</button>
+    <button class="mbtn" onclick="setMode('deseado')">Estado deseado</button>
+  </div>
+
+  <div class="chart-wrap">
+    <canvas id="rc"></canvas>
+  </div>
+
+  <div class="legend-row">
+    <div class="leg-i">
+      <div style="width:26px;height:2px;background:#2D6B65;border-radius:2px;"></div>
+      Estado actual
+    </div>
+    <div class="leg-i">
+      <div style="width:26px;height:0;border-top:2px dashed #C8A96E;"></div>
+      Estado deseado
+    </div>
+  </div>
+
+  <div class="sliders-grid" id="slidersGrid"></div>
+
+  <div class="insight-box" id="insightBox"></div>
+
+  <div class="bottom-bar">
+    <div class="date-wrap">
+      <label>Fecha del diagnóstico:</label>
+      <input type="date" id="diagDate">
+    </div>
+    <div class="action-btns">
+      <button class="abtn save" onclick="saveSnapshot()">💾 Guardar progreso</button>
+      <button class="abtn pdf"  onclick="downloadPDF()">📄 Descargar PDF</button>
+    </div>
+  </div>
+
+  <div class="history-section">
+    <div class="history-title">Mi registro de progreso</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <p>
+    <strong>Método Camino</strong> · Rueda de Vida Interactiva<br>
+    Tu brújula interior para la transformación después de los 40<br>
+    © 2026 Jenifer Mendoza · Todos los derechos reservados
+  </p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const AREAS = [
+  { key:'salud',       label:'Salud & energía',      color:'#5B9E98' },
+  { key:'emociones',   label:'Bienestar emocional',   color:'#2D6B65' },
+  { key:'identidad',   label:'Identidad propia',      color:'#3D7D78' },
+  { key:'relaciones',  label:'Relaciones',             color:'#8DBFBA' },
+  { key:'proposito',   label:'Propósito & metas',     color:'#C8A96E' },
+  { key:'economia',    label:'Economía & trabajo',    color:'#A8853E' },
+  { key:'autocuidado', label:'Autocuidado',            color:'#E4A98A' },
+  { key:'crecimiento', label:'Crecimiento personal',  color:'#4A2E22' }
+];
+
+const KEY = 'metodoCamino_ruedaV2';
+function loadState() { try { const r=localStorage.getItem(KEY); return r?JSON.parse(r):null; } catch(e){return null;} }
+function saveState() { try { localStorage.setItem(KEY, JSON.stringify({actual,deseado,history})); } catch(e){} }
+
+let saved    = loadState();
+let actual   = saved?.actual   || Object.fromEntries(AREAS.map(a=>[a.key,5]));
+let deseado  = saved?.deseado  || Object.fromEntries(AREAS.map(a=>[a.key,8]));
+let history  = saved?.history  || [];
+let mode     = 'actual';
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mbtn').forEach((b,i)=>b.classList.toggle('active',(i===0&&m==='actual')||(i===1&&m==='deseado')));
+  buildSliders();
+}
+
+function buildSliders() {
+  const grid = document.getElementById('slidersGrid');
+  grid.innerHTML = '';
+  const data = mode==='actual' ? actual : deseado;
+  AREAS.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'sl-row';
+    row.innerHTML = `
+      <div class="sl-top">
+        <span class="sl-name" style="color:${a.color}">${a.label}</span>
+        <span class="sl-val" id="v-${a.key}" style="color:${a.color}">${data[a.key]}</span>
+      </div>
+      <input type="range" min="1" max="10" step="1" value="${data[a.key]}" id="s-${a.key}" style="accent-color:${a.color}">
+    `;
+    grid.appendChild(row);
+    document.getElementById('s-'+a.key).addEventListener('input', e => {
+      const v = parseInt(e.target.value);
+      if(mode==='actual') actual[a.key]=v; else deseado[a.key]=v;
+      document.getElementById('v-'+a.key).textContent = v;
+      updateChart(); updateInsight(); saveState();
+    });
+  });
+}
+
+let chart;
+function buildChart() {
+  const ctx = document.getElementById('rc').getContext('2d');
+  chart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: AREAS.map(a=>a.label),
+      datasets: [
+        { label:'Estado actual',  data:AREAS.map(a=>actual[a.key]),
+          backgroundColor:'rgba(45,107,101,0.15)', borderColor:'#2D6B65',
+          borderWidth:2.5, pointBackgroundColor:'#2D6B65', pointRadius:5, pointHoverRadius:7 },
+        { label:'Estado deseado', data:AREAS.map(a=>deseado[a.key]),
+          backgroundColor:'rgba(200,169,110,0.1)',  borderColor:'#C8A96E',
+          borderWidth:2, borderDash:[7,4], pointBackgroundColor:'#C8A96E', pointRadius:4 }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:true,
+      plugins:{ legend:{display:false} },
+      scales:{ r:{
+        min:0, max:10,
+        ticks:{ stepSize:2, font:{size:10}, color:'#9A8E86', backdropColor:'transparent' },
+        pointLabels:{ font:{size:11,weight:'500'}, color:'#4A2E22' },
+        grid:{ color:'rgba(91,158,152,0.18)' },
+        angleLines:{ color:'rgba(91,158,152,0.18)' }
+      }}
+    }
+  });
+}
+
+function updateChart() {
+  if(!chart) return;
+  chart.data.datasets[0].data = AREAS.map(a=>actual[a.key]);
+  chart.data.datasets[1].data = AREAS.map(a=>deseado[a.key]);
+  chart.update();
+}
+
+function updateInsight() {
+  const sc = AREAS.map(a=>actual[a.key]);
+  const avg = (sc.reduce((s,v)=>s+v,0)/sc.length).toFixed(1);
+  const minA = AREAS[sc.indexOf(Math.min(...sc))];
+  const maxA = AREAS[sc.indexOf(Math.max(...sc))];
+  const gaps = AREAS.map(a=>deseado[a.key]-actual[a.key]);
+  const gapA = AREAS[gaps.indexOf(Math.max(...gaps))];
+  document.getElementById('insightBox').innerHTML =
+    `Promedio actual: <strong>${avg}/10</strong> &nbsp;·&nbsp; Mayor fortaleza: <strong>${maxA.label}</strong><br>
+     Área a fortalecer: <strong>${minA.label}</strong> &nbsp;·&nbsp; Mayor brecha hacia tu meta: <strong>${gapA.label}</strong>`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+function saveSnapshot() {
+  const date = document.getElementById('diagDate').value || new Date().toISOString().split('T')[0];
+  const sc = AREAS.map(a=>actual[a.key]);
+  const avg = parseFloat((sc.reduce((s,v)=>s+v,0)/sc.length).toFixed(1));
+  const snap = { date, scores:{...actual}, avg };
+  history = history.filter(h=>h.date!==date);
+  history.unshift(snap);
+  if(history.length>12) history=history.slice(0,12);
+  saveState(); renderHistory();
+  showToast('✓ Progreso guardado correctamente');
+}
+
+function deleteSnap(date) {
+  history = history.filter(h=>h.date!==date);
+  saveState(); renderHistory();
+}
+
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  if(!history.length) {
+    list.innerHTML = '<div class="empty-hist">Aún no tienes registros guardados. ¡Completa tu diagnóstico y guarda tu progreso!</div>';
+    return;
+  }
+  list.innerHTML = history.map(h => {
+    const bars = AREAS.map(a=>`<div class="hist-bar" style="height:${Math.round(h.scores[a.key]*2.4)}px;background:${a.color};"></div>`).join('');
+    const fd = h.date.split('-').reverse().join('/');
+    return `<div class="hist-item">
+      <span class="hist-date">${fd}</span>
+      <span class="hist-avg">${h.avg}/10</span>
+      <div class="hist-bars">${bars}</div>
+      <button class="hist-del" onclick="deleteSnap('${h.date}')">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function downloadPDF() {
+  const date = document.getElementById('diagDate').value || new Date().toISOString().split('T')[0];
+  const fd   = date.split('-').reverse().join('/');
+  const sc   = AREAS.map(a=>actual[a.key]);
+  const avg  = (sc.reduce((s,v)=>s+v,0)/sc.length).toFixed(1);
+  const minA = AREAS[sc.indexOf(Math.min(...sc))].label;
+  const maxA = AREAS[sc.indexOf(Math.max(...sc))].label;
+  const gaps = AREAS.map(a=>deseado[a.key]-actual[a.key]);
+  const gapA = AREAS[gaps.indexOf(Math.max(...gaps))].label;
+
+  const rows = AREAS.map(a => {
+    const act=actual[a.key], des=deseado[a.key];
+    const filled='█'.repeat(act)+'░'.repeat(10-act);
+    const gap = des-act;
+    return `<tr>
+      <td style="padding:8px 12px;font-size:13px;color:#4A2E22;font-weight:600;border-bottom:1px solid #EDE4D8;">${a.label}</td>
+      <td style="padding:8px 12px;text-align:center;font-size:15px;font-weight:700;color:#2D6B65;border-bottom:1px solid #EDE4D8;">${act}/10</td>
+      <td style="padding:8px 12px;text-align:center;font-size:15px;font-weight:700;color:#C8A96E;border-bottom:1px solid #EDE4D8;">${des}/10</td>
+      <td style="padding:8px 12px;font-size:11px;color:${a.color};letter-spacing:2px;border-bottom:1px solid #EDE4D8;">${filled}</td>
+      <td style="padding:8px 12px;text-align:center;font-size:13px;font-weight:600;color:${gap>0?'#E24B4A':'#2D6B65'};border-bottom:1px solid #EDE4D8;">${gap>0?'+'+gap:gap}</td>
+    </tr>`;
+  }).join('');
+
+  const html = `<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<title>Mi Rueda de Vida — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:wght@400;700;900&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Raleway',sans-serif;margin:0;padding:0;background:#FAF6F0;color:#4A2E22;}
+  .header{background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 40%,#5B9E98 70%,rgba(141,191,186,0.3) 88%,transparent 100%);padding:40px 48px 48px;clip-path:polygon(0 0,100% 0,100% 80%,55% 95%,0 84%);}
+  .header-inner{max-width:600px;}
+  .eyebrow{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:6px;}
+  h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:#fff;letter-spacing:0.12em;margin:0 0 4px;}
+  .header-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:rgba(255,255,255,0.85);margin-top:6px;}
+  .date-badge{display:inline-block;background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);padding:5px 18px;border-radius:20px;font-size:12px;margin-top:14px;letter-spacing:0.15em;}
+  .body{padding:36px 48px;}
+  .section-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#2D6B65;margin:0 0 12px;}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;margin-bottom:28px;box-shadow:0 2px 12px rgba(45,107,101,0.08);}
+  th{background:#2D6B65;color:#fff;padding:10px 12px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-align:left;text-transform:uppercase;}
+  .insight{background:#fff;border-left:4px solid #2D6B65;border-radius:0 10px 10px 0;padding:18px 24px;margin-bottom:28px;box-shadow:0 2px 12px rgba(45,107,101,0.06);}
+  .ins-row{display:flex;gap:8px;margin:6px 0;font-size:14px;line-height:1.5;}
+  .ins-l{color:#9A8E86;font-style:italic;min-width:200px;}
+  .ins-v{color:#2D6B65;font-weight:700;}
+  .nota{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:#9A8E86;text-align:center;margin-top:24px;line-height:1.8;}
+  .footer-doc{background:#2D6B65;padding:20px 48px;text-align:center;}
+  .footer-doc p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}
+  .footer-doc strong{color:#fff;}
+  @media print{body{background:#fff;}.header{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.footer-doc{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="header">
+  <div class="header-inner">
+    <div class="eyebrow">✦ Bono Exclusivo · Método Camino · Para Mujeres de 40+</div>
+    <h1>CAMINO</h1>
+    <div class="header-sub">Mi Rueda de Vida — Diagnóstico Personal</div>
+    <div class="date-badge">Fecha del diagnóstico: ${fd}</div>
+  </div>
+</div>
+<div class="body">
+  <div class="section-title">Mis resultados por área</div>
+  <table>
+    <tr>
+      <th>Área de vida</th>
+      <th style="text-align:center;">Actual</th>
+      <th style="text-align:center;">Meta</th>
+      <th>Visualización</th>
+      <th style="text-align:center;">Brecha</th>
+    </tr>
+    ${rows}
+  </table>
+  <div class="section-title">Mi diagnóstico</div>
+  <div class="insight">
+    <div class="ins-row"><span class="ins-l">Promedio actual:</span><span class="ins-v">${avg} / 10</span></div>
+    <div class="ins-row"><span class="ins-l">Mi mayor fortaleza hoy:</span><span class="ins-v">${maxA}</span></div>
+    <div class="ins-row"><span class="ins-l">Área a fortalecer primero:</span><span class="ins-v">${minA}</span></div>
+    <div class="ins-row"><span class="ins-l">Mayor brecha hacia mi meta:</span><span class="ins-v">${gapA}</span></div>
+  </div>
+  <div class="nota">
+    "El camino hacia la vida que mereces comienza cuando tienes claridad de dónde estás."<br>
+    Vuelve a esta herramienta cada mes y observa tu transformación.
+  </div>
+</div>
+<div class="footer-doc">
+  <p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026<br>
+  Este diagnóstico es personal y confidencial · Para imprimir: Archivo → Imprimir → Guardar como PDF</p>
+</div>
+</body></html>`;
+
+  const blob = new Blob([html],{type:'text/html'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href=url; a.download=`RuedaDeVida_MetodoCamino_${date}.html`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast('✓ Abriendo tu diagnóstico...');
+}
+
+document.getElementById('diagDate').value = new Date().toISOString().split('T')[0];
+buildChart();
+buildSliders();
+updateInsight();
+renderHistory();
+</script>
+</body>
+</html>

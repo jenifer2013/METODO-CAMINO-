@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matriz de Prioridades · Método Camino · Jenifer Mendoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:      #2D6B65;
+  --teal-mid:  #3D7D78;
+  --teal-lt:   #5B9E98;
+  --teal-svg:  #1D9E75;
+  --teal-pale: #E1F5EE;
+  --teal-mid2: #9FE1CB;
+  --teal-dark: #085041;
+  --blue:      #185FA5;
+  --blue-lt:   #378ADD;
+  --blue-pale: #E6F1FB;
+  --blue-dark: #0C447C;
+  --gold:      #C8A96E;
+  --amber:     #EF9F27;
+  --amber-pale:#FAEEDA;
+  --amber-dark:#633806;
+  --brown:     #4A2E22;
+  --brown-mid: #7A5545;
+  --cream:     #FAF6F0;
+  --sand:      #EDE4D8;
+  --gray:      #888780;
+  --gray-lt:   #D3D1C7;
+  --gray-pale: #F1EFE8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Raleway',sans-serif;
+  background:var(--cream);
+  color:var(--brown);
+  min-height:100vh;
+}
+
+/* ══ HERO ══ */
+.hero {
+  position:relative; overflow:hidden;
+  background:linear-gradient(170deg,#FAF7F1 0%,#F2E9DC 50%,#EDE2D2 100%);
+}
+.hero-swoosh {
+  position:absolute; top:0; left:0; right:0; height:100%;
+  background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 30%,#5B9E98 58%,rgba(141,191,186,0.2) 80%,transparent 100%);
+  clip-path:polygon(0 0,100% 0,100% 55%,55% 72%,0 62%);
+}
+.hero-bottom {
+  position:absolute; bottom:0; left:0; right:0; height:35%;
+  background:linear-gradient(0deg,rgba(200,169,110,0.3) 0%,transparent 100%);
+  clip-path:polygon(0 40%,40% 20%,100% 32%,100% 100%,0 100%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center;
+  padding:44px 24px 52px; text-align:center;
+}
+.hero-eyebrow {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.65em; color:rgba(255,255,255,0.88);
+  text-transform:uppercase; margin-bottom:8px;
+}
+.hero-metodo {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:12px;
+  letter-spacing:0.7em; color:rgba(255,255,255,0.65);
+  text-transform:uppercase; margin-bottom:2px;
+}
+.hero-title {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(26px,5.5vw,48px); letter-spacing:0.06em;
+  color:#fff; line-height:1.2; max-width:580px;
+  text-shadow:0 3px 30px rgba(45,107,101,0.5);
+}
+.hero-accent { display:flex; align-items:center; gap:10px; margin:14px 0 16px; }
+.ha-line { width:50px; height:1.5px; background:rgba(255,255,255,0.5); border-radius:2px; }
+.ha-dot  { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+.hero-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+  font-size:clamp(14px,2.2vw,17px); color:var(--brown);
+  line-height:1.75; max-width:520px;
+}
+.hero-sub strong { font-style:normal; font-weight:600; color:var(--teal); }
+.hero-badge {
+  margin-top:16px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; padding:8px 24px;
+  font-family:'Raleway',sans-serif; font-weight:600; font-size:10px;
+  letter-spacing:0.3em; text-transform:uppercase;
+  border-radius:2px; box-shadow:0 4px 16px rgba(45,107,101,0.35);
+}
+.hero-author {
+  margin-top:18px;
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:20px; color:var(--teal); letter-spacing:0.05em;
+}
+.hero-author-by {
+  font-family:'Raleway',sans-serif; font-weight:200; font-size:9px;
+  letter-spacing:0.45em; color:var(--brown-mid);
+  text-transform:uppercase; display:block; margin-bottom:3px;
+}
+.scroll-cta {
+  margin-top:24px;
+  display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+}
+.scroll-cta span {
+  font-family:'Raleway',sans-serif; font-weight:300; font-size:10px;
+  letter-spacing:0.35em; color:var(--teal); text-transform:uppercase;
+}
+.scroll-arrow {
+  width:28px; height:28px;
+  border:1px solid rgba(45,107,101,0.4); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  animation:bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══ INTRO ══ */
+.intro-section {
+  background:var(--sand); padding:36px 24px; text-align:center;
+}
+.intro-section h2 {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:22px;
+  color:var(--teal); margin-bottom:10px;
+}
+.intro-section p {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px;
+  color:var(--brown-mid); max-width:580px; margin:0 auto 20px; line-height:1.75;
+}
+.quote-banner {
+  background:rgba(255,255,255,0.6);
+  border-left:3px solid var(--teal); border-radius:0 8px 8px 0;
+  padding:14px 20px; max-width:540px; margin:0 auto;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; color:var(--brown); line-height:1.8;
+}
+.quote-banner strong { font-style:normal; font-weight:700; color:var(--teal); }
+
+/* ══ CUADRANTES EXPLICACIÓN ══ */
+.quads-explain {
+  max-width:800px; margin:0 auto; padding:28px 16px 0;
+}
+.qe-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal); margin-bottom:16px; text-align:center;
+}
+.qe-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px;
+}
+@media(max-width:500px){ .qe-grid{ grid-template-columns:1fr; } }
+.qe-card {
+  border-radius:10px; padding:16px 18px; border:0.5px solid;
+}
+.qe-card-top {
+  display:flex; align-items:center; gap:10px; margin-bottom:8px;
+}
+.qe-icon {
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.qe-icon svg { width:16px; height:16px; }
+.qe-name {
+  font-family:'Raleway',sans-serif; font-weight:700; font-size:14px;
+}
+.qe-sub {
+  font-family:'Raleway',sans-serif; font-size:10px; font-weight:400;
+  letter-spacing:0.08em; text-transform:uppercase; opacity:0.7;
+}
+.qe-desc {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px;
+  line-height:1.6; margin-bottom:8px;
+}
+.qe-examples {
+  font-family:'Raleway',sans-serif; font-size:11px; line-height:1.6;
+}
+
+/* Instrucciones */
+.inst-section {
+  max-width:800px; margin:0 auto; padding:0 16px 0;
+}
+.inst-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal); margin-bottom:6px;
+}
+.inst-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); margin-bottom:16px;
+}
+.inst-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:24px;
+}
+@media(max-width:500px){ .inst-grid{ grid-template-columns:1fr; } }
+.inst-step {
+  background:#fff; border-radius:10px; padding:14px 16px;
+  border:0.5px solid rgba(0,0,0,0.08); text-align:center;
+}
+.inst-num {
+  width:28px; height:28px; border-radius:50%;
+  background:var(--blue-pale); color:var(--blue-dark);
+  font-family:'Playfair Display',serif; font-weight:700; font-size:14px;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 8px;
+}
+.inst-step p {
+  font-family:'Raleway',sans-serif; font-size:12px;
+  color:var(--brown-mid); line-height:1.5;
+}
+.inst-step p strong { color:var(--teal); font-weight:600; }
+
+/* ══ MATRIZ ══ */
+.matriz-section {
+  max-width:800px; margin:0 auto; padding:0 16px;
+}
+.matriz-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:20px;
+  color:var(--teal); margin-bottom:6px;
+}
+.matriz-sub {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); margin-bottom:16px;
+}
+
+.eis-outer {
+  display:grid; grid-template-columns:28px 1fr;
+  grid-template-rows:auto auto; gap:0;
+}
+.axis-y {
+  grid-row:1; grid-column:1;
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:6px; padding:0 4px;
+}
+.axis-y-label {
+  font-family:'Raleway',sans-serif; font-size:10px; font-weight:600;
+  color:var(--brown-mid); text-transform:uppercase; letter-spacing:0.1em;
+  writing-mode:vertical-rl; transform:rotate(180deg);
+}
+.axis-y-arrow {
+  font-size:10px; color:var(--gray);
+  writing-mode:vertical-rl; transform:rotate(180deg);
+}
+.eis-main { grid-row:1; grid-column:2; }
+.axis-x {
+  grid-row:2; grid-column:2;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 8px 0;
+  font-family:'Raleway',sans-serif; font-size:11px; font-weight:600;
+  color:var(--brown-mid); text-transform:uppercase; letter-spacing:0.06em;
+}
+
+.quad-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:10px;
+}
+
+.quad {
+  border-radius:12px; border:0.5px solid; padding:16px 16px 14px;
+  display:flex; flex-direction:column; gap:10px;
+}
+.quad-header { display:flex; align-items:center; gap:10px; }
+.quad-icon {
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.quad-icon svg { width:16px; height:16px; }
+.quad-title { font-family:'Playfair Display',serif; font-weight:700; font-size:15px; line-height:1.2; }
+.quad-action { font-family:'Raleway',sans-serif; font-size:10px; font-weight:400; letter-spacing:0.06em; text-transform:uppercase; opacity:0.75; }
+
+.quad-items { display:flex; flex-direction:column; gap:6px; }
+.quad-item { display:flex; align-items:center; gap:6px; }
+.item-num { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; min-width:16px; text-align:right; flex-shrink:0; }
+.quad-item input {
+  flex:1; border-radius:6px; padding:7px 10px;
+  font-family:'Raleway',sans-serif; font-size:12px;
+  color:var(--brown); transition:border-color 0.2s; border:0.5px solid;
+  background:rgba(255,255,255,0.6);
+}
+.quad-item input:focus { outline:none; box-shadow:0 0 0 2px rgba(0,0,0,0.08); }
+.quad-item input::placeholder { color:var(--gray); font-style:italic; font-size:11px; }
+
+/* Q1 blue */
+.q1 { background:#E6F1FB; border-color:#85B7EB; }
+.q1 .quad-icon { background:var(--blue); }
+.q1 .quad-title { color:var(--blue-dark); }
+.q1 .quad-action { color:var(--blue); }
+.q1 .item-num { color:var(--blue); }
+.q1 .quad-item input { border-color:#85B7EB; background:rgba(255,255,255,0.7); }
+.q1 .quad-item input:focus { border-color:var(--blue); }
+
+/* Q2 teal */
+.q2 { background:var(--teal-pale); border-color:var(--teal-mid2); }
+.q2 .quad-icon { background:var(--teal-svg); }
+.q2 .quad-title { color:var(--teal-dark); }
+.q2 .quad-action { color:var(--teal-svg); }
+.q2 .item-num { color:var(--teal-svg); }
+.q2 .quad-item input { border-color:var(--teal-mid2); background:rgba(255,255,255,0.7); }
+.q2 .quad-item input:focus { border-color:var(--teal-svg); }
+
+/* Q3 amber */
+.q3 { background:var(--amber-pale); border-color:#FAC775; }
+.q3 .quad-icon { background:var(--amber); }
+.q3 .quad-title { color:var(--amber-dark); }
+.q3 .quad-action { color:#854F0B; }
+.q3 .item-num { color:var(--amber); }
+.q3 .quad-item input { border-color:#FAC775; background:rgba(255,255,255,0.7); }
+.q3 .quad-item input:focus { border-color:var(--amber); }
+
+/* Q4 gray */
+.q4 { background:var(--gray-pale); border-color:var(--gray-lt); }
+.q4 .quad-icon { background:var(--gray); }
+.q4 .quad-title { color:#444441; }
+.q4 .quad-action { color:var(--gray); }
+.q4 .item-num { color:var(--gray); }
+.q4 .quad-item input { border-color:var(--gray-lt); background:rgba(255,255,255,0.7); }
+.q4 .quad-item input:focus { border-color:var(--gray); }
+
+/* Botones */
+.btns-row {
+  display:flex; gap:10px; justify-content:center;
+  margin-top:14px; flex-wrap:wrap;
+}
+.btn {
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:600;
+  padding:9px 20px; border-radius:6px; cursor:pointer; border:none;
+  transition:opacity 0.2s; white-space:nowrap;
+}
+.btn:hover { opacity:0.85; }
+.btn-save  { background:var(--blue);  color:#fff; }
+.btn-pdf   { background:var(--gold);  color:var(--brown); }
+.btn-clear { background:transparent; color:var(--gray); border:0.5px solid var(--gray-lt) !important; }
+
+/* ══ REFLEXION ══ */
+.ref-section {
+  max-width:800px; margin:24px auto 0; padding:0 16px 40px;
+}
+.ref-card {
+  background:#fff; border-radius:12px; padding:26px 28px;
+  border:0.5px solid rgba(45,107,101,0.2);
+}
+.ref-title {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:19px;
+  color:var(--teal); margin-bottom:10px;
+}
+.ref-body {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px;
+  color:var(--brown-mid); line-height:1.8; margin-bottom:16px;
+}
+.ref-q {
+  background:var(--teal-pale); border-left:3px solid var(--teal-svg);
+  border-radius:0 8px 8px 0; padding:14px 18px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:15px; color:var(--teal-dark); line-height:1.75; margin-bottom:16px;
+}
+.ref-q strong {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:10px; font-weight:600; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--teal); margin-bottom:4px;
+}
+.afirm {
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; border-radius:8px; padding:18px 24px;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:16px; line-height:1.7; text-align:center;
+}
+.afirm span {
+  display:block; font-style:normal; font-family:'Raleway',sans-serif;
+  font-size:9px; font-weight:600; letter-spacing:0.3em;
+  text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:5px;
+}
+
+/* ══ FOOTER ══ */
+.footer { background:var(--teal); padding:28px 24px; text-align:center; }
+.footer p {
+  font-family:'Raleway',sans-serif; font-weight:200;
+  font-size:11px; letter-spacing:0.2em;
+  color:rgba(255,255,255,0.7); line-height:2;
+}
+.footer strong { color:#fff; font-weight:600; }
+
+/* Toast */
+.toast {
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  background:var(--blue); color:#fff; padding:10px 24px; border-radius:24px;
+  font-family:'Raleway',sans-serif; font-size:13px;
+  opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:999;
+  box-shadow:0 4px 20px rgba(24,95,165,0.4);
+}
+.toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-swoosh"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Herramienta de Productividad · Método Camino · Para Mujeres de 40+</div>
+    <div class="hero-metodo">M É T O D O</div>
+    <div class="hero-title">Matriz de Prioridades</div>
+    <div class="hero-accent">
+      <div class="ha-line"></div><div class="ha-dot"></div><div class="ha-line"></div>
+    </div>
+    <div class="hero-sub">
+      Deja de hacer todo — empieza a hacer<br>
+      lo que <strong>realmente importa</strong>
+    </div>
+    <div class="hero-badge">✦ &nbsp; Matriz Eisenhower Adaptada &nbsp; ✦</div>
+    <div style="margin-top:18px;">
+      <span class="hero-author-by">A u t o r a</span>
+      <div class="hero-author">Jenifer Mendoza</div>
+    </div>
+    <div class="scroll-cta" onclick="document.getElementById('instrucciones').scrollIntoView({behavior:'smooth'})">
+      <span>Organizar mis prioridades</span>
+      <div class="scroll-arrow">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4 L6 8 L10 4" stroke="#2D6B65" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTRO ══ -->
+<div class="intro-section">
+  <h2>El problema no es que tengas demasiado — es que priorizas poco</h2>
+  <p>Las mujeres de 40+ somos expertas en hacer todo para todos. Esta matriz te ayuda a ver con claridad qué merece tu energía, qué puede esperar, qué puedes delegar y qué deberías soltar.</p>
+  <div class="quote-banner">
+    "Lo urgente rara vez es importante,<br>
+    y lo importante rara vez es urgente." — <strong>Dwight Eisenhower</strong>
+  </div>
+</div>
+
+<!-- ══ EXPLICACIÓN DE CUADRANTES ══ -->
+<div class="quads-explain">
+  <div class="qe-title">Los 4 cuadrantes y sus acciones</div>
+  <div class="qe-grid">
+
+    <div class="qe-card" style="background:#E6F1FB;border-color:#85B7EB;">
+      <div class="qe-card-top">
+        <div class="qe-icon" style="background:var(--blue);">
+          <svg viewBox="0 0 16 16" fill="none">
+            <path d="M8 1L9.5 6H14.5L10.5 9.5L12 14.5L8 11L4 14.5L5.5 9.5L1.5 6H6.5Z" fill="#fff"/>
+          </svg>
+        </div>
+        <div>
+          <div class="qe-name" style="color:var(--blue-dark);">⚡ Hacer ahora</div>
+          <div class="qe-sub" style="color:var(--blue);">Urgente + Importante</div>
+        </div>
+      </div>
+      <div class="qe-desc" style="color:var(--blue-dark);">Son las crisis reales, las fechas límite de hoy, las emergencias que sí requieren tu atención inmediata.</div>
+      <div class="qe-examples" style="color:var(--blue);">Ej: Salud urgente · Deadline inamovible · Crisis familiar real</div>
+    </div>
+
+    <div class="qe-card" style="background:var(--teal-pale);border-color:var(--teal-mid2);">
+      <div class="qe-card-top">
+        <div class="qe-icon" style="background:var(--teal-svg);">
+          <svg viewBox="0 0 16 16" fill="none">
+            <rect x="2" y="2" width="12" height="12" rx="2" stroke="#fff" stroke-width="1.5"/>
+            <line x1="5" y1="8" x2="11" y2="8" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="8" y1="5" x2="8" y2="11" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="qe-name" style="color:var(--teal-dark);">📅 Planear y agendar</div>
+          <div class="qe-sub" style="color:var(--teal-svg);">No Urgente + Importante</div>
+        </div>
+      </div>
+      <div class="qe-desc" style="color:var(--teal-dark);">Este es el cuadrante de tu transformación. Aquí viven tu salud, tus relaciones, tu crecimiento y tus proyectos importantes.</div>
+      <div class="qe-examples" style="color:var(--teal-svg);">Ej: Ejercicio · Proyecto personal · Tiempo para ti · Estudio</div>
+    </div>
+
+    <div class="qe-card" style="background:var(--amber-pale);border-color:#FAC775;">
+      <div class="qe-card-top">
+        <div class="qe-icon" style="background:var(--amber);">
+          <svg viewBox="0 0 16 16" fill="none">
+            <path d="M8 2L14 8L8 14" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line x1="2" y1="8" x2="13" y2="8" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="qe-name" style="color:var(--amber-dark);">→ Delegar</div>
+          <div class="qe-sub" style="color:#854F0B;">Urgente + No Importante</div>
+        </div>
+      </div>
+      <div class="qe-desc" style="color:var(--amber-dark);">Parecen urgentes pero en realidad no necesitan tu energía ni tu talento. Busca quién puede hacerlas por ti.</div>
+      <div class="qe-examples" style="color:#854F0B;">Ej: Mensajes que otros pueden responder · Trámites operativos · Tareas repetitivas</div>
+    </div>
+
+    <div class="qe-card" style="background:var(--gray-pale);border-color:var(--gray-lt);">
+      <div class="qe-card-top">
+        <div class="qe-icon" style="background:var(--gray);">
+          <svg viewBox="0 0 16 16" fill="none">
+            <line x1="3" y1="3" x2="13" y2="13" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="13" y1="3" x2="3" y2="13" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="qe-name" style="color:#444441;">✕ Eliminar</div>
+          <div class="qe-sub" style="color:var(--gray);">No Urgente + No Importante</div>
+        </div>
+      </div>
+      <div class="qe-desc" style="color:#444441;">Son los ladrones de tiempo y energía. No aportan nada. Eliminarlos es un acto de amor propio.</div>
+      <div class="qe-examples" style="color:var(--gray);">Ej: Redes sin propósito · Reuniones innecesarias · Compromisos que no elegiste</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ INSTRUCCIONES ══ -->
+<div class="inst-section" id="instrucciones">
+  <div class="inst-title">Cómo usar tu Matriz de Prioridades</div>
+  <div class="inst-sub">Úsala cada domingo por la noche o cada lunes por la mañana — 10 minutos que cambian tu semana</div>
+  <div class="inst-grid">
+    <div class="inst-step">
+      <div class="inst-num">1</div>
+      <p>Escribe <strong>todo</strong> lo que tienes pendiente esta semana — sin filtrar, sin ordenar aún</p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">2</div>
+      <p>Clasifica cada tarea preguntando: <strong>¿Es urgente? ¿Es importante para mí?</strong></p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">3</div>
+      <p>Coloca <strong>máximo 3 tareas</strong> por cuadrante — si hay más, estás haciendo demasiado</p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">4</div>
+      <p>Protege el <strong>cuadrante turquesa</strong> — es donde vive tu transformación personal</p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">5</div>
+      <p>Guarda tu matriz y <strong>revísala a mitad de semana</strong> para verificar que sigues en curso</p>
+    </div>
+    <div class="inst-step">
+      <div class="inst-num">6</div>
+      <p><strong>Descarga tu PDF</strong> para imprimirlo y tenerlo visible en tu espacio de trabajo</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MATRIZ ══ -->
+<div class="matriz-section" id="matriz">
+  <div class="matriz-title">Mi Matriz de esta semana</div>
+  <div class="matriz-sub">Llena cada cuadrante con honestidad — recuerda: máximo 3 tareas por cuadrante</div>
+
+  <div class="eis-outer">
+    <div class="axis-y">
+      <span class="axis-y-label">Importancia</span>
+      <span class="axis-y-arrow">↑ Alta · Baja ↓</span>
+    </div>
+    <div class="eis-main">
+      <div class="quad-grid">
+
+        <!-- Q1 -->
+        <div class="quad q1">
+          <div class="quad-header">
+            <div class="quad-icon">
+              <svg viewBox="0 0 16 16" fill="none">
+                <path d="M8 1L9.5 6H14.5L10.5 9.5L12 14.5L8 11L4 14.5L5.5 9.5L1.5 6H6.5Z" fill="#fff"/>
+              </svg>
+            </div>
+            <div>
+              <div class="quad-title">Hacer ahora</div>
+              <div class="quad-action">Urgente + Importante</div>
+            </div>
+          </div>
+          <div class="quad-items" id="q1-items"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quad q2">
+          <div class="quad-header">
+            <div class="quad-icon">
+              <svg viewBox="0 0 16 16" fill="none">
+                <rect x="2" y="2" width="12" height="12" rx="2" stroke="#fff" stroke-width="1.5"/>
+                <line x1="5" y1="8" x2="11" y2="8" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
+                <line x1="8" y1="5" x2="8" y2="11" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="quad-title">Planear y agendar</div>
+              <div class="quad-action">No Urgente + Importante</div>
+            </div>
+          </div>
+          <div class="quad-items" id="q2-items"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quad q3">
+          <div class="quad-header">
+            <div class="quad-icon">
+              <svg viewBox="0 0 16 16" fill="none">
+                <path d="M8 2L14 8L8 14" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <line x1="2" y1="8" x2="13" y2="8" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="quad-title">Delegar</div>
+              <div class="quad-action">Urgente + No Importante</div>
+            </div>
+          </div>
+          <div class="quad-items" id="q3-items"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="quad q4">
+          <div class="quad-header">
+            <div class="quad-icon">
+              <svg viewBox="0 0 16 16" fill="none">
+                <line x1="3" y1="3" x2="13" y2="13" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+                <line x1="13" y1="3" x2="3" y2="13" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="quad-title">Eliminar</div>
+              <div class="quad-action">No Urgente + No Importante</div>
+            </div>
+          </div>
+          <div class="quad-items" id="q4-items"></div>
+        </div>
+
+      </div>
+    </div>
+    <div class="axis-x">
+      <span>⚡ Urgente</span>
+      <span>No urgente ○</span>
+    </div>
+  </div>
+
+  <div class="btns-row">
+    <button class="btn btn-save"  onclick="saveMatrix()">💾 Guardar semana</button>
+    <button class="btn btn-pdf"   onclick="downloadPDF()">📄 Descargar PDF</button>
+    <button class="btn btn-clear" onclick="clearMatrix()">Limpiar</button>
+  </div>
+</div>
+
+<!-- ══ REFLEXION ══ -->
+<div class="ref-section">
+  <div class="ref-card">
+    <div class="ref-title">Reflexión sobre tus prioridades</div>
+    <div class="ref-body">
+      Si la mayoría de tus tareas están en el cuadrante azul (urgente + importante), estás viviendo en modo crisis permanente. Si el cuadrante turquesa está vacío, estás descuidando lo que más importa para tu vida. La matriz no miente.
+    </div>
+    <div class="ref-q">
+      <strong>Pregunta para tu diario:</strong>
+      "¿Qué tarea del cuadrante turquesa (planear) llevo semanas sin hacer porque siempre aparece algo urgente? ¿Qué pasaría si esta semana la protejo como si fuera una reunión inamovible?"
+    </div>
+    <div class="afirm">
+      <span>Afirmación de la semana</span>
+      "Elegir qué no hacer es tan valioso como elegir qué hacer. Hoy protejo mi tiempo y mi energía con amor y sin culpa."
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <p>
+    <strong>Método Camino</strong> · Matriz de Prioridades Eisenhower<br>
+    Herramienta de productividad con propósito para mujeres de 40+<br>
+    © 2026 Jenifer Mendoza · Todos los derechos reservados
+  </p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'metodoCamino_eisenhower';
+const QUADS = [
+  { id:'q1', color:'#185FA5', label:'Hacer ahora',       sub:'Urgente + Importante',
+    ph:['Crisis o deadline de hoy','Emergencia de salud o familia','Entrega inamovible de hoy'] },
+  { id:'q2', color:'#1D9E75', label:'Planear y agendar', sub:'No Urgente + Importante',
+    ph:['Mi proyecto personal importante','Ejercicio o cuidado físico','Tiempo de calidad para mí'] },
+  { id:'q3', color:'#EF9F27', label:'Delegar',           sub:'Urgente + No Importante',
+    ph:['Mensaje que otro puede responder','Trámite que alguien más puede hacer','Tarea operativa repetitiva'] },
+  { id:'q4', color:'#888780', label:'Eliminar',          sub:'No Urgente + No Importante',
+    ph:['Revisar redes sin propósito','Reunión que no aporta nada','Compromiso que no elegí realmente'] }
+];
+
+function loadData() {
+  try { return JSON.parse(localStorage.getItem(KEY)||'null')||{}; } catch(e){return{};}
+}
+function saveData(d) { try { localStorage.setItem(KEY,JSON.stringify(d)); } catch(e){} }
+
+function buildQuad(q, data) {
+  const container = document.getElementById(q.id+'-items');
+  container.innerHTML = '';
+  for(let i=0; i<3; i++) {
+    const val = data[q.id]?.[i]||'';
+    const row = document.createElement('div');
+    row.className = 'quad-item';
+    row.innerHTML = `
+      <span class="item-num">${i+1}.</span>
+      <input type="text" placeholder="${q.ph[i]}" value="${val}" maxlength="60"
+             id="${q.id}-${i}" oninput="autoSave('${q.id}',${i},this.value)">
+    `;
+    container.appendChild(row);
+  }
+}
+
+function autoSave(qid, idx, val) {
+  const d = loadData();
+  if(!d[qid]) d[qid]=['','',''];
+  d[qid][idx]=val;
+  saveData(d);
+}
+
+function saveMatrix() {
+  const d={};
+  QUADS.forEach(q=>{
+    d[q.id]=[0,1,2].map(i=>(document.getElementById(q.id+'-'+i)||{value:''}).value);
+  });
+  saveData(d);
+  showToast('✓ Matriz guardada correctamente');
+}
+
+function clearMatrix() {
+  if(!confirm('¿Limpiar toda la matriz?')) return;
+  saveData({});
+  QUADS.forEach(q=>buildQuad(q,{}));
+  showToast('Matriz limpiada');
+}
+
+function downloadPDF() {
+  const d = loadData();
+  const colors = { q1:'#185FA5', q2:'#1D9E75', q3:'#EF9F27', q4:'#888780' };
+  const bgs    = { q1:'#E6F1FB', q2:'#E1F5EE', q3:'#FAEEDA', q4:'#F1EFE8' };
+  const borders = { q1:'#85B7EB', q2:'#9FE1CB', q3:'#FAC775', q4:'#D3D1C7' };
+
+  const quadsHTML = QUADS.map(q=>{
+    const items = [0,1,2].map(i=>{
+      const v=d[q.id]?.[i]||'';
+      return v ? `<div style="display:flex;gap:8px;align-items:flex-start;margin:6px 0;">
+        <span style="font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:${colors[q.id]};min-width:16px;">${i+1}.</span>
+        <span style="font-family:'Raleway',sans-serif;font-size:13px;color:#4A2E22;line-height:1.4;">${v}</span>
+      </div>` : '';
+    }).join('');
+    return `<div style="background:${bgs[q.id]};border:1.5px solid ${borders[q.id]};border-radius:10px;padding:16px 18px;">
+      <div style="font-family:'Raleway',sans-serif;font-size:9px;font-weight:600;color:${colors[q.id]};letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">${q.sub}</div>
+      <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:${colors[q.id]};margin-bottom:10px;">${q.label}</div>
+      ${items||`<div style="font-size:12px;color:#888780;font-style:italic;">Sin tareas asignadas</div>`}
+    </div>`;
+  }).join('');
+
+  const html=`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<title>Matriz de Prioridades — Método Camino</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Raleway',sans-serif;margin:0;padding:0;background:#FAF6F0;color:#4A2E22;}
+.hdr{background:linear-gradient(158deg,#2D6B65 0%,#3D7D78 40%,#5B9E98 70%,transparent 100%);padding:36px 48px 44px;clip-path:polygon(0 0,100% 0,100% 82%,55% 96%,0 86%);}
+h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#fff;margin:0 0 4px;}
+.ey{font-size:9px;letter-spacing:0.6em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:6px;}
+.db{display:inline-block;background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);padding:5px 18px;border-radius:20px;font-size:11px;margin-top:12px;}
+.body{padding:32px 48px;}
+.st{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#2D6B65;margin:0 0 14px;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+.axis-labels{display:flex;justify-content:space-between;font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;color:#888780;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;padding:0 4px;}
+.qt{background:#E1F5EE;border-left:4px solid #1D9E75;border-radius:0 8px 8px 0;padding:14px 20px;font-style:italic;font-size:13px;color:#085041;line-height:1.8;margin-bottom:8px;}
+.reminder{font-family:'Raleway',sans-serif;font-size:11px;color:#888780;text-align:center;margin-top:12px;}
+.ft{background:#2D6B65;padding:18px 48px;text-align:center;}
+.ft p{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);line-height:2;margin:0;}
+.ft strong{color:#fff;}
+@media print{body{background:#fff;}.hdr,.ft{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="hdr"><div class="ey">✦ Método Camino · Matriz de Prioridades · Para Mujeres de 40+</div>
+<h1>Mi Matriz de Prioridades</h1><div class="db">Semana: ${new Date().toLocaleDateString('es-ES',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</div></div>
+<div class="body">
+<div class="st">Mis prioridades de esta semana</div>
+<div class="axis-labels"><span>⚡ Urgente →</span><span>← No urgente</span></div>
+<div class="grid">${quadsHTML}</div>
+<div class="qt">"Lo urgente rara vez es importante, y lo importante rara vez es urgente." — Dwight Eisenhower<br><br>
+Recuerda: protege el cuadrante turquesa (Planear) — ahí vive tu transformación.</div>
+<div class="reminder">Este PDF fue generado con tu Matriz de Prioridades del Método Camino · Úsalo cada semana</div>
+</div>
+<div class="ft"><p><strong>Método Camino</strong> · Jenifer Mendoza · © 2026<br>Para imprimir: Archivo → Imprimir → Guardar como PDF</p></div>
+</body></html>`;
+
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`MatrizPrioridades_MetodoCamino_${new Date().toISOString().split('T')[0]}.html`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast('✓ Descargando tu matriz...');
+}
+
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+const saved = loadData();
+QUADS.forEach(q=>buildQuad(q,saved));
+</script>
+</body>
+</html>
